@@ -936,3 +936,399 @@ input, select { font-family: inherit; }
   .kz-footer__inner { flex-direction: column; text-align: center; }
   .kz-footer__links { justify-content: center; }
 }
+
+/* ============================================================
+   ANALİZ SAYFASI — Ek Stiller (analiz.html)
+   ============================================================ */
+
+/* ---- Adım kapsayıcısı ---- */
+.kz-analiz-step {
+  min-height: calc(100vh - 128px);
+  padding-bottom: 4rem;
+}
+.kz-analiz-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 3rem;
+}
+
+/* ---- Consent kartı ---- */
+.kz-consent-card {
+  max-width: 560px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  border-radius: var(--kz-radius-xl);
+  text-align: center;
+}
+.kz-consent-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.kz-consent-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.kz-consent-desc {
+  font-size: 0.9rem;
+  color: var(--kz-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.kz-consent-list {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.kz-consent-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--kz-muted);
+  line-height: 1.4;
+}
+.kz-consent-list__icon {
+  color: var(--kz-accent);
+  font-style: normal;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Consent checkbox row */
+.kz-consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--kz-radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--kz-transition);
+}
+.kz-consent-row:has(:checked) {
+  border-color: rgba(0,194,255,0.4);
+  background: rgba(0,194,255,0.06);
+}
+.kz-consent-check {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--kz-accent);
+  cursor: pointer;
+}
+.kz-consent-label {
+  font-size: 0.825rem;
+  color: var(--kz-muted);
+  line-height: 1.5;
+}
+
+/* Shake animation for unchecked consent */
+@keyframes kzShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+.kz-shake { animation: kzShake 0.45s ease; }
+
+/* ---- Analiz Formu ---- */
+.kz-aform {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.kz-aform__section {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--kz-radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  background: rgba(19, 42, 74, 0.4);
+}
+.kz-aform__legend {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--kz-accent);
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.kz-aform__legend-icon { font-size: 1rem; }
+.kz-aform__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin-top: 1.25rem;
+}
+
+.kz-required {
+  color: var(--kz-accent);
+  font-size: 0.7rem;
+  vertical-align: super;
+}
+.kz-optional {
+  color: var(--kz-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-left: 0.3rem;
+}
+
+/* Upload area */
+.kz-upload-area {
+  position: relative;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.kz-upload-input {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.kz-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 2rem 1.5rem;
+  border: 2px dashed rgba(0,194,255,0.25);
+  border-radius: var(--kz-radius);
+  background: rgba(0,194,255,0.04);
+  cursor: pointer;
+  transition: border-color var(--kz-transition), background var(--kz-transition);
+  text-align: center;
+}
+.kz-upload-area:hover .kz-upload-label,
+.kz-upload-input:focus + .kz-upload-label {
+  border-color: var(--kz-accent);
+  background: rgba(0,194,255,0.08);
+}
+.kz-upload-icon { font-size: 1.75rem; }
+.kz-upload-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--kz-white);
+}
+.kz-upload-sub {
+  font-size: 0.75rem;
+  color: var(--kz-muted);
+}
+.kz-upload-filename {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--kz-accent);
+}
+.kz-upload-status { font-size: 0.8rem; margin-top: 0.5rem; }
+.kz-upload-status--ok { color: #22c55e; }
+
+/* Submit */
+.kz-aform__submit-wrap {
+  text-align: center;
+  padding-top: 0.5rem;
+}
+.kz-aform__submit {
+  min-width: 240px;
+  justify-content: center;
+}
+.kz-aform__disclaimer {
+  font-size: 0.72rem;
+  color: var(--kz-muted);
+  margin-top: 0.75rem;
+}
+
+/* ---- SONUÇLAR ---- */
+.kz-results-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding-bottom: 3rem;
+}
+.kz-results-left,
+.kz-results-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Panel başlık */
+.kz-panel-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--kz-accent);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.kz-panel-disclaimer {
+  font-size: 0.72rem;
+  color: var(--kz-muted);
+  margin-top: 1rem;
+  line-height: 1.5;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.75rem;
+}
+
+/* Eligibility panel */
+.kz-eligibility-panel {
+  border-radius: var(--kz-radius-lg);
+  padding: 1.75rem;
+  text-align: center;
+}
+.kz-gauge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+/* Badge */
+.kz-eligibility-badge {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+}
+.kz-eligibility-badge--yuksek          { background: rgba(34,197,94,0.15);  color: #22c55e; border: 1px solid rgba(34,197,94,0.35);  }
+.kz-eligibility-badge--orta            { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.35); }
+.kz-eligibility-badge--dusuk           { background: rgba(249,115,22,0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.35); }
+.kz-eligibility-badge--onceIyilestirme { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.35);  }
+.kz-eligibility-badge--eksikBilgi      { background: rgba(156,163,175,0.15); color: #9ca3af; border: 1px solid rgba(156,163,175,0.3); }
+
+/* Reasons list */
+.kz-reasons-list {
+  list-style: none;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.kz-reason-item {
+  position: relative;
+  padding-left: 1.2rem;
+  font-size: 0.825rem;
+  color: var(--kz-muted);
+  line-height: 1.5;
+}
+.kz-reason-item::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--kz-accent);
+  font-weight: 700;
+}
+
+/* Limit panel */
+.kz-limit-panel {
+  border-radius: var(--kz-radius-lg);
+  padding: 1.75rem;
+}
+.kz-limit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.875rem;
+}
+.kz-limit-row:last-of-type { border-bottom: none; }
+.kz-limit-label { color: var(--kz-muted); }
+.kz-limit-value { font-weight: 700; text-align: right; }
+.kz-limit-value--accent { color: var(--kz-accent); }
+.kz-limit-row--highlight .kz-limit-value { color: var(--kz-gold); }
+.kz-limit-none {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  color: var(--kz-muted);
+  font-size: 0.875rem;
+}
+.kz-limit-none__icon { font-size: 2rem; }
+
+/* İyileştirme planı */
+.kz-improvement-panel {
+  border-radius: var(--kz-radius-lg);
+  padding: 1.75rem;
+}
+.kz-improvement-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.kz-imp-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+.kz-imp-badge {
+  flex-shrink: 0;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+.kz-imp-badge--7  { background: rgba(0,194,255,0.15); color: var(--kz-accent); border: 1px solid rgba(0,194,255,0.3); }
+.kz-imp-badge--30 { background: rgba(212,175,55,0.12); color: var(--kz-gold);  border: 1px solid rgba(212,175,55,0.3); }
+.kz-imp-badge--90 { background: rgba(34,197,94,0.12); color: #22c55e;         border: 1px solid rgba(34,197,94,0.3); }
+.kz-imp-step p {
+  font-size: 0.85rem;
+  color: var(--kz-muted);
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+/* Eylem butonları */
+.kz-result-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.kz-result-actions .kz-btn { flex: 1; justify-content: center; }
+
+/* Yasal not */
+.kz-legal-note {
+  font-size: 0.72rem;
+  color: rgba(156,163,175,0.7);
+  line-height: 1.6;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 1rem;
+}
+
+/* ---- Responsive: Analiz sayfası ---- */
+@media (max-width: 840px) {
+  .kz-results-wrap { grid-template-columns: 1fr; }
+  .kz-aform__grid  { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .kz-consent-card { padding: 1.75rem 1.25rem; }
+  .kz-aform__section { padding: 1.25rem; }
+  .kz-result-actions { flex-direction: column; }
+}
