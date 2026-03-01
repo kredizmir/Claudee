@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KREDİZMİR anlaşmalı galeriler — Türkiye genelinde güvenilir ikinci el araç galerilerini keşfedin ve KREDİZMİR finansman avantajlarından yararlanın.">
+  <meta name="theme-color" content="#0A1A2F">
+  <title>Galeriler — KREDİZMİR</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="kz-header">
+    <div class="kz-container kz-header__inner">
+
+      <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
+        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="kz-logo__fallback" style="display:none;">
+          KREDİ<em>ZMİR</em>
+        </span>
+      </a>
+
+      <nav class="kz-nav" aria-label="Ana navigasyon">
+        <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
+        <a href="galeriler.html" class="kz-nav__link kz-nav__link--active">Galeriler</a>
+        <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+        <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
+      </nav>
+
+      <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="kz-nav kz-nav--mobile" id="kzMobileNav" aria-label="Mobil navigasyon">
+      <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
+      <a href="galeriler.html" class="kz-nav__link kz-nav__link--active">Galeriler</a>
+      <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+      <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
+    </nav>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+
+    <!-- Page header -->
+    <div class="kz-page-header">
+      <div class="kz-container">
+        <span class="kz-page-header__eyebrow">KREDİZMİR Ağı</span>
+        <h1 class="kz-page-header__title">Anlaşmalı Galerilerimiz</h1>
+        <p class="kz-page-header__sub">
+          Türkiye genelindeki güvenilir galeri partnerlerimizden
+          araç bulun, KREDİZMİR finansmanıyla kolayca sahip olun.
+        </p>
+        <div class="kz-divider" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Gallery section -->
+    <section class="kz-galleries-section" aria-labelledby="galeriBaslik">
+      <div class="kz-container">
+
+        <!-- Search -->
+        <div class="kz-search-wrap" role="search">
+          <span class="kz-search-icon" aria-hidden="true">🔍</span>
+          <label for="kzSearch" class="kz-sr-only">Galeri ara</label>
+          <input
+            type="search"
+            id="kzSearch"
+            class="kz-search"
+            placeholder="Galeri adı veya şehir ara…"
+            autocomplete="off"
+            spellcheck="false"
+          >
+        </div>
+
+        <!-- Stats -->
+        <p class="kz-gallery-stats" id="kzStats" aria-live="polite" aria-atomic="true"></p>
+
+        <!-- Grid — JS ile doldurulur -->
+        <div
+          class="kz-gallery-grid"
+          id="kzGalleryGrid"
+          role="list"
+          aria-label="Galeri listesi"
+        ></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="kz-footer">
+    <div class="kz-container kz-footer__inner">
+      <span class="kz-footer__brand">KREDİZMİR</span>
+      <nav class="kz-footer__links" aria-label="Alt navigasyon">
+        <a href="index.html"      class="kz-footer__link">Ana Sayfa</a>
+        <a href="hesaplama.html"  class="kz-footer__link">Hesaplama</a>
+      </nav>
+      <span class="kz-footer__copy">© 2025 KREDİZMİR. Tüm hakları saklıdır.</span>
+    </div>
+  </footer>
+
+  <!-- Data + JS -->
+  <script src="data/data-galeriler.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/galeriler.js"></script>
+</body>
+</html>
