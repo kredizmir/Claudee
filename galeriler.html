@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KREDİZMİR ortak galerileri — Türkiye genelinde güvenilir 2. el araç satış noktaları." />
+  <title>Galeriler | KREDİZMİR</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="kz-header">
+    <div class="kz-container">
+      <div class="kz-header__inner">
+        <a href="index.html" class="kz-logo">
+          <img src="public/logo.png" alt="KREDİZMİR Logo" onerror="this.style.display='none'" />
+          <div>
+            <div class="kz-logo__text">KREDİZMİR</div>
+            <div class="kz-logo__sub">Taşıt Finansmanı</div>
+          </div>
+        </a>
+        <nav class="kz-nav">
+          <a href="index.html" class="kz-nav__link">Ana Sayfa</a>
+          <a href="galeriler.html" class="kz-nav__link active">Galeriler</a>
+          <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- SAYFA BAŞLIĞI -->
+  <section class="kz-section--sm" style="padding-top:48px;">
+    <div class="kz-container">
+      <h1 class="kz-page-title">Ortak Galerilerimiz</h1>
+      <p class="kz-page-subtitle">Türkiye genelinde KREDİZMİR finansman desteğiyle çalışan güvenilir galeriler.</p>
+    </div>
+  </section>
+
+  <!-- GALERİ ARAMA + GRID -->
+  <section class="kz-section" style="padding-top:24px;">
+    <div class="kz-container">
+
+      <div class="kz-gallery-header">
+        <div>
+          <span id="kz-galeri-count" style="font-size:0.85rem;color:var(--kz-muted);">Yükleniyor…</span>
+        </div>
+        <input
+          class="kz-search"
+          id="kz-galeri-search"
+          type="text"
+          placeholder="Galeri adı, şehir veya araç tipi ara…"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="kz-grid" id="kz-galeri-grid">
+        <!-- JS tarafından doldurulur -->
+        <div class="kz-empty">Yükleniyor…</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ALT CTA -->
+  <section class="kz-section--sm" style="background:rgba(0,194,255,0.06);border-top:1px solid var(--kz-border);">
+    <div class="kz-container" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:1.05rem;font-weight:700;">Kredi çıkar mı? Taksit ne olur?</div>
+        <div style="color:var(--kz-muted);font-size:0.88rem;">Findeks ön değerlendirme ve taksit hesaplama aracını kullanın.</div>
+      </div>
+      <a href="hesaplama.html" class="kz-btn kz-btn--primary">Hesaplama Aracı →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="kz-footer">
+    <div class="kz-container">
+      <p class="kz-footer__text">
+        © 2024 KREDİZMİR — Tüm hakları saklıdır. |
+        Bu site yalnızca ön bilgilendirme amaçlıdır; kesin kredi taahhüdü değildir.
+      </p>
+    </div>
+  </footer>
+
+  <script src="data/data-galeriler.js"></script>
+  <script src="js/galeriler.js"></script>
+</body>
+</html>
