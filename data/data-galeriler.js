@@ -4,7 +4,7 @@
    Yeni galeri eklemek için listeye obje ekleyin.
    ========================================================= */
 
-const KZ_GALERILER = [
+var KZ_GALERILER = [
   {
     id: 1,
     ad: "FSS Otomotiv",
