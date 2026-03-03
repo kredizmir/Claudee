@@ -616,6 +616,156 @@ input, select { font-family: inherit; }
 .kz-footer__text { font-size: 0.82rem; color: var(--kz-muted); }
 .kz-footer__text a { color: var(--kz-accent); }
 
+/* --- Instagram Section ----------------------------------- */
+.kz-insta-section {
+  background: rgba(0,194,255,0.06);
+  border-top: 1px solid var(--kz-border);
+  border-bottom: 1px solid var(--kz-border);
+}
+.kz-insta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.kz-insta-text { flex: 1; min-width: 240px; }
+.kz-insta-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kz-accent);
+  margin-bottom: 8px;
+}
+.kz-insta-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--kz-white);
+  margin-bottom: 8px;
+}
+.kz-insta-desc {
+  font-size: 0.9rem;
+  color: var(--kz-muted);
+  margin-bottom: 18px;
+}
+.kz-insta-qr { text-align: center; flex-shrink: 0; }
+.kz-insta-qr__label {
+  font-size: 0.72rem;
+  color: var(--kz-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.kz-insta-qr__box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px;
+  display: inline-block;
+  border: 2px solid var(--kz-border);
+}
+.kz-insta-qr__box img { display: block; border-radius: 6px; }
+.kz-insta-qr__sub {
+  font-size: 0.8rem;
+  color: var(--kz-accent);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* --- Gallery Modal --------------------------------------- */
+.kz-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(5, 14, 28, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.kz-modal-backdrop.open { display: flex; animation: kzFadeIn 0.2s ease; }
+.kz-modal {
+  background: var(--kz-secondary);
+  border: 1px solid var(--kz-border);
+  border-radius: 20px;
+  padding: 40px 36px 36px;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+  animation: kzSlideUp 0.25s ease;
+  text-align: center;
+}
+@keyframes kzSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.kz-modal__close {
+  position: absolute;
+  top: 14px; right: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--kz-border);
+  color: var(--kz-muted);
+  font-size: 0.95rem;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--kz-transition);
+}
+.kz-modal__close:hover { color: var(--kz-white); background: rgba(255,255,255,0.12); }
+.kz-modal__icon { font-size: 2.4rem; margin-bottom: 12px; }
+.kz-modal__title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--kz-white);
+  margin-bottom: 12px;
+}
+.kz-modal__msg {
+  font-size: 0.92rem;
+  color: var(--kz-muted);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.kz-modal__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.kz-modal__contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(0,194,255,0.07);
+  border: 1px solid var(--kz-border);
+  border-radius: var(--kz-radius-sm);
+  padding: 13px 16px;
+  text-decoration: none;
+  transition: border-color var(--kz-transition), background var(--kz-transition);
+}
+.kz-modal__contact:hover {
+  border-color: rgba(0,194,255,0.45);
+  background: rgba(0,194,255,0.12);
+  text-decoration: none;
+}
+.kz-modal__contact-icon { font-size: 1.4rem; flex-shrink: 0; }
+.kz-modal__contact-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--kz-accent);
+  text-align: left;
+}
+.kz-modal__contact-phone {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--kz-white);
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+.kz-modal__actions { display: flex; flex-direction: column; gap: 10px; }
+
 /* --- Animations ------------------------------------------ */
 @keyframes kzFadeIn {
   from { opacity: 0; transform: translateY(8px); }

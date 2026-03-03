@@ -97,7 +97,7 @@
 
       <!-- TEK CTA -->
       <div style="margin-top: 28px;">
-        <a href="galeriler.html" class="kz-btn kz-btn--primary">
+        <a href="galeriler.html" id="kz-gallery-btn" class="kz-btn kz-btn--primary">
           Galerilerimizi Gör →
         </a>
       </div>
@@ -140,16 +140,65 @@
     </div>
   </section>
 
-  <!-- ALT CTA BANDI -->
-  <section class="kz-section--sm" style="background:rgba(0,194,255,0.06);border-top:1px solid var(--kz-border);border-bottom:1px solid var(--kz-border);">
-    <div class="kz-container" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-      <div>
-        <div style="font-size:1.1rem;font-weight:700;">Taksit veya Findeks hesabı yapmak ister misiniz?</div>
-        <div style="color:var(--kz-muted);font-size:0.9rem;">Hızlı araç ve Findeks değerlendirme aracımızı deneyin.</div>
+  <!-- INSTAGRAM DAVET -->
+  <section class="kz-section--sm kz-insta-section">
+    <div class="kz-container">
+      <div class="kz-insta-inner">
+        <div class="kz-insta-text">
+          <div class="kz-insta-label">Instagram Kanalımız</div>
+          <div class="kz-insta-title">Güncel Araç İlanlarını Takip Edin</div>
+          <div class="kz-insta-desc">En yeni araç ilanları ve fırsatlar için kanalımıza katılın. Her gün yeni araçlar ekleniyor!</div>
+          <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
+            📷 Kanala Katıl →
+          </a>
+        </div>
+        <div class="kz-insta-qr">
+          <div class="kz-insta-qr__label">QR Kodu ile Tara</div>
+          <div class="kz-insta-qr__box">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fwww.instagram.com%2Fchannel%2FAbZRpJkUCuh6ebaf%2F%3Figsh%3DMW9vbGc3aTB2cml3NQ%3D%3D"
+              alt="Instagram Kanal QR Kodu"
+              width="160" height="160"
+            />
+          </div>
+          <div class="kz-insta-qr__sub">@kredizmir</div>
+        </div>
       </div>
-      <a href="hesaplama.html" class="kz-btn kz-btn--gold">Hesaplama Aracı →</a>
     </div>
   </section>
+
+  <!-- GALERİ MODAL -->
+  <div id="kz-gallery-modal" class="kz-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-modal-title">
+    <div class="kz-modal">
+      <button class="kz-modal__close" id="kz-modal-close" aria-label="Kapat">✕</button>
+      <div class="kz-modal__icon">🚗</div>
+      <h2 class="kz-modal__title" id="kz-modal-title">Özel Teklif Alın!</h2>
+      <p class="kz-modal__msg">
+        En uygun vade ve faiz oranları için beğendiğiniz aracı bizlere yönlendirin.
+        Size özel güncel faiz indirimi ve araç için indirimleri teklif edelim.
+      </p>
+      <div class="kz-modal__contacts">
+        <a href="tel:+905363972232" class="kz-modal__contact">
+          <span class="kz-modal__contact-icon">📞</span>
+          <div>
+            <div class="kz-modal__contact-name">Hakan Bey</div>
+            <div class="kz-modal__contact-phone">0536 397 2232</div>
+          </div>
+        </a>
+        <a href="tel:+905307258789" class="kz-modal__contact">
+          <span class="kz-modal__contact-icon">📞</span>
+          <div>
+            <div class="kz-modal__contact-name">Oğuz Bey</div>
+            <div class="kz-modal__contact-phone">0530 725 8789</div>
+          </div>
+        </a>
+      </div>
+      <div class="kz-modal__actions">
+        <a href="galeriler.html" class="kz-btn kz-btn--primary kz-btn--full">Galeriye Git →</a>
+        <button class="kz-btn kz-btn--outline kz-btn--full" id="kz-modal-dismiss">Kapat</button>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="kz-footer">
