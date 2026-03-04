@@ -76,17 +76,22 @@ input, select { font-family: inherit; }
   width: auto;
 }
 .kz-logo__text {
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--kz-white);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #ffffff 0%, var(--kz-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1.1;
 }
 .kz-logo__sub {
-  font-size: 0.65rem;
-  color: var(--kz-accent);
-  letter-spacing: 0.12em;
+  font-size: 0.58rem;
+  color: var(--kz-gold);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  margin-top: 2px;
+  opacity: 0.9;
 }
 .kz-nav {
   display: flex;
@@ -140,18 +145,35 @@ input, select { font-family: inherit; }
   box-shadow: var(--kz-shadow), inset 0 1px 0 rgba(255,255,255,0.06);
   position: relative;
 }
-.kz-hero__badge {
-  display: inline-block;
-  background: rgba(0,194,255,0.12);
-  border: 1px solid rgba(0,194,255,0.3);
-  color: var(--kz-accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.kz-hero__brand-title {
+  font-size: clamp(0.78rem, 2vw, 0.95rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 100px;
-  margin-bottom: 20px;
+  color: var(--kz-white);
+  margin-bottom: 6px;
+  position: relative;
+  display: inline-block;
+  padding: 0 4px 10px;
+}
+.kz-hero__brand-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--kz-accent), var(--kz-gold));
+  border-radius: 2px;
+}
+.kz-hero__slogan {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--kz-gold);
+  letter-spacing: 0.03em;
+  margin-bottom: 22px;
+  opacity: 0.9;
 }
 .kz-hero__title {
   font-size: clamp(1.9rem, 5vw, 2.9rem);
@@ -865,38 +887,49 @@ input, select { font-family: inherit; }
 
 /* NEW: Weekly Favorite Cars — Premium Vitrin */
 .kz-favorites-section {
-  padding: 64px 0 72px;
+  padding: 72px 0 80px;
+  background: linear-gradient(160deg, #0b2257 0%, #133070 45%, #0d2250 100%);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.kz-favorites-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212,175,55,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 20% 100%, rgba(0,194,255,0.05) 0%, transparent 60%);
-  border-top: 1px solid var(--kz-border);
-  border-bottom: 1px solid var(--kz-border);
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0,194,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
 }
 .kz-fav-header { text-align: center; margin-bottom: 44px; }
 .kz-fav-header__top { margin-bottom: 14px; }
 .kz-fav-badge {
   display: inline-block;
-  background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0.08));
-  border: 1px solid rgba(212,175,55,0.4);
-  color: var(--kz-gold);
-  font-size: 0.72rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 5px 16px;
+  padding: 5px 18px;
   border-radius: 100px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
 }
 .kz-fav-title {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
   font-weight: 900;
-  color: var(--kz-white);
+  color: #ffffff;
   letter-spacing: -0.01em;
   margin-bottom: 10px;
   line-height: 1.15;
+  text-shadow: 0 2px 24px rgba(0,100,200,0.3);
 }
 .kz-fav-subtitle {
-  font-size: 0.95rem;
-  color: var(--kz-muted);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
 }
 
 /* Grid — 3 fixed columns */
@@ -908,8 +941,8 @@ input, select { font-family: inherit; }
 
 /* Card */
 .kz-fav-card {
-  background: rgba(13, 28, 50, 0.75);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(8, 22, 55, 0.85);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
@@ -1031,14 +1064,20 @@ input, select { font-family: inherit; }
 }
 
 /* Alt not */
-.kz-fav-note {
+.kz-fav-note-wrap {
   text-align: center;
-  margin-top: 28px;
-  font-size: 0.82rem;
-  color: var(--kz-muted);
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
 }
-.kz-fav-note a { color: var(--kz-gold); font-weight: 600; }
-.kz-fav-note a:hover { text-decoration: underline; }
+.kz-fav-note {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
 
 /* Popup views badge */
 .kz-fav-views {
