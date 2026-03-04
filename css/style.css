@@ -895,8 +895,8 @@ input, select { font-family: inherit; }
 .kz-favorites-section {
   padding: 72px 0 80px;
   background: linear-gradient(160deg, #0b2257 0%, #133070 45%, #0d2250 100%);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-top: 1.5px solid rgba(212,175,55,0.45);
+  border-bottom: 1.5px solid rgba(212,175,55,0.45);
   position: relative;
   overflow: hidden;
 }
