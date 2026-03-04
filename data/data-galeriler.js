@@ -1,104 +1,251 @@
-/**
- * KREDİZMİR — Anlaşmalı Galeriler Veri Dosyası
- * Bu dosyayı düzenleyerek galeri ekleyebilir / kaldırabilirsiniz.
- * Her galeri nesnesi: { id, isim, sehir, ilce, aciklama, link }
- */
+/* =========================================================
+   KREDİZMİR — Galeri Veri Dosyası
+   Her kayıt bir ortak galeriyi temsil eder.
+   Yeni galeri eklemek için listeye obje ekleyin.
+   ========================================================= */
 
-const KZ_GALERILER = [
+var KZ_GALERILER = [
   {
     id: 1,
-    isim: "Atlas Oto Galeri",
-    sehir: "Ankara",
-    ilce: "Çankaya",
-    aciklama: "Ankara'nın kalbinde 500'den fazla ikinci el araç. 15 yıllık tecrübeyle güvenilir alışveriş.",
-    link: "https://example.com/atlas-oto"
+    ad: "FSS Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://fssotomotivv.sahibinden.com"
   },
   {
     id: 2,
-    isim: "Prestij Motors",
-    sehir: "İstanbul",
-    ilce: "Kadıköy",
-    aciklama: "Lüks ve ekonomi segmentinde geniş araç yelpazesi. KREDİZMİR anlaşmalı özel faiz oranları.",
-    link: "https://example.com/prestij-motors"
+    ad: "Temeller Auto",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://temellerauto.sahibinden.com"
   },
   {
     id: 3,
-    isim: "Ege Oto Plaza",
+    ad: "Armağan Motors",
     sehir: "İzmir",
-    ilce: "Bornova",
-    aciklama: "Ege'nin en büyük ikinci el araç pazarı. 200'den fazla araç stoku, şeffaf fiyat politikası.",
-    link: "https://example.com/ege-oto"
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://armaganmotors.sahibinden.com"
   },
   {
     id: 4,
-    isim: "Marmara Araç Merkezi",
-    sehir: "İstanbul",
-    ilce: "Bağcılar",
-    aciklama: "Anadolu ve Avrupa yakasına kolay ulaşım. Masrafsız muayene ve sigorta desteği.",
-    link: "https://example.com/marmara-arac"
+    ad: "İlboğa Motors",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://ilbogamotors.sahibinden.com"
   },
   {
     id: 5,
-    isim: "Güney Oto Ekspres",
-    sehir: "Adana",
-    ilce: "Seyhan",
-    aciklama: "Çukurova bölgesinin lider galerisi. Hızlı kredi onayı ve araç teslimi.",
-    link: "https://example.com/guney-oto"
+    ad: "VT Motors İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://vtmotorsizmir.sahibinden.com"
   },
   {
     id: 6,
-    isim: "Karadeniz Oto",
-    sehir: "Trabzon",
-    ilce: "Akçaabat",
-    aciklama: "Karadeniz bölgesinin güvenilir adresi. Yerinde ekspertiz ve garanti hizmeti.",
-    link: "https://example.com/karadeniz-oto"
+    ad: "OPCAR Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://opcar.sahibinden.com"
   },
   {
     id: 7,
-    isim: "Başkent Premium Galerisi",
-    sehir: "Ankara",
-    ilce: "Etimesgut",
-    aciklama: "Premium ve sıfır km araçlarda uzmanlaşmış. Kurumsal müşterilere özel paketler.",
-    link: "https://example.com/baskent-premium"
+    ad: "Sefa Oto İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://sefaotoizmir.sahibinden.com"
   },
   {
     id: 8,
-    isim: "Akdeniz Oto Dünyası",
-    sehir: "Antalya",
-    ilce: "Kepez",
-    aciklama: "Turizm sezonunda ve yıl boyunca aktif stok. Tüm marka ve modeller mevcut.",
-    link: "https://example.com/akdeniz-oto"
+    ad: "Okyanus Oto İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://okyanusotoizmir.sahibinden.com"
   },
   {
     id: 9,
-    isim: "Orta Anadolu Araç Pazarı",
-    sehir: "Konya",
-    ilce: "Selçuklu",
-    aciklama: "Konya ve çevresine hizmet veren köklü galeri. Uygun fiyat ve uzun vadeli kredi desteği.",
-    link: "https://example.com/orta-anadolu"
+    ad: "İZPARK Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://umitauto35.sahibinden.com"
   },
   {
     id: 10,
-    isim: "Yıldız Oto Kiralık & Satış",
-    sehir: "Bursa",
-    ilce: "Osmangazi",
-    aciklama: "Kiralık araçtan ikinci el alıma geniş hizmet yelpazesi. KREDİZMİR ile avantajlı finansman.",
-    link: "https://example.com/yildiz-oto"
+    ad: "Galerix Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://galerix.sahibinden.com"
   },
   {
     id: 11,
-    isim: "Atatürk Oto Galeri",
+    ad: "Danış Otomotiv",
     sehir: "İzmir",
-    ilce: "Konak",
-    aciklama: "İzmir şehir merkezinde konumlanan klasik galeri. Muayene garantili araçlar.",
-    link: "https://example.com/ataturk-oto"
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://danisotomotivizmir.sahibinden.com"
   },
   {
     id: 12,
-    isim: "Kuzey Oto Filo",
-    sehir: "Samsun",
-    ilce: "İlkadım",
-    aciklama: "Karadeniz'in doğusuna hizmet. Filo satışı ve bireysel araç alımında uzman.",
-    link: "https://example.com/kuzey-oto"
+    ad: "Konuk Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://konukotomotivizmir.sahibinden.com"
+  },
+  {
+    id: 13,
+    ad: "Özerçetin Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://ercetinotomotiv1.sahibinden.com"
+  },
+  {
+    id: 14,
+    ad: "Dağlı Motors",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://daglimotors.sahibinden.com"
+  },
+  {
+    id: 15,
+    ad: "Beyefendi Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://beyefendiauto.sahibinden.com"
+  },
+  {
+    id: 16,
+    ad: "Fatih Auto",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://fatihauto.sahibinden.com"
+  },
+  {
+    id: 17,
+    ad: "YNY Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://ynyotomotiv.sahibinden.com"
+  },
+  {
+    id: 18,
+    ad: "AZM Otomotiv",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://azmotomotiv.sahibinden.com"
+  },
+  {
+    id: 19,
+    ad: "Özkoyuncu Oto İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://ozkoyuncuotoizmir.sahibinden.com"
+  },
+  {
+    id: 20,
+    ad: "Bayraktar Otomotiv İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://bayraktarotomotivizmir.sahibinden.com"
+  },
+  {
+    id: 21,
+    ad: "Kurşun Otomotiv İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://kursunotomotivizmir.sahibinden.com"
+  },
+  {
+    id: 22,
+    ad: "Ceylan Otomotiv 35",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://ceylanotomotiv35.sahibinden.com"
+  },
+  {
+    id: 23,
+    ad: "OtoNuSeç",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://otonusec.sahibinden.com"
+  },
+  {
+    id: 24,
+    ad: "Oto Bulut",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://otobulut.sahibinden.com"
+  },
+  {
+    id: 25,
+    ad: "Platin Oto",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://platinoto.sahibinden.com"
+  },
+  {
+    id: 26,
+    ad: "Karakaya Auto İzmir",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://karakayaautoizmir.sahibinden.com"
+  },
+  {
+    id: 27,
+    ad: "Bilge Oto",
+    sehir: "İzmir",
+    ilce: "",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
+    etiket: ["2. El", "Sahibinden"],
+    link: "https://bilgeoto.sahibinden.com"
   }
 ];

@@ -1,112 +1,209 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KREDİZMİR anlaşmalı galeriler — Türkiye genelinde güvenilir ikinci el araç galerilerini keşfedin ve KREDİZMİR finansman avantajlarından yararlanın.">
-  <meta name="theme-color" content="#0A1A2F">
-  <title>Galeriler — KREDİZMİR</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KREDİZMİR ortak galerileri — Türkiye genelinde güvenilir 2. el araç satış noktaları." />
+  <title>Galeriler | KREDİZMİR</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header class="kz-header">
-    <div class="kz-container kz-header__inner">
-
-      <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
-        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="kz-logo__fallback" style="display:none;">
-          KREDİ<em>ZMİR</em>
-        </span>
-      </a>
-
-      <nav class="kz-nav" aria-label="Ana navigasyon">
-        <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
-        <a href="galeriler.html" class="kz-nav__link kz-nav__link--active">Galeriler</a>
-        <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
-        <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
-      </nav>
-
-      <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="kz-container">
+      <div class="kz-header__inner">
+        <a href="index.html" class="kz-logo">
+          <img src="public/logo.png" alt="KREDİZMİR Logo" onerror="this.style.display='none'" />
+          <div>
+            <div class="kz-logo__text">KREDİZMİR</div>
+            <div class="kz-logo__sub">Taşıt Finansmanı</div>
+          </div>
+        </a>
+        <nav class="kz-nav">
+          <a href="index.html" class="kz-nav__link">Ana Sayfa</a>
+          <a href="galeriler.html" class="kz-nav__link active">Galeriler</a>
+          <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+        </nav>
+      </div>
     </div>
-
-    <nav class="kz-nav kz-nav--mobile" id="kzMobileNav" aria-label="Mobil navigasyon">
-      <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
-      <a href="galeriler.html" class="kz-nav__link kz-nav__link--active">Galeriler</a>
-      <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
-      <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
-    </nav>
   </header>
 
-  <!-- ===== MAIN ===== -->
-  <main>
-
-    <!-- Page header -->
-    <div class="kz-page-header">
-      <div class="kz-container">
-        <span class="kz-page-header__eyebrow">KREDİZMİR Ağı</span>
-        <h1 class="kz-page-header__title">Anlaşmalı Galerilerimiz</h1>
-        <p class="kz-page-header__sub">
-          Türkiye genelindeki güvenilir galeri partnerlerimizden
-          araç bulun, KREDİZMİR finansmanıyla kolayca sahip olun.
-        </p>
-        <div class="kz-divider" aria-hidden="true"></div>
-      </div>
+  <!-- SAYFA BAŞLIĞI -->
+  <section class="kz-section--sm" style="padding-top:48px;">
+    <div class="kz-container">
+      <!-- UPDATED COPY -->
+      <h1 class="kz-page-title">Anlaşmalı Galerilerimiz</h1>
+      <p class="kz-page-subtitle">Türkiye genelinde KREDİZMİR finansman desteğiyle çalışan çözüm ortaklarımız.</p>
     </div>
+  </section>
 
-    <!-- Gallery section -->
-    <section class="kz-galleries-section" aria-labelledby="galeriBaslik">
-      <div class="kz-container">
+  <!-- GALERİ ARAMA + GRID -->
+  <section class="kz-section" style="padding-top:24px;">
+    <div class="kz-container">
 
-        <!-- Search -->
-        <div class="kz-search-wrap" role="search">
-          <span class="kz-search-icon" aria-hidden="true">🔍</span>
-          <label for="kzSearch" class="kz-sr-only">Galeri ara</label>
-          <input
-            type="search"
-            id="kzSearch"
-            class="kz-search"
-            placeholder="Galeri adı veya şehir ara…"
-            autocomplete="off"
-            spellcheck="false"
-          >
+      <div class="kz-gallery-header">
+        <div>
+          <span id="kz-galeri-count" style="font-size:0.85rem;color:var(--kz-muted);">Yükleniyor…</span>
+        </div>
+        <input
+          class="kz-search"
+          id="kz-galeri-search"
+          type="text"
+          placeholder="Galeri adı / şehir / marka-model ara..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="kz-grid" id="kz-galeri-grid">
+        <!-- JS tarafından doldurulur -->
+        <div class="kz-empty">Yükleniyor…</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALERİ BAŞVURU -->
+  <section class="kz-section kz-galeri-basvuru-section" style="padding-top:64px;padding-bottom:64px;">
+    <div class="kz-container">
+
+      <!-- Başlık -->
+      <div style="text-align:center;margin-bottom:40px;">
+        <div class="kz-galeri-basvuru__label" style="display:inline-block;margin-bottom:12px;">Galeri Başvurusu</div>
+        <h2 class="kz-galeri-basvuru__title" style="font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:16px;">
+          KREDİZMİR Anlaşmalı Galeri Ağı'na Katılın
+        </h2>
+        <p style="color:rgba(255,255,255,0.8);max-width:640px;margin:0 auto;line-height:1.7;">
+          Bizimle çalışan galeriler için hedef net: <strong style="color:var(--kz-gold);">daha hızlı satış, daha güvenli tahsilat, daha az zaman kaybı.</strong><br>
+          Finansman süreçlerini KREDİZMİR yönetir; siz sadece aracı teslim edeceğiniz müşteriye odaklanırsınız.
+        </p>
+      </div>
+
+      <!-- İki Kolon: Bilgi + Form -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+
+        <!-- Sol: Bilgi -->
+        <div style="display:flex;flex-direction:column;gap:28px;">
+
+          <!-- Neler Kazanırsınız -->
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;">
+            <h3 style="color:var(--kz-gold);font-size:1rem;font-weight:700;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase;">Neler Kazanırsınız?</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.88);line-height:1.5;"><span>✅</span><span>Kredi &amp; finans süreçlerinde <strong style="color:var(--kz-white);">ücretsiz destek</strong></span></li>
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.88);line-height:1.5;"><span>✅</span><span>Kredili işlem yönlendirmelerinde <strong style="color:var(--kz-white);">komisyon avantajları + ekstra fırsatlar</strong></span></li>
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.88);line-height:1.5;"><span>✅</span><span>Gerçek müşteri akışı: <strong style="color:var(--kz-white);">"kredi bekletme" değil, hazır alıcı portföyü</strong></span></li>
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.88);line-height:1.5;"><span>✅</span><span>Marka güveni + <strong style="color:var(--kz-white);">vitrin görünürlüğü</strong></span></li>
+            </ul>
+          </div>
+
+          <!-- Güvence Notu -->
+          <div style="background:rgba(196,160,80,0.1);border:1.5px solid var(--kz-gold);border-radius:16px;padding:28px;">
+            <h3 style="color:var(--kz-gold);font-size:1rem;font-weight:700;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase;">KREDİZMİR Güvence Notu</h3>
+            <p style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-bottom:16px;">(En Önemlisi)</p>
+            <p style="color:rgba(255,255,255,0.9);font-weight:600;margin-bottom:14px;">Anlaşmalı galeriyi asla mağdur etmeyiz.</p>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.82);font-size:0.92rem;line-height:1.55;"><span style="color:var(--kz-gold);font-weight:700;flex-shrink:0;">•</span><span>Satış öncesi tüm adımları netleştirir, işlemi kontrollü ilerletiriz.</span></li>
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.82);font-size:0.92rem;line-height:1.55;"><span style="color:var(--kz-gold);font-weight:700;flex-shrink:0;">•</span><span>Kullanılan kredi tutarı, satıştan hemen önce <strong style="color:var(--kz-white);">hızlı şekilde tarafınıza aktarılır.</strong></span></li>
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.82);font-size:0.92rem;line-height:1.55;"><span style="color:var(--kz-gold);font-weight:700;flex-shrink:0;">•</span><span>Kredi miktarı / satış fiyatı gerektirdiğinde <strong style="color:var(--kz-white);">ara satış (prosedürel satış)</strong> sürecini doğru kurgular, işlemin tıkanmamasını sağlarız.</span></li>
+              <li style="display:flex;gap:10px;align-items:flex-start;color:rgba(255,255,255,0.82);font-size:0.92rem;line-height:1.55;"><span style="color:var(--kz-gold);font-weight:700;flex-shrink:0;">•</span><span>Tüm süreç boyunca bir <strong style="color:var(--kz-white);">Finans Uzmanımız</strong> hem sizinle hem müşteriyle birebir ilgilenir: <em style="color:rgba(255,255,255,0.65);">evrak – onay – ödeme – teslimat</em> adımlarında daima yanınızdadır.</span></li>
+            </ul>
+          </div>
+
+          <!-- Neden KREDİZMİR -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;">
+            <h3 style="color:var(--kz-gold);font-size:1rem;font-weight:700;margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase;">Neden KREDİZMİR?</h3>
+            <p style="color:rgba(255,255,255,0.85);line-height:1.7;margin:0;">
+              Biz <strong style="color:var(--kz-white);">"kredi beklemiyoruz."</strong><br>
+              Aylık <strong style="color:var(--kz-gold);">5.000.000+ görüntülenme</strong> ile oluşan müşteri portföyünü anlaşmalı galerilerimizle buluşturuyoruz.<br>
+              <span style="color:rgba(255,255,255,0.6);font-size:0.92rem;">Doğru müşteri → doğru araç → hızlı satış.</span>
+            </p>
+          </div>
+
         </div>
 
-        <!-- Stats -->
-        <p class="kz-gallery-stats" id="kzStats" aria-live="polite" aria-atomic="true"></p>
-
-        <!-- Grid — JS ile doldurulur -->
-        <div
-          class="kz-gallery-grid"
-          id="kzGalleryGrid"
-          role="list"
-          aria-label="Galeri listesi"
-        ></div>
+        <!-- Sağ: Form -->
+        <div style="position:sticky;top:24px;">
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:32px;">
+            <p style="color:rgba(255,255,255,0.75);font-size:0.92rem;line-height:1.6;margin-bottom:24px;">
+              Bilgilerinizi girin, <strong style="color:var(--kz-white);">tek tıkla WhatsApp'tan bize iletin.</strong> Ekibimiz sizinle hemen iletişime geçsin; galerinize gelelim, yüz yüze bilgilendirme yapalım.
+            </p>
+            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(196,160,80,0.15);border:1px solid rgba(196,160,80,0.4);border-radius:8px;padding:6px 12px;margin-bottom:24px;">
+              <span style="color:var(--kz-gold);font-size:0.82rem;font-weight:600;">✅ Başvuru ve süreç tamamen ücretsiz</span>
+            </div>
+            <div class="kz-form-group">
+              <label class="kz-label" for="kz-gb-isim">İsim Soyisim</label>
+              <input class="kz-input" id="kz-gb-isim" type="text" placeholder="Ad Soyad" autocomplete="name" />
+              <span class="kz-offer-error" id="kz-gb-isim-err"></span>
+            </div>
+            <div class="kz-form-group">
+              <label class="kz-label" for="kz-gb-galeri">Galeri İsmi</label>
+              <input class="kz-input" id="kz-gb-galeri" type="text" placeholder="Galerinin adı" autocomplete="organization" />
+              <span class="kz-offer-error" id="kz-gb-galeri-err"></span>
+            </div>
+            <div class="kz-form-group">
+              <label class="kz-label" for="kz-gb-sehir">Şehir</label>
+              <input class="kz-input" id="kz-gb-sehir" type="text" placeholder="İstanbul, İzmir…" autocomplete="address-level2" />
+              <span class="kz-offer-error" id="kz-gb-sehir-err"></span>
+            </div>
+            <div class="kz-offer-btns">
+              <button class="kz-btn kz-btn--gold kz-btn--full" id="kz-gb-oguz">📲 Oğuz Bey'e Gönder</button>
+            </div>
+          </div>
+        </div>
 
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <style>
+    @media (max-width: 720px) {
+      .kz-galeri-basvuru-section .kz-container > div:last-child {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer class="kz-footer">
-    <div class="kz-container kz-footer__inner">
-      <span class="kz-footer__brand">KREDİZMİR</span>
-      <nav class="kz-footer__links" aria-label="Alt navigasyon">
-        <a href="index.html"      class="kz-footer__link">Ana Sayfa</a>
-        <a href="hesaplama.html"  class="kz-footer__link">Hesaplama</a>
-      </nav>
-      <span class="kz-footer__copy">© 2025 KREDİZMİR. Tüm hakları saklıdır.</span>
+    <div class="kz-container">
+      <p class="kz-footer__text">
+        © 2024 KREDİZMİR — Tüm hakları saklıdır. |
+        Bu site yalnızca ön bilgilendirme amaçlıdır; kesin kredi taahhüdü değildir.
+      </p>
     </div>
   </footer>
 
-  <!-- Data + JS -->
   <script src="data/data-galeriler.js"></script>
-  <script src="js/main.js"></script>
   <script src="js/galeriler.js"></script>
+  <script>
+    (function () {
+      var isimEl  = document.getElementById('kz-gb-isim');
+      var galeriEl= document.getElementById('kz-gb-galeri');
+      var sehirEl = document.getElementById('kz-gb-sehir');
+      var isimErr = document.getElementById('kz-gb-isim-err');
+      var galeriErr=document.getElementById('kz-gb-galeri-err');
+      var sehirErr= document.getElementById('kz-gb-sehir-err');
+      var oguzBtn = document.getElementById('kz-gb-oguz');
+
+      function validate() {
+        var ok = true;
+        if (!isimEl.value.trim())  { isimErr.textContent  = 'Lütfen adınızı girin.';        ok = false; } else { isimErr.textContent  = ''; }
+        if (!galeriEl.value.trim()){ galeriErr.textContent= 'Lütfen galeri adını girin.';   ok = false; } else { galeriErr.textContent= ''; }
+        if (!sehirEl.value.trim()) { sehirErr.textContent = 'Lütfen şehir girin.';           ok = false; } else { sehirErr.textContent = ''; }
+        return ok;
+      }
+
+      if (oguzBtn) {
+        oguzBtn.addEventListener('click', function () {
+          if (!validate()) return;
+          var msg = 'Merhaba KREDİZMİR, galeri başvurusu:\n' +
+            'İsim: '   + isimEl.value.trim()   + '\n' +
+            'Galeri: ' + galeriEl.value.trim()  + '\n' +
+            'Şehir: '  + sehirEl.value.trim();
+          window.open('https://wa.me/905307258789?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

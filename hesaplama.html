@@ -1,278 +1,194 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KREDİZMİR Taksit Hesaplama — Araç fiyatı, peşinat, vade ve faiz oranını girerek tahmini aylık taksitinizi anında öğrenin.">
-  <meta name="theme-color" content="#0A1A2F">
-  <title>Taksit Hesaplama — KREDİZMİR</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KREDİZMİR taksit ve Findeks/KKB ön değerlendirme aracı. 2. el araç kredinizi kolayca hesaplayın." />
+  <title>Hesaplama Aracı | KREDİZMİR</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header class="kz-header">
-    <div class="kz-container kz-header__inner">
-
-      <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
-        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="kz-logo__fallback" style="display:none;">
-          KREDİ<em>ZMİR</em>
-        </span>
-      </a>
-
-      <nav class="kz-nav" aria-label="Ana navigasyon">
-        <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
-        <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
-        <a href="hesaplama.html" class="kz-nav__link kz-nav__link--active">Hesaplama</a>
-        <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
-      </nav>
-
-      <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-
-    <nav class="kz-nav kz-nav--mobile" id="kzMobileNav" aria-label="Mobil navigasyon">
-      <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
-      <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
-      <a href="hesaplama.html" class="kz-nav__link kz-nav__link--active">Hesaplama</a>
-      <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
-    </nav>
-  </header>
-
-  <!-- ===== MAIN ===== -->
-  <main>
-
-    <!-- Page header -->
-    <div class="kz-page-header">
-      <div class="kz-container">
-        <span class="kz-page-header__eyebrow">Finansman Aracı</span>
-        <h1 class="kz-page-header__title">Taksit Hesaplama</h1>
-        <p class="kz-page-header__sub">
-          Araç fiyatı, peşinat, vade ve aylık faiz oranını girin;
-          tahmini aylık taksitinizi anında görün.
-        </p>
-        <div class="kz-divider" aria-hidden="true"></div>
+    <div class="kz-container">
+      <div class="kz-header__inner">
+        <a href="index.html" class="kz-logo">
+          <img src="public/logo.png" alt="KREDİZMİR Logo" onerror="this.style.display='none'" />
+          <div>
+            <div class="kz-logo__text">KREDİZMİR</div>
+            <div class="kz-logo__sub">Taşıt Finansmanı</div>
+          </div>
+        </a>
+        <nav class="kz-nav">
+          <a href="index.html" class="kz-nav__link">Ana Sayfa</a>
+          <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+          <a href="hesaplama.html" class="kz-nav__link active">Hesaplama</a>
+        </nav>
       </div>
     </div>
+  </header>
 
-    <!-- Calc section -->
-    <section class="kz-calc-section" aria-labelledby="calcTitle">
-      <div class="kz-container">
+  <!-- SAYFA BAŞLIĞI -->
+  <section class="kz-section--sm" style="padding-top:48px;">
+    <div class="kz-container">
+      <h1 class="kz-page-title">Hesaplama Araçları</h1>
+      <p class="kz-page-subtitle">Aylık taksitinizi hesaplayın ve Findeks ön değerlendirmesi alın.</p>
+    </div>
+  </section>
 
-        <!-- Mode selector -->
-        <div
-          class="kz-mode-selector"
-          role="group"
-          aria-label="Finansman modu seçin"
-          id="kzModeSelector">
-          <button class="kz-mode-btn kz-mode-btn--active" data-mode="vergi" type="button">
-            🏢 Vergi Levhalı
-          </button>
-          <button class="kz-mode-btn" data-mode="normal" type="button">
-            👤 Normal Şahıs
-          </button>
-          <button class="kz-mode-btn" data-mode="djs" type="button">
-            🤝 DJS
-          </button>
-        </div>
+  <!-- ANA İÇERİK -->
+  <section class="kz-section" style="padding-top:24px;">
+    <div class="kz-container">
+      <div class="kz-two-col">
 
-        <!-- Two-column layout -->
-        <div class="kz-calc-wrap">
+        <!-- SOL KOLON: TAKSİT HESAPLAMA -->
+        <div>
+          <div class="kz-card">
+            <div class="kz-card__badge">Taksit Hesaplama</div>
+            <h2 class="kz-card__title" style="font-size:1.15rem;margin-bottom:4px;">Aylık Taksit Hesapla</h2>
+            <p class="kz-card__desc">Araç fiyatı, peşinat ve vadeyi girerek tahmini taksitinizi öğrenin.</p>
 
-          <!-- LEFT: Form -->
-          <div>
-            <form class="kz-calc-form" id="kzCalcForm" novalidate>
-              <h2 class="kz-sr-only" id="calcTitle">Taksit Hesaplama Formu</h2>
+            <!-- MOD SEÇİMİ -->
+            <div style="margin-bottom:20px;">
+              <div class="kz-label" style="margin-bottom:8px;">Finansman Modu</div>
+              <div class="kz-radio-group">
+                <button type="button" class="kz-radio-btn active" data-mode="vergili">Vergi Levhalı</button>
+                <button type="button" class="kz-radio-btn" data-mode="normal">Normal Şahıs</button>
+                <button type="button" class="kz-radio-btn" data-mode="djs">DJS</button>
+              </div>
+            </div>
 
-              <!-- Araç Fiyatı -->
-              <div class="kz-form-group">
-                <label for="kzAracFiyat" class="kz-form-label">
-                  Araç Fiyatı <abbr title="Türk Lirası">(₺)</abbr>
-                </label>
-                <input
-                  type="number"
-                  id="kzAracFiyat"
-                  class="kz-form-input"
-                  placeholder="ör. 1.500.000"
-                  min="1"
-                  step="1"
-                  inputmode="numeric"
-                  aria-describedby="kzAracFiyatHint"
-                >
-                <p class="kz-form-hint" id="kzAracFiyatHint">Araçın satış fiyatını girin.</p>
+            <div class="kz-form">
+              <div class="kz-form-row">
+                <div class="kz-form-group">
+                  <label class="kz-label" for="kz-fiyat">Araç Fiyatı (₺)</label>
+                  <input class="kz-input" id="kz-fiyat" type="number" min="0" step="1000" placeholder="Örn: 850000" />
+                </div>
+                <div class="kz-form-group">
+                  <label class="kz-label" for="kz-pesinat">Peşinat (₺)</label>
+                  <input class="kz-input" id="kz-pesinat" type="number" min="0" step="1000" placeholder="Örn: 200000" />
+                </div>
               </div>
 
-              <!-- Peşinat -->
-              <div class="kz-form-group">
-                <label for="kzPesinat" class="kz-form-label">
-                  Peşinat <abbr title="Türk Lirası">(₺)</abbr>
-                </label>
-                <input
-                  type="number"
-                  id="kzPesinat"
-                  class="kz-form-input"
-                  placeholder="ör. 300.000"
-                  min="0"
-                  step="1"
-                  inputmode="numeric"
-                  aria-describedby="kzPesinatHint"
-                >
-                <p class="kz-form-hint" id="kzPesinatHint">Peşinat miktarını girin (0 girebilirsiniz).</p>
-              </div>
-
-              <!-- Vade -->
-              <div class="kz-form-group">
-                <label for="kzVade" class="kz-form-label">Vade (Ay)</label>
-                <select
-                  id="kzVade"
-                  class="kz-form-input kz-form-input--select"
-                  aria-describedby="kzVadeHint">
-                  <option value="12">12 Ay</option>
-                  <option value="24">24 Ay</option>
-                  <option value="36" selected>36 Ay</option>
-                  <option value="48">48 Ay</option>
-                  <option value="60">60 Ay</option>
-                </select>
-                <p class="kz-form-hint" id="kzVadeHint">Kaç ay taksit ödemek istediğinizi seçin.</p>
-              </div>
-
-              <!-- Aylık Oran -->
-              <div class="kz-form-group">
-                <label for="kzAylikOran" class="kz-form-label">
-                  Aylık Faiz Oranı <abbr title="Yüzde">(%)</abbr>
-                </label>
-                <input
-                  type="number"
-                  id="kzAylikOran"
-                  class="kz-form-input"
-                  placeholder="ör. 4.50"
-                  min="0"
-                  max="100"
-                  step="0.01"
-                  inputmode="decimal"
-                  aria-describedby="kzOranHint kzDjsNote"
-                >
-                <p class="kz-form-hint" id="kzOranHint">Bankanızın uyguladığı aylık faiz oranını girin.</p>
-
-                <!-- DJS rate note — sadece DJS modunda görünür -->
-                <div
-                  class="kz-djs-rate-note"
-                  id="kzDjsNote"
-                  role="note"
-                  aria-live="polite">
-                  <span aria-hidden="true">ℹ️</span>
-                  <span>
-                    DJS modunda aylık oran bandı:
-                    <strong>%3,99 – %6,50</strong>.
-                    Kesin oran; araç modeli, profil ve galeri anlaşmasına göre belirlenir.
+              <div class="kz-form-row">
+                <div class="kz-form-group">
+                  <label class="kz-label" for="kz-vade">Vade (Ay)</label>
+                  <input class="kz-input" id="kz-vade" type="number" min="1" max="36" placeholder="Örn: 24" />
+                </div>
+                <div class="kz-form-group">
+                  <label class="kz-label" for="kz-oran">Aylık Faiz Oranı (%)</label>
+                  <input class="kz-input" id="kz-oran" type="number" min="0" step="0.01" placeholder="Örn: 3.99" />
+                  <span class="kz-hint kz-hint--warn" id="kz-djs-note" style="display:none;">
+                    DJS bandı: aylık %3,99 – %6,50. Ortalama (%5,25) üzerinden hesaplanır.
                   </span>
                 </div>
               </div>
 
-              <!-- Submit -->
-              <button type="submit" class="kz-calc-submit" id="kzCalcBtn">
+              <button type="button" class="kz-btn kz-btn--primary kz-btn--full" id="kz-hesapla-btn">
                 Hesapla →
               </button>
-            </form>
+            </div>
+
+            <!-- SONUÇ KUTUSU -->
+            <div class="kz-result" id="kz-taksit-result" style="margin-top:24px;">
+              <div class="kz-result__title">Tahmini Hesaplama Sonucu</div>
+              <div class="kz-result__grid">
+                <div class="kz-result__item">
+                  <div class="kz-result__label">Aylık Taksit</div>
+                  <div class="kz-result__value" id="kz-r-taksit">—</div>
+                </div>
+                <div class="kz-result__item">
+                  <div class="kz-result__label">Toplam Ödeme</div>
+                  <div class="kz-result__value" id="kz-r-toplam">—</div>
+                </div>
+                <div class="kz-result__item">
+                  <div class="kz-result__label">Toplam Faiz</div>
+                  <div class="kz-result__value" id="kz-r-faiz">—</div>
+                </div>
+              </div>
+              <div class="kz-result__note" id="kz-djs-note-result" style="display:none;">
+                DJS modunda faiz bandı %3,99 – %6,50'dir; ortalama (%5,25) kullanılmıştır.
+                Gerçek oran bankanın nihai değerlendirmesine göre değişir.
+              </div>
+              <div class="kz-result__note">
+                Bu hesaplama tahminidir. Kesin taksit tutarı banka onayına ve araç değerlendirmesine göre belirlenir.
+              </div>
+            </div>
+
+          </div><!-- /kz-card -->
+
+          <!-- Alt CTA -->
+          <div style="margin-top:20px;text-align:center;">
+            <a href="galeriler.html" class="kz-btn kz-btn--outline">Galerilerimizi Gör →</a>
           </div>
+        </div><!-- /sol kolon -->
 
-          <!-- RIGHT: Result -->
-          <div class="kz-result" id="kzResult">
+        <!-- SAĞ KOLON: FİNDEKS ÖN DEĞERLENDİRME -->
+        <div>
+          <div class="kz-card">
+            <div class="kz-card__badge">Findeks / KKB Ön Değerlendirme</div>
+            <h2 class="kz-card__title" style="font-size:1.15rem;margin-bottom:4px;">Kredi Çıkar mı?</h2>
+            <p class="kz-card__desc">5 kısa soruyla Findeks profilinizi analiz eder, tahmini KKB puanı ve sonuç üretiriz.</p>
 
-            <!-- Empty state -->
-            <div class="kz-result__card" id="kzResultEmpty">
-              <div class="kz-result__empty">
-                <div class="kz-result__empty-icon" aria-hidden="true">🧮</div>
-                <p class="kz-result__empty-text">
-                  Formu doldurun ve <strong>Hesapla</strong> butonuna basın.<br>
-                  Tahmini aylık taksitiniz burada görünecek.
-                </p>
-              </div>
-            </div>
-
-            <!-- Result state — hidden until calc -->
-            <div class="kz-result__card" id="kzResultCard" hidden>
-              <div class="kz-result__header">Hesaplama Sonucu</div>
-
-              <div class="kz-result__main">
-                <p class="kz-result__label">Tahmini Aylık Taksit</p>
-                <div class="kz-result__amount" id="kzMonthlyAmt">—</div>
-                <div class="kz-result__currency">Türk Lirası (₺)</div>
-              </div>
-
-              <div class="kz-result__breakdown">
-                <div class="kz-result__row">
-                  <span class="kz-result__row-label">Araç Fiyatı</span>
-                  <span class="kz-result__row-value" id="kzResFiyat">—</span>
-                </div>
-                <div class="kz-result__row">
-                  <span class="kz-result__row-label">Peşinat</span>
-                  <span class="kz-result__row-value" id="kzResPesinat">—</span>
-                </div>
-                <div class="kz-result__row">
-                  <span class="kz-result__row-label">Kredi Tutarı</span>
-                  <span class="kz-result__row-value" id="kzResKredi">—</span>
-                </div>
-                <div class="kz-result__row">
-                  <span class="kz-result__row-label">Vade</span>
-                  <span class="kz-result__row-value" id="kzResVade">—</span>
-                </div>
-                <div class="kz-result__row">
-                  <span class="kz-result__row-label">Aylık Oran</span>
-                  <span class="kz-result__row-value" id="kzResOran">—</span>
-                </div>
-                <div class="kz-result__row kz-result__row--highlight">
-                  <span class="kz-result__row-label">Toplam Geri Ödeme</span>
-                  <span class="kz-result__row-value" id="kzResToplam">—</span>
-                </div>
+            <!-- GİRİŞ / INTRO -->
+            <div id="kz-findeks-intro">
+              <div style="background:rgba(0,194,255,0.06);border:1px solid rgba(0,194,255,0.15);border-radius:10px;padding:16px;margin-bottom:20px;">
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                  <li style="font-size:0.85rem;color:var(--kz-muted);display:flex;gap:10px;align-items:flex-start;">
+                    <span style="color:var(--kz-accent);">✓</span>
+                    Kanuni takip / icra durumunuz
+                  </li>
+                  <li style="font-size:0.85rem;color:var(--kz-muted);display:flex;gap:10px;align-items:flex-start;">
+                    <span style="color:var(--kz-accent);">✓</span>
+                    Son 12 ay gecikme geçmişiniz
+                  </li>
+                  <li style="font-size:0.85rem;color:var(--kz-muted);display:flex;gap:10px;align-items:flex-start;">
+                    <span style="color:var(--kz-accent);">✓</span>
+                    Kart + KMH limit ve borç bilgisi
+                  </li>
+                  <li style="font-size:0.85rem;color:var(--kz-muted);display:flex;gap:10px;align-items:flex-start;">
+                    <span style="color:var(--kz-accent);">✓</span>
+                    Aylık toplam ödeme yükü
+                  </li>
+                </ul>
               </div>
 
-              <p class="kz-result__disclaimer">
-                Bu hesaplama yalnızca bilgilendirme amaçlıdır ve
-                bağlayıcılığı yoktur. Kesin taksit tutarı; banka,
-                kredi notu ve araç durumuna göre farklılık gösterebilir.
-              </p>
+              <div class="kz-disclaimer" style="margin-bottom:20px;">
+                Girdiğiniz bilgiler yalnızca tarayıcınızda işlenir; hiçbir sunucuya gönderilmez.
+                Bu değerlendirme ön bilgilendirme amaçlıdır; kesin taahhüt değildir.
+              </div>
+
+              <button type="button" class="kz-btn kz-btn--primary kz-btn--full" id="kz-findeks-start">
+                Ön Değerlendirmeye Başla →
+              </button>
             </div>
 
-            <!-- CTA card -->
-            <div class="kz-cta-card">
-              <p class="kz-cta-card__title">Anlaşmalı Galeriye Gidin</p>
-              <p class="kz-cta-card__sub">
-                KREDİZMİR anlaşmalı galerilerden araç seçin,
-                avantajlı faiz oranlarından anında yararlanın.
-              </p>
-              <a href="galeriler.html" class="kz-btn kz-btn--primary">
-                Galerilerimizi Gör →
-              </a>
-            </div>
+            <!-- FORM (adım adım — JS ile doldurulur) -->
+            <div id="kz-findeks-form" style="display:none;"></div>
 
-          </div>
-          <!-- /kz-result -->
+          </div><!-- /kz-card -->
 
-        </div>
-        <!-- /kz-calc-wrap -->
+          <!-- FİNDEKS SONUÇ (kz-card dışında) -->
+          <div class="kz-findeks-result" id="kz-findeks-result"></div>
 
-      </div>
-    </section>
+        </div><!-- /sağ kolon -->
 
-  </main>
+      </div><!-- /kz-two-col -->
+    </div>
+  </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer class="kz-footer">
-    <div class="kz-container kz-footer__inner">
-      <span class="kz-footer__brand">KREDİZMİR</span>
-      <nav class="kz-footer__links" aria-label="Alt navigasyon">
-        <a href="index.html"     class="kz-footer__link">Ana Sayfa</a>
-        <a href="galeriler.html" class="kz-footer__link">Galeriler</a>
-      </nav>
-      <span class="kz-footer__copy">© 2025 KREDİZMİR. Tüm hakları saklıdır.</span>
+    <div class="kz-container">
+      <p class="kz-footer__text">
+        © 2024 KREDİZMİR — Tüm hakları saklıdır. |
+        Bu site yalnızca ön bilgilendirme amaçlıdır; kesin kredi taahhüdü değildir.
+      </p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/findeks.js"></script>
   <script src="js/hesaplama.js"></script>
 </body>
 </html>

@@ -1,253 +1,294 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KREDİZMİR — Vergi levhalı, bireysel veya DJS seçeneğiyle araç finansmanında en güvenilir platform. Anlaşmalı galerilerle hızlı kredi onayı.">
-  <meta name="theme-color" content="#0A1A2F">
-  <title>KREDİZMİR – Araç Finansmanında Güvenilir Çözüm</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KREDİZMİR — 2. el taşıt finansmanında güvenilir çözüm ortağınız. Vergi levhalı, bireysel ve DJS finansman seçenekleriyle yanınızdayız." />
+  <title>KREDİZMİR | 2. El Taşıt Finansmanı</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header class="kz-header">
-    <div class="kz-container kz-header__inner">
-
-      <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
-        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="kz-logo__fallback" style="display:none;">
-          KREDİ<em>ZMİR</em>
-        </span>
-      </a>
-
-      <!-- Desktop nav -->
-      <nav class="kz-nav" aria-label="Ana navigasyon">
-        <a href="index.html"       class="kz-nav__link kz-nav__link--active">Ana Sayfa</a>
-        <a href="galeriler.html"   class="kz-nav__link">Galeriler</a>
-        <a href="hesaplama.html"   class="kz-nav__link">Hesaplama</a>
-        <a href="analiz.html"      class="kz-nav__link">Uygunluk Analizi</a>
-      </nav>
-
-      <!-- Hamburger -->
-      <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="kz-container">
+      <div class="kz-header__inner">
+        <a href="index.html" class="kz-logo">
+          <img src="public/logo.png" alt="KREDİZMİR Logo" onerror="this.style.display='none'" />
+          <div>
+            <div class="kz-logo__text">KREDİZMİR</div>
+            <div class="kz-logo__sub">Taşıt Finansmanı</div>
+          </div>
+        </a>
+        <nav class="kz-nav">
+          <a href="index.html" class="kz-nav__link active">Ana Sayfa</a>
+          <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+          <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+        </nav>
+      </div>
     </div>
-
-    <!-- Mobile nav drawer -->
-    <nav class="kz-nav kz-nav--mobile" id="kzMobileNav" aria-label="Mobil navigasyon">
-      <a href="index.html"     class="kz-nav__link kz-nav__link--active">Ana Sayfa</a>
-      <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
-      <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
-      <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
-    </nav>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <main>
-    <section class="kz-hero" aria-labelledby="heroTitle">
-      <div class="kz-hero__orb" aria-hidden="true"></div>
+  <!-- HERO -->
+  <section class="kz-hero">
+    <div class="kz-hero__card">
+      <div class="kz-hero__badge">İzmir merkezli · Türkiye geneli hizmet</div>
 
-      <div class="kz-container">
-        <div class="kz-hero__card kz-glass">
+      <h1 class="kz-hero__title">
+        Anahtar Teslim<br><span>Taşıt Finansmanı</span>
+      </h1>
 
-          <!-- Badge -->
-          <div class="kz-hero__badge" aria-hidden="true">
-            ✦ Türkiye'nin Güvenilir Araç Finansman Platformu
-          </div>
+      <p class="kz-hero__sub">
+        Rakipler tablo anlatır, biz süreci yönetiriz. 2. el araç finansmanında
+        hızlı ön değerlendirme, doğru banka eşleştirmesi ve şeffaf danışmanlık.
+      </p>
 
-          <!-- Title -->
-          <h1 class="kz-hero__title" id="heroTitle">
-            Hayalinizdeki Araca<br>
-            <span class="kz-text-accent">KREDİZMİR</span> ile Kavuşun
-          </h1>
+      <!-- TAB BUTONLARI -->
+      <div class="kz-tabs">
+        <button class="kz-tab" data-tab="vergili">Vergi Levhalı</button>
+        <button class="kz-tab" data-tab="normal">Normal Şahıs</button>
+        <button class="kz-tab" data-tab="djs">DJS</button>
+      </div>
 
-          <p class="kz-hero__sub">
-            Vergi levhalı, bireysel veya DJS seçeneğiyle,
-            anlaşmalı galerilerimizden size özel finansman çözümleri.
-          </p>
+      <!-- PANEL: VERGİ LEVHALI -->
+      <div class="kz-tab-panel" data-panel="vergili">
+        <div class="kz-tab-panel__title">Vergi Levhalı Finansman</div>
+        <p class="kz-tab-panel__desc">
+          Esnaf, serbest meslek ve şirket sahiplerine özel; daha yüksek kredi oranı
+          ve esnek ödeme planı avantajları.
+        </p>
+        <ul class="kz-feature-list">
+          <li>Araç bedelinin %80–100'üne kadar finansman imkânı</li>
+          <li>36 aya kadar vade, 3 ay ertelemeli seçenekler</li>
+          <li>Vergi levhası + SGK hizmet dökümü ile güçlü dosya</li>
+          <li>Hızlı ön değerlendirme, aynı gün başvuru</li>
+        </ul>
+      </div>
 
-          <!-- ===== TABS ===== -->
-          <div class="kz-tabs" role="tablist" aria-label="Finansman türü seçin">
+      <!-- PANEL: NORMAL ŞAHIS -->
+      <div class="kz-tab-panel" data-panel="normal">
+        <div class="kz-tab-panel__title">Normal Şahıs Finansmanı</div>
+        <p class="kz-tab-panel__desc">
+          Maaşlı çalışanlar ve serbest bireyler için şeffaf kriterlerle ön
+          değerlendirme ve banka eşleştirmesi.
+        </p>
+        <ul class="kz-feature-list">
+          <li>Findeks/KKB profilinize göre optimum banka seçimi</li>
+          <li>1350+ puan ile peşinatsız/az peşinatlı senaryo ihtimali artar.</li>
+          <li>Aylık gelire göre DSR analizi ile doğru vade planlaması</li>
+          <li>Evrak listesi ve süreç takibi baştan sona bizde</li>
+        </ul>
+      </div>
 
-            <div class="kz-tabs__bar">
-              <button
-                class="kz-tabs__btn kz-tabs__btn--active"
-                role="tab"
-                aria-selected="true"
-                aria-controls="tab-vergi"
-                id="btn-vergi"
-                data-tab="vergi">
-                🏢 Vergi Levhalı
-              </button>
-              <button
-                class="kz-tabs__btn"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-normal"
-                id="btn-normal"
-                data-tab="normal">
-                👤 Normal Şahıs
-              </button>
-              <button
-                class="kz-tabs__btn"
-                role="tab"
-                aria-selected="false"
-                aria-controls="tab-djs"
-                id="btn-djs"
-                data-tab="djs">
-                🤝 DJS
-              </button>
-            </div>
+      <!-- PANEL: DJS -->
+      <div class="kz-tab-panel" data-panel="djs">
+        <div class="kz-tab-panel__title">DJS — Dijital Senet Sistemi</div>
+        <p class="kz-tab-panel__desc">
+          Dijital senet altyapısıyla hızlı ve pratik finansman. Belirli araç
+          ve müşteri profillerine uygulanır.
+        </p>
+        <ul class="kz-feature-list">
+          <li>Aylık faiz bandı: %3,99 – %6,50 (profil ve bankaya göre değişir)</li>
+          <li>Daha az evrak, daha hızlı onay süreci</li>
+          <li>Araç kriteri: 2006 model+, 350.000 km altı, ağır hasar kaydı olmayan</li>
+          <li>Detaylar için danışmanınızla görüşün</li>
+        </ul>
+      </div>
 
-            <!-- ===== TAB: VERGİ LEVHALI ===== -->
-            <div class="kz-tab-panel kz-tab-panel--active"
-                 id="tab-vergi"
-                 role="tabpanel"
-                 aria-labelledby="btn-vergi">
-              <div class="kz-features">
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">🏛️</div>
-                  <div>
-                    <strong>Kurumsal Finansman</strong>
-                    <p>Şirketinize özel, esnek yapılandırılmış araç kredisi çözümleri</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">📉</div>
-                  <div>
-                    <strong>Avantajlı Faiz Oranı</strong>
-                    <p>Vergi mükellefleri için rakiplerin altındaki faiz oranları</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">⚡</div>
-                  <div>
-                    <strong>Hızlı Onay Süreci</strong>
-                    <p>24 saat içinde kredi değerlendirmesi ve geri dönüş</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">🧾</div>
-                  <div>
-                    <strong>Vergi Avantajı</strong>
-                    <p>KDV iadesi ve gider kaydı ile vergi optimizasyonu imkânı</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!-- TEK CTA -->
+      <div style="margin-top: 28px;">
+        <a href="galeriler.html" id="kz-gallery-btn" class="kz-btn kz-btn--primary">
+          Galerilerimizi Gör →
+        </a>
+      </div>
+    </div>
+  </section>
 
-            <!-- ===== TAB: NORMAL ŞAHIS ===== -->
-            <div class="kz-tab-panel"
-                 id="tab-normal"
-                 role="tabpanel"
-                 aria-labelledby="btn-normal">
-              <div class="kz-features">
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">💳</div>
-                  <div>
-                    <strong>Bireysel Kredi</strong>
-                    <p>Gelir durumunuza göre kişiselleştirilmiş ödeme planı</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">📅</div>
-                  <div>
-                    <strong>Esnek Vade</strong>
-                    <p>12 ila 60 ay arası dilediğiniz vadeyi seçin</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">📄</div>
-                  <div>
-                    <strong>Az Evrak</strong>
-                    <p>Minimum belge ile başvurun, bürokratik engel yok</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">💻</div>
-                  <div>
-                    <strong>Online Ön Başvuru</strong>
-                    <p>Galeriye gitmeden önce ön onay alın, zaman kazanın</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <!-- NEW: Weekly Favorite Cars section -->
+  <section class="kz-favorites-section">
+    <div class="kz-container">
+      <div class="kz-fav-header">
+        <div class="kz-fav-header__top">
+          <span class="kz-fav-badge">✦ Bu Hafta Vitrin</span>
+        </div>
+        <h2 class="kz-fav-title">Bu Hafta En Beğenilen Araçlar</h2>
+        <p class="kz-fav-subtitle">Bir araca tıkla — sana özel teklif hazırlayalım.</p>
+      </div>
+      <div class="kz-fav-grid" id="kz-fav-grid"></div>
+      <p class="kz-fav-note">📢 Bu ve benzeri araçlarımız için <a href="https://instagram.com/kredizmir" target="_blank" rel="noopener">kanalımıza abone olmayı</a> unutmayın.</p>
+    </div>
+  </section>
 
-            <!-- ===== TAB: DJS ===== -->
-            <div class="kz-tab-panel"
-                 id="tab-djs"
-                 role="tabpanel"
-                 aria-labelledby="btn-djs">
-              <div class="kz-features">
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">🤝</div>
-                  <div>
-                    <strong>Bayi İşbirliği</strong>
-                    <p>Anlaşmalı galeriler aracılığıyla kolaylaştırılmış finansman</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">📊</div>
-                  <div>
-                    <strong>Rekabetçi Oran</strong>
-                    <p>Aylık %3,99 – %6,50 bandında avantajlı faiz seçeneği</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">🚗</div>
-                  <div>
-                    <strong>Geniş Araç Stoğu</strong>
-                    <p>Anlaşmalı galerilerimizde yüzlerce araç arasından seçim</p>
-                  </div>
-                </div>
-                <div class="kz-feature">
-                  <div class="kz-feature__icon" aria-hidden="true">🔒</div>
-                  <div>
-                    <strong>Güvenceli Alışveriş</strong>
-                    <p>KREDİZMİR güvencesiyle şeffaf ve güvenli satın alma</p>
-                  </div>
-                </div>
-              </div>
+  <!-- NASIL ÇALIŞIR -->
+  <section class="kz-section">
+    <div class="kz-container">
+      <h2 style="text-align:center;font-size:1.6rem;font-weight:800;margin-bottom:8px;">Nasıl Çalışıyoruz?</h2>
+      <p style="text-align:center;color:var(--kz-muted);margin-bottom:40px;font-size:0.95rem;">Süreci sizin için yönetiyoruz — baştan sona.</p>
 
-              <div class="kz-djs-note" role="note">
-                <span aria-hidden="true">ℹ️</span>
-                <span>
-                  DJS modunda aylık faiz oranı
-                  <strong>%3,99 – %6,50</strong> bandında uygulanmaktadır.
-                  Kesin oran, araç ve profil değerlendirmesine göre belirlenir.
-                </span>
-              </div>
-            </div>
+      <div class="kz-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
 
-          </div>
-          <!-- /tabs -->
+        <div class="kz-card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:12px;">📋</div>
+          <div class="kz-card__title">1. Ön Değerlendirme</div>
+          <div class="kz-card__desc">5 soruyla Findeks/KKB profilinizi analiz eder, tahmini puan ve limit bandı üretiriz.</div>
+        </div>
 
-              <!-- CTA — her zaman aynı, galeri listesi ASLA burada görünmez -->
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem;">
-            <a href="galeriler.html" class="kz-btn kz-btn--primary">Galerilerimizi Gör →</a>
-            <a href="analiz.html" class="kz-btn kz-btn--outline">Uygunluk Analizi →</a>
-          </div>
+        <div class="kz-card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:12px;">🏦</div>
+          <div class="kz-card__title">2. Banka Eşleştirme</div>
+          <div class="kz-card__desc">Profilinize en uygun bankayı seçer, başvuru sürecini birlikte yönetiriz.</div>
+        </div>
 
+        <div class="kz-card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:12px;">🚗</div>
+          <div class="kz-card__title">3. Araç & Evrak</div>
+          <div class="kz-card__desc">Araç kriterlerini kontrol eder, evrak listesini hazırlar, eksikleri tamamlarız.</div>
+        </div>
+
+        <div class="kz-card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:12px;">🔑</div>
+          <div class="kz-card__title">4. Anahtar Teslim</div>
+          <div class="kz-card__desc">Onay sonrası teslim sürecine kadar yanınızdayız. Süreç tamam.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW: One-click offer form -->
+  <section class="kz-section--sm kz-offer-section">
+    <div class="kz-container">
+      <div class="kz-offer-header">
+        <div class="kz-insta-label">Hızlı Başvuru</div>
+        <div class="kz-offer-title">Tek Tık Teklif</div>
+        <p class="kz-offer-desc">İlan linkini veya ilan numarasını bırakın, size özel teklifi hemen iletelim.</p>
+      </div>
+      <div class="kz-offer-form" id="kz-offer-form">
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-offer-ilan">İlan Linki veya İlan No</label>
+          <input
+            class="kz-input"
+            id="kz-offer-ilan"
+            type="text"
+            placeholder="Örn: https://...  veya  1234567890"
+            autocomplete="off"
+          />
+          <span class="kz-offer-error" id="kz-offer-ilan-err"></span>
+        </div>
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-offer-tel">Telefon Numaranız</label>
+          <input
+            class="kz-input"
+            id="kz-offer-tel"
+            type="tel"
+            placeholder="05xx xxx xx xx"
+            autocomplete="tel"
+          />
+          <span class="kz-offer-error" id="kz-offer-tel-err"></span>
+        </div>
+        <div class="kz-offer-btns">
+          <button class="kz-btn kz-btn--primary" id="kz-offer-hakan">📲 Hakan Bey'e Gönder</button>
+          <button class="kz-btn kz-btn--gold"    id="kz-offer-oguz" >📲 Oğuz Bey'e Gönder</button>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- INSTAGRAM DAVET -->
+  <!-- REMOVED: QR section -->
+  <section class="kz-section--sm kz-insta-section">
+    <div class="kz-container">
+      <div class="kz-insta-inner">
+        <!-- UPDATED COPY -->
+        <div class="kz-insta-text">
+          <div class="kz-insta-label">Instagram Kanalımız</div>
+          <div class="kz-insta-title">Güncel Araç İlanlarını Takip Edin</div>
+          <div class="kz-insta-desc">En yeni araç ilanları ve fırsatlar için kanalımıza katılın. Her gün yeni araçlar ekleniyor!</div>
+          <a href="https://instagram.com/kredizmir" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
+            📷 Kanala Katıl →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERİ MODAL -->
+  <div id="kz-gallery-modal" class="kz-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-modal-title">
+    <div class="kz-modal">
+      <button class="kz-modal__close" id="kz-modal-close" aria-label="Kapat">✕</button>
+      <div class="kz-modal__icon">🚗</div>
+      <h2 class="kz-modal__title" id="kz-modal-title">Özel Teklif Alın!</h2>
+      <!-- UPDATED COPY -->
+      <p class="kz-modal__msg">
+        En uygun vade ve faiz için beğendiğiniz ilanın linkini bize iletin.
+        Size özel güncel oranları ve avantajlı seçenekleri paylaşalım.
+      </p>
+      <div class="kz-modal__contacts">
+        <a href="tel:+905363972232" class="kz-modal__contact">
+          <span class="kz-modal__contact-icon">📞</span>
+          <div>
+            <div class="kz-modal__contact-name">Hakan Bey</div>
+            <div class="kz-modal__contact-phone">0536 397 2232</div>
+          </div>
+        </a>
+        <a href="tel:+905307258789" class="kz-modal__contact">
+          <span class="kz-modal__contact-icon">📞</span>
+          <div>
+            <div class="kz-modal__contact-name">Oğuz Bey</div>
+            <div class="kz-modal__contact-phone">0530 725 8789</div>
+          </div>
+        </a>
+      </div>
+      <div class="kz-modal__actions">
+        <a href="galeriler.html" class="kz-btn kz-btn--primary kz-btn--full">Galeriye Git →</a>
+        <button class="kz-btn kz-btn--outline kz-btn--full" id="kz-modal-dismiss">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW: Favorite car click -> "İlanı Bize İlet" popup with views social proof -->
+  <div id="kz-fav-modal" class="kz-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-fav-modal-title">
+    <div class="kz-modal" style="max-width:480px;text-align:left;">
+      <button class="kz-modal__close" id="kz-fav-modal-close" aria-label="Kapat">✕</button>
+      <div class="kz-modal__icon" style="text-align:center;">🚗</div>
+      <h2 class="kz-modal__title" id="kz-fav-modal-title" style="text-align:center;">İlanı Bize İlet</h2>
+      <div class="kz-fav-views" id="kz-fav-views">
+        Bu hafta bu araca <strong id="kz-fav-views-count">--</strong>+ kişi baktı.
+      </div>
+      <p class="kz-modal__msg">
+        İlan linkini/numarasını WhatsApp'tan bize iletin, size özel teklif hazırlayalım.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-fav-ilan">İlan Linki veya İlan No</label>
+          <input class="kz-input" id="kz-fav-ilan" type="text" placeholder="Otomatik dolu" autocomplete="off" />
+          <span class="kz-offer-error" id="kz-fav-ilan-err"></span>
+        </div>
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-fav-tel">Telefon Numaranız</label>
+          <input class="kz-input" id="kz-fav-tel" type="tel" placeholder="05xx xxx xx xx" autocomplete="tel" />
+          <span class="kz-offer-error" id="kz-fav-tel-err"></span>
+        </div>
+      </div>
+      <div class="kz-modal__actions">
+        <button class="kz-btn kz-btn--primary kz-btn--full" id="kz-fav-hakan">📲 Hakan Bey'e Gönder</button>
+        <button class="kz-btn kz-btn--gold kz-btn--full" id="kz-fav-oguz">📲 Oğuz Bey'e Gönder</button>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="kz-btn kz-btn--outline kz-btn--full" id="kz-fav-see" style="display:none;justify-content:center;">🔗 İlanı Gör</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer class="kz-footer">
-    <div class="kz-container kz-footer__inner">
-      <span class="kz-footer__brand">KREDİZMİR</span>
-      <nav class="kz-footer__links" aria-label="Alt navigasyon">
-        <a href="galeriler.html"  class="kz-footer__link">Galeriler</a>
-        <a href="hesaplama.html"  class="kz-footer__link">Hesaplama</a>
-      </nav>
-      <span class="kz-footer__copy">© 2025 KREDİZMİR. Tüm hakları saklıdır.</span>
+    <div class="kz-container">
+      <p class="kz-footer__text">
+        © 2024 KREDİZMİR — Tüm hakları saklıdır. |
+        Bu site yalnızca ön bilgilendirme amaçlıdır; kesin kredi taahhüdü değildir.
+      </p>
     </div>
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/favorites.js"></script>
 </body>
 </html>

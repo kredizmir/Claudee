@@ -1,64 +1,122 @@
-/**
- * KREDİZMİR — main.js
- * Hamburger menu + Tab switching (index.html)
- */
+/* =========================================================
+   KREDİZMİR — main.js
+   Sekme (tab) geçiş mantığı — index.html için
+   ========================================================= */
 
 (function () {
   'use strict';
 
-  /* ---- Hamburger ---- */
-  var hamburger   = document.getElementById('kzHamburger');
-  var mobileNav   = document.getElementById('kzMobileNav');
+  function initTabs() {
+    const tabs = document.querySelectorAll('.kz-tab[data-tab]');
+    const panels = document.querySelectorAll('.kz-tab-panel[data-panel]');
 
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', function () {
-      var isOpen = mobileNav.classList.toggle('kz-nav--open');
-      hamburger.classList.toggle('kz-hamburger--open', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
+    if (!tabs.length || !panels.length) return;
 
-    // Close on nav link click
-    mobileNav.querySelectorAll('.kz-nav__link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        mobileNav.classList.remove('kz-nav--open');
-        hamburger.classList.remove('kz-hamburger--open');
-        hamburger.setAttribute('aria-expanded', 'false');
+    function activateTab(id) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+      panels.forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        activateTab(this.dataset.tab);
       });
     });
 
-    // Close when clicking outside
-    document.addEventListener('click', function (e) {
-      if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
-        mobileNav.classList.remove('kz-nav--open');
-        hamburger.classList.remove('kz-hamburger--open');
-        hamburger.setAttribute('aria-expanded', 'false');
+    // İlk sekmeyi aç
+    if (tabs[0]) activateTab(tabs[0].dataset.tab);
+  }
+
+  // NEW: One-click offer form — WhatsApp yönlendirme
+  function initOfferForm() {
+    var ilanInput = document.getElementById('kz-offer-ilan');
+    var telInput  = document.getElementById('kz-offer-tel');
+    var ilanErr   = document.getElementById('kz-offer-ilan-err');
+    var telErr    = document.getElementById('kz-offer-tel-err');
+    var btnHakan  = document.getElementById('kz-offer-hakan');
+    var btnOguz   = document.getElementById('kz-offer-oguz');
+
+    if (!ilanInput || !btnHakan || !btnOguz) return;
+
+    function validate() {
+      var ok = true;
+      var ilan = ilanInput.value.trim();
+      var tel  = telInput.value.trim();
+
+      if (!ilan) {
+        ilanErr.textContent = 'Lütfen ilan linki veya ilan numarası girin.';
+        ok = false;
+      } else {
+        ilanErr.textContent = '';
       }
+
+      if (!tel) {
+        telErr.textContent = 'Lütfen telefon numaranızı girin.';
+        ok = false;
+      } else {
+        telErr.textContent = '';
+      }
+
+      return ok;
+    }
+
+    function buildWaUrl(phone) {
+      var ilan = ilanInput.value.trim();
+      var tel  = telInput.value.trim();
+      var msg  = 'Merhaba KREDİZMİR, ilan: ' + ilan + ' Telefonum: ' + tel;
+      return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+    }
+
+    btnHakan.addEventListener('click', function () {
+      if (!validate()) return;
+      window.open(buildWaUrl('905363972232'), '_blank', 'noopener');
+    });
+
+    btnOguz.addEventListener('click', function () {
+      if (!validate()) return;
+      window.open(buildWaUrl('905307258789'), '_blank', 'noopener');
+    });
+
+    // Hata mesajını sil kullanıcı yazmaya başlayınca
+    ilanInput.addEventListener('input', function () { ilanErr.textContent = ''; });
+    telInput.addEventListener('input',  function () { telErr.textContent  = ''; });
+  }
+
+  function initGalleryModal() {
+    var btn     = document.getElementById('kz-gallery-btn');
+    var modal   = document.getElementById('kz-gallery-modal');
+    var closeX  = document.getElementById('kz-modal-close');
+    var dismiss = document.getElementById('kz-modal-dismiss');
+
+    if (!btn || !modal) return;
+
+    function openModal(e) {
+      e.preventDefault();
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', openModal);
+    closeX.addEventListener('click', closeModal);
+    dismiss.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
     });
   }
 
-  /* ---- Tabs (index.html hero) ---- */
-  var tabsBar = document.querySelector('.kz-tabs__bar');
-  if (!tabsBar) return;
-
-  var tabBtns   = tabsBar.querySelectorAll('.kz-tabs__btn');
-  var tabPanels = document.querySelectorAll('.kz-tab-panel');
-
-  tabBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var target = btn.dataset.tab;
-
-      // Buttons
-      tabBtns.forEach(function (b) {
-        b.classList.toggle('kz-tabs__btn--active', b === btn);
-        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
-      });
-
-      // Panels
-      tabPanels.forEach(function (panel) {
-        var isActive = panel.id === 'tab-' + target;
-        panel.classList.toggle('kz-tab-panel--active', isActive);
-      });
-    });
+  document.addEventListener('DOMContentLoaded', function () {
+    initTabs();
+    initGalleryModal();
+    initOfferForm();
   });
-
 })();
