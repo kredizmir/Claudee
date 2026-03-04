@@ -616,6 +616,44 @@ input, select { font-family: inherit; }
 .kz-footer__text { font-size: 0.82rem; color: var(--kz-muted); }
 .kz-footer__text a { color: var(--kz-accent); }
 
+/* --- One-click Offer Form -------------------------------- */
+.kz-offer-section {
+  background: rgba(212,175,55,0.05);
+  border-top: 1px solid var(--kz-border);
+  border-bottom: 1px solid var(--kz-border);
+}
+.kz-offer-header { text-align: center; margin-bottom: 28px; }
+.kz-offer-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--kz-white);
+  margin-bottom: 8px;
+}
+.kz-offer-desc {
+  font-size: 0.9rem;
+  color: var(--kz-muted);
+}
+.kz-offer-form {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.kz-offer-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.kz-offer-btns .kz-btn { flex: 1; justify-content: center; min-width: 180px; }
+.kz-offer-error {
+  font-size: 0.78rem;
+  color: var(--kz-danger);
+  min-height: 18px;
+  display: block;
+  margin-top: 4px;
+}
+
 /* --- Instagram Section ----------------------------------- */
 .kz-insta-section {
   background: rgba(0,194,255,0.06);
@@ -649,28 +687,7 @@ input, select { font-family: inherit; }
   color: var(--kz-muted);
   margin-bottom: 18px;
 }
-.kz-insta-qr { text-align: center; flex-shrink: 0; }
-.kz-insta-qr__label {
-  font-size: 0.72rem;
-  color: var(--kz-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 10px;
-}
-.kz-insta-qr__box {
-  background: #fff;
-  border-radius: 12px;
-  padding: 8px;
-  display: inline-block;
-  border: 2px solid var(--kz-border);
-}
-.kz-insta-qr__box img { display: block; border-radius: 6px; }
-.kz-insta-qr__sub {
-  font-size: 0.8rem;
-  color: var(--kz-accent);
-  font-weight: 600;
-  margin-top: 8px;
-}
+/* REMOVED: QR section styles */
 
 /* --- Gallery Modal --------------------------------------- */
 .kz-modal-backdrop {

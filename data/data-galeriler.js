@@ -10,7 +10,7 @@ var KZ_GALERILER = [
     ad: "FSS Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://fssotomotivv.sahibinden.com"
   },
@@ -19,7 +19,7 @@ var KZ_GALERILER = [
     ad: "Temeller Auto",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://temellerauto.sahibinden.com"
   },
@@ -28,7 +28,7 @@ var KZ_GALERILER = [
     ad: "Armağan Motors",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://armaganmotors.sahibinden.com"
   },
@@ -37,7 +37,7 @@ var KZ_GALERILER = [
     ad: "İlboğa Motors",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://ilbogamotors.sahibinden.com"
   },
@@ -46,7 +46,7 @@ var KZ_GALERILER = [
     ad: "VT Motors İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://vtmotorsizmir.sahibinden.com"
   },
@@ -55,7 +55,7 @@ var KZ_GALERILER = [
     ad: "OPCAR Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://opcar.sahibinden.com"
   },
@@ -64,7 +64,7 @@ var KZ_GALERILER = [
     ad: "Sefa Oto İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://sefaotoizmir.sahibinden.com"
   },
@@ -73,7 +73,7 @@ var KZ_GALERILER = [
     ad: "Okyanus Oto İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://okyanusotoizmir.sahibinden.com"
   },
@@ -82,7 +82,7 @@ var KZ_GALERILER = [
     ad: "İZPARK Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://umitauto35.sahibinden.com"
   },
@@ -91,7 +91,7 @@ var KZ_GALERILER = [
     ad: "Galerix Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://galerix.sahibinden.com"
   },
@@ -100,7 +100,7 @@ var KZ_GALERILER = [
     ad: "Danış Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://danisotomotivizmir.sahibinden.com"
   },
@@ -109,7 +109,7 @@ var KZ_GALERILER = [
     ad: "Konuk Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://konukotomotivizmir.sahibinden.com"
   },
@@ -118,7 +118,7 @@ var KZ_GALERILER = [
     ad: "Özerçetin Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://ercetinotomotiv1.sahibinden.com"
   },
@@ -127,7 +127,7 @@ var KZ_GALERILER = [
     ad: "Dağlı Motors",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://daglimotors.sahibinden.com"
   },
@@ -136,7 +136,7 @@ var KZ_GALERILER = [
     ad: "Beyefendi Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://beyefendiauto.sahibinden.com"
   },
@@ -145,7 +145,7 @@ var KZ_GALERILER = [
     ad: "Fatih Auto",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://fatihauto.sahibinden.com"
   },
@@ -154,7 +154,7 @@ var KZ_GALERILER = [
     ad: "YNY Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://ynyotomotiv.sahibinden.com"
   },
@@ -163,7 +163,7 @@ var KZ_GALERILER = [
     ad: "AZM Otomotiv",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://azmotomotiv.sahibinden.com"
   },
@@ -172,7 +172,7 @@ var KZ_GALERILER = [
     ad: "Özkoyuncu Oto İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://ozkoyuncuotoizmir.sahibinden.com"
   },
@@ -181,7 +181,7 @@ var KZ_GALERILER = [
     ad: "Bayraktar Otomotiv İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://bayraktarotomotivizmir.sahibinden.com"
   },
@@ -190,7 +190,7 @@ var KZ_GALERILER = [
     ad: "Kurşun Otomotiv İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://kursunotomotivizmir.sahibinden.com"
   },
@@ -199,7 +199,7 @@ var KZ_GALERILER = [
     ad: "Ceylan Otomotiv 35",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://ceylanotomotiv35.sahibinden.com"
   },
@@ -208,7 +208,7 @@ var KZ_GALERILER = [
     ad: "OtoNuSeç",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://otonusec.sahibinden.com"
   },
@@ -217,7 +217,7 @@ var KZ_GALERILER = [
     ad: "Oto Bulut",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://otobulut.sahibinden.com"
   },
@@ -226,7 +226,7 @@ var KZ_GALERILER = [
     ad: "Platin Oto",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://platinoto.sahibinden.com"
   },
@@ -235,7 +235,7 @@ var KZ_GALERILER = [
     ad: "Karakaya Auto İzmir",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://karakayaautoizmir.sahibinden.com"
   },
@@ -244,7 +244,7 @@ var KZ_GALERILER = [
     ad: "Bilge Oto",
     sehir: "İzmir",
     ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle hizmet veren güvenilir 2. el galeri.",
+    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
     etiket: ["2. El", "Sahibinden"],
     link: "https://bilgeoto.sahibinden.com"
   }

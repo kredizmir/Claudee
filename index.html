@@ -74,7 +74,7 @@
         </p>
         <ul class="kz-feature-list">
           <li>Findeks/KKB profilinize göre optimum banka seçimi</li>
-          <li>Peşinatsız senaryo: 1350+ puan avantajı</li>
+          <li>1350+ puan ile peşinatsız/az peşinatlı senaryo ihtimali artar.</li>
           <li>Aylık gelire göre DSR analizi ile doğru vade planlaması</li>
           <li>Evrak listesi ve süreç takibi baştan sona bizde</li>
         </ul>
@@ -90,7 +90,7 @@
         <ul class="kz-feature-list">
           <li>Aylık faiz bandı: %3,99 – %6,50 (profil ve bankaya göre değişir)</li>
           <li>Daha az evrak, daha hızlı onay süreci</li>
-          <li>Araç kriteri: 2006 model+, 350.000 km altı, hasarsız</li>
+          <li>Araç kriteri: 2006 model+, 350.000 km altı, ağır hasar kaydı olmayan</li>
           <li>Detaylar için danışmanınızla görüşün</li>
         </ul>
       </div>
@@ -133,35 +133,65 @@
         <div class="kz-card" style="text-align:center;">
           <div style="font-size:2rem;margin-bottom:12px;">🔑</div>
           <div class="kz-card__title">4. Anahtar Teslim</div>
-          <div class="kz-card__desc">Onay çıktıktan sonra teslim sürecine kadar yanınızdayız. İş bitti.</div>
+          <div class="kz-card__desc">Onay sonrası teslim sürecine kadar yanınızdayız. Süreç tamam.</div>
         </div>
 
       </div>
     </div>
   </section>
 
+  <!-- NEW: One-click offer form -->
+  <section class="kz-section--sm kz-offer-section">
+    <div class="kz-container">
+      <div class="kz-offer-header">
+        <div class="kz-insta-label">Hızlı Başvuru</div>
+        <div class="kz-offer-title">Tek Tık Teklif</div>
+        <p class="kz-offer-desc">İlan linkini veya ilan numarasını bırakın, size özel teklifi hemen iletelim.</p>
+      </div>
+      <div class="kz-offer-form" id="kz-offer-form">
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-offer-ilan">İlan Linki veya İlan No</label>
+          <input
+            class="kz-input"
+            id="kz-offer-ilan"
+            type="text"
+            placeholder="Örn: https://...  veya  1234567890"
+            autocomplete="off"
+          />
+          <span class="kz-offer-error" id="kz-offer-ilan-err"></span>
+        </div>
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-offer-tel">Telefon Numaranız</label>
+          <input
+            class="kz-input"
+            id="kz-offer-tel"
+            type="tel"
+            placeholder="05xx xxx xx xx"
+            autocomplete="tel"
+          />
+          <span class="kz-offer-error" id="kz-offer-tel-err"></span>
+        </div>
+        <div class="kz-offer-btns">
+          <button class="kz-btn kz-btn--primary" id="kz-offer-hakan">📲 Hakan Bey'e Gönder</button>
+          <button class="kz-btn kz-btn--gold"    id="kz-offer-oguz" >📲 Oğuz Bey'e Gönder</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- INSTAGRAM DAVET -->
+  <!-- REMOVED: QR section -->
   <section class="kz-section--sm kz-insta-section">
     <div class="kz-container">
       <div class="kz-insta-inner">
+        <!-- UPDATED COPY -->
         <div class="kz-insta-text">
           <div class="kz-insta-label">Instagram Kanalımız</div>
           <div class="kz-insta-title">Güncel Araç İlanlarını Takip Edin</div>
           <div class="kz-insta-desc">En yeni araç ilanları ve fırsatlar için kanalımıza katılın. Her gün yeni araçlar ekleniyor!</div>
-          <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
+          <a href="https://instagram.com/kredizmir" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
             📷 Kanala Katıl →
           </a>
-        </div>
-        <div class="kz-insta-qr">
-          <div class="kz-insta-qr__label">QR Kodu ile Tara</div>
-          <div class="kz-insta-qr__box">
-            <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fwww.instagram.com%2Fchannel%2FAbZRpJkUCuh6ebaf%2F%3Figsh%3DMW9vbGc3aTB2cml3NQ%3D%3D"
-              alt="Instagram Kanal QR Kodu"
-              width="160" height="160"
-            />
-          </div>
-          <div class="kz-insta-qr__sub">@kredizmir</div>
         </div>
       </div>
     </div>
@@ -173,9 +203,10 @@
       <button class="kz-modal__close" id="kz-modal-close" aria-label="Kapat">✕</button>
       <div class="kz-modal__icon">🚗</div>
       <h2 class="kz-modal__title" id="kz-modal-title">Özel Teklif Alın!</h2>
+      <!-- UPDATED COPY -->
       <p class="kz-modal__msg">
-        En uygun vade ve faiz oranları için beğendiğiniz aracı bizlere yönlendirin.
-        Size özel güncel faiz indirimi ve araç için indirimleri teklif edelim.
+        En uygun vade ve faiz için beğendiğiniz ilanın linkini bize iletin.
+        Size özel güncel oranları ve avantajlı seçenekleri paylaşalım.
       </p>
       <div class="kz-modal__contacts">
         <a href="tel:+905363972232" class="kz-modal__contact">
