@@ -1673,3 +1673,33 @@ input, select { font-family: inherit; }
 @media (max-width: 480px) {
   .kz-musteri-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Müşteri Araçları — body/arrow/info classes */
+.kz-musteri-body {
+  display: none;
+  margin-top: 12px;
+  padding: 20px;
+  background: rgba(13,17,23,0.6);
+  border: 1px solid rgba(0,194,255,0.1);
+  border-radius: 12px;
+}
+.kz-musteri-body--open { display: block; }
+.kz-musteri-toggle__arrow {
+  transition: transform .25s;
+  flex-shrink: 0;
+}
+[aria-expanded="true"] .kz-musteri-toggle__arrow { transform: rotate(180deg); }
+.kz-musteri-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.kz-musteri-desc {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.93rem;
+  line-height: 1.6;
+  max-width: 540px;
+}
