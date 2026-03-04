@@ -240,6 +240,20 @@
     </div>
   </section>
 
+  <!-- CHATBOT WIDGET -->
+  <div id="kz-chat-btn" class="kz-chat-fab" aria-label="Yardım al" role="button" tabindex="0">
+    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="kz-chat-fab__label">Yardım</span>
+  </div>
+  <div id="kz-chat-box" class="kz-chat-box" role="dialog" aria-label="Sohbet" aria-hidden="true">
+    <div class="kz-chat-header">
+      <span>KREDİZMİR Asistan</span>
+      <button id="kz-chat-close" aria-label="Kapat" class="kz-chat-close">✕</button>
+    </div>
+    <div class="kz-chat-messages" id="kz-chat-messages"></div>
+    <div class="kz-chat-options" id="kz-chat-options"></div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="kz-footer">
     <div class="kz-container">
@@ -254,6 +268,112 @@
   <script src="js/galeriler.js"></script>
   <script src="js/main.js"></script>
   <script src="js/favorites.js"></script>
+  <script>
+  /* ---- Chatbot ---- */
+  (function(){
+    var WA_HAKAN = '905363972232';
+    var fab      = document.getElementById('kz-chat-btn');
+    var box      = document.getElementById('kz-chat-box');
+    var closeBtn = document.getElementById('kz-chat-close');
+    var msgWrap  = document.getElementById('kz-chat-messages');
+    var optWrap  = document.getElementById('kz-chat-options');
+
+    var FLOW = {
+      start: {
+        msg: 'Merhaba! Size nasıl yardımcı olabilirim?',
+        opts: [
+          { label: '🚗 Araç kredisi almak istiyorum', next: 'kredi' },
+          { label: '🏦 Hangi bankalarla çalışıyorsunuz?', next: 'bankalar' },
+          { label: '📋 Gerekli belgeler neler?', next: 'belgeler' },
+          { label: '📍 Anlaşmalı galeriler', next: 'galeriler' },
+          { label: '📞 Hemen bağlanın', next: 'wa' },
+        ]
+      },
+      kredi: {
+        msg: 'Araç kredisi için uzmanlarımız size özel teklif hazırlasın. Hakan Bey ile WhatsApp\'tan iletişime geçelim mi?',
+        opts: [
+          { label: '✅ Evet, WhatsApp\'tan bağlanın', next: 'wa', waMsg: 'Merhaba, araç kredisi hakkında bilgi almak istiyorum.' },
+          { label: '← Geri', next: 'start' }
+        ]
+      },
+      bankalar: {
+        msg: 'Ziraat, Halkbank, Vakıfbank, Garanti, QNB, TEB ve daha birçok banka ile anlaşmalıyız. Detay için uzmanımızla konuşun.',
+        opts: [
+          { label: '📲 Uzmanla konuş', next: 'wa', waMsg: 'Merhaba, anlaşmalı bankalar hakkında bilgi almak istiyorum.' },
+          { label: '← Geri', next: 'start' }
+        ]
+      },
+      belgeler: {
+        msg: 'Temel belgeler: Nüfus cüzdanı, ikametgah, gelir belgesi (maaş bordrosu veya vergi levhası). Duruma göre ek belge gerekebilir.',
+        opts: [
+          { label: '📲 Detaylı bilgi al', next: 'wa', waMsg: 'Merhaba, kredi için gerekli belgeler hakkında bilgi almak istiyorum.' },
+          { label: '← Geri', next: 'start' }
+        ]
+      },
+      galeriler: {
+        msg: 'İzmir\'de 27 anlaşmalı galerimiz bulunuyor. Aşağıdan galerilerimize göz atabilir veya bizimle iletişime geçebilirsiniz.',
+        opts: [
+          { label: '🔍 Galeriye Git', next: 'galeri_link' },
+          { label: '📲 Bilgi al', next: 'wa', waMsg: 'Merhaba, anlaşmalı galeriler hakkında bilgi almak istiyorum.' },
+          { label: '← Geri', next: 'start' }
+        ]
+      },
+      galeri_link: { msg: '', opts: [] },
+      wa: { msg: '', opts: [] }
+    };
+
+    function addMsg(text, isBot) {
+      var d = document.createElement('div');
+      d.className = 'kz-chat-msg ' + (isBot ? 'kz-chat-msg--bot' : 'kz-chat-msg--user');
+      d.textContent = text;
+      msgWrap.appendChild(d);
+      msgWrap.scrollTop = msgWrap.scrollHeight;
+    }
+
+    function showStep(key, waMsg) {
+      var step = FLOW[key];
+      optWrap.innerHTML = '';
+      if (key === 'wa') {
+        var msg = waMsg || 'Merhaba KREDİZMİR, bilgi almak istiyorum.';
+        window.open('https://wa.me/' + WA_HAKAN + '?text=' + encodeURIComponent(msg), '_blank');
+        addMsg('WhatsApp açılıyor… Hakan Bey sizi bekliyor.', true);
+        setTimeout(function(){ showStep('start'); }, 1200);
+        return;
+      }
+      if (key === 'galeri_link') {
+        document.getElementById('galeriler').scrollIntoView({ behavior: 'smooth' });
+        closeChat();
+        return;
+      }
+      if (step.msg) addMsg(step.msg, true);
+      step.opts.forEach(function(opt) {
+        var btn = document.createElement('button');
+        btn.className = 'kz-chat-opt';
+        btn.textContent = opt.label;
+        btn.addEventListener('click', function() {
+          addMsg(opt.label, false);
+          optWrap.innerHTML = '';
+          setTimeout(function(){ showStep(opt.next, opt.waMsg); }, 300);
+        });
+        optWrap.appendChild(btn);
+      });
+    }
+
+    function openChat() {
+      box.classList.add('kz-chat-box--open');
+      box.setAttribute('aria-hidden', 'false');
+      if (!msgWrap.hasChildNodes()) showStep('start');
+    }
+    function closeChat() {
+      box.classList.remove('kz-chat-box--open');
+      box.setAttribute('aria-hidden', 'true');
+    }
+
+    fab.addEventListener('click', function(){ box.classList.contains('kz-chat-box--open') ? closeChat() : openChat(); });
+    fab.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fab.click(); } });
+    closeBtn.addEventListener('click', closeChat);
+  })();
+  </script>
   <script>
   (function(){
     var toggle = document.getElementById('kz-musteri-toggle');
