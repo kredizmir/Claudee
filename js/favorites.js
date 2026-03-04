@@ -8,17 +8,17 @@
   const KZ_FAVORITES = [
     {
       title: 'VW Polo 1.4 Comfortline 2014',
-      imageUrl: null,
+      imageUrl: 'public/polo.jpg',
       listingUrl: null,
       listingNo: 'VW Polo 1.4 Comfortline 2014',
       views: 187,
       km: '207.000 KM',
       fuel: 'Dizel',
-      transmission: 'Manuel',
+      transmission: 'Otomatik',
     },
     {
       title: 'Ford C-Max 1.6 Titanium 2011',
-      imageUrl: null,
+      imageUrl: 'public/cmax.jpg',
       listingUrl: null,
       listingNo: 'Ford C-Max 1.6 Titanium 2011',
       views: 124,
@@ -28,7 +28,7 @@
     },
     {
       title: 'Renault Clio 1.5 DCi Icon 2015',
-      imageUrl: null,
+      imageUrl: 'public/clio.jpg',
       listingUrl: null,
       listingNo: 'Renault Clio 1.5 DCi Icon 2015',
       views: 213,
