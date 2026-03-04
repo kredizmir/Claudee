@@ -104,6 +104,18 @@
     </div>
   </section>
 
+  <!-- NEW: Weekly Favorite Cars section -->
+  <section class="kz-section--sm kz-favorites-section">
+    <div class="kz-container">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div class="kz-insta-label">Bu Hafta Öne Çıkanlar</div>
+        <h2 style="font-size:1.5rem;font-weight:800;color:var(--kz-white);margin-top:6px;margin-bottom:8px;">Bu Hafta Favori Araçlarımız</h2>
+        <p style="color:var(--kz-muted);font-size:0.9rem;">Bir araca tıkla, ilana iletmemizi iste — sana özel teklif hazırlayalım.</p>
+      </div>
+      <div class="kz-fav-grid" id="kz-fav-grid"></div>
+    </div>
+  </section>
+
   <!-- NASIL ÇALIŞIR -->
   <section class="kz-section">
     <div class="kz-container">
@@ -231,6 +243,38 @@
     </div>
   </div>
 
+  <!-- NEW: Favorite car click -> "İlanı Bize İlet" popup with views social proof -->
+  <div id="kz-fav-modal" class="kz-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-fav-modal-title">
+    <div class="kz-modal" style="max-width:480px;text-align:left;">
+      <button class="kz-modal__close" id="kz-fav-modal-close" aria-label="Kapat">✕</button>
+      <div class="kz-modal__icon" style="text-align:center;">🚗</div>
+      <h2 class="kz-modal__title" id="kz-fav-modal-title" style="text-align:center;">İlanı Bize İlet</h2>
+      <div class="kz-fav-views" id="kz-fav-views">
+        Bu hafta bu araca <strong id="kz-fav-views-count">--</strong>+ kişi baktı.
+      </div>
+      <p class="kz-modal__msg">
+        İlan linkini/numarasını WhatsApp'tan bize iletin, size özel teklif hazırlayalım.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-fav-ilan">İlan Linki veya İlan No</label>
+          <input class="kz-input" id="kz-fav-ilan" type="text" placeholder="Otomatik dolu" autocomplete="off" />
+          <span class="kz-offer-error" id="kz-fav-ilan-err"></span>
+        </div>
+        <div class="kz-form-group">
+          <label class="kz-label" for="kz-fav-tel">Telefon Numaranız</label>
+          <input class="kz-input" id="kz-fav-tel" type="tel" placeholder="05xx xxx xx xx" autocomplete="tel" />
+          <span class="kz-offer-error" id="kz-fav-tel-err"></span>
+        </div>
+      </div>
+      <div class="kz-modal__actions">
+        <button class="kz-btn kz-btn--primary kz-btn--full" id="kz-fav-hakan">📲 Hakan Bey'e Gönder</button>
+        <button class="kz-btn kz-btn--gold kz-btn--full" id="kz-fav-oguz">📲 Oğuz Bey'e Gönder</button>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="kz-btn kz-btn--outline kz-btn--full" id="kz-fav-see" style="display:none;justify-content:center;">🔗 İlanı Gör</a>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="kz-footer">
     <div class="kz-container">
@@ -271,5 +315,6 @@
 
   <script src="js/main.js"></script>
   <script src="js/sticky-bar.js"></script>
+  <script src="js/favorites.js"></script>
 </body>
 </html>
