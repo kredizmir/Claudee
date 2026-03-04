@@ -23,10 +23,22 @@
         return '<span style="display:inline-block;background:rgba(0,194,255,0.1);border:1px solid rgba(0,194,255,0.2);border-radius:100px;padding:2px 10px;font-size:0.72rem;color:#00C2FF;margin-right:4px;">' + escHtml(e) + '</span>';
       }).join('');
 
+      var guvenceliBadgeHTML = '';
+      if (g.kredizmir) {
+        var altEtiketHTML = (g.rozetler || []).map(function (r) {
+          return '<span class="kz-guvenceli-etiket">' + escHtml(r) + '</span>';
+        }).join('');
+        guvenceliBadgeHTML = '<div class="kz-guvenceli-block">' +
+          '<span class="kz-guvenceli-badge">★ KREDİZMİR Güvenceli</span>' +
+          (altEtiketHTML ? '<div class="kz-guvenceli-alt">' + altEtiketHTML + '</div>' : '') +
+          '</div>';
+      }
+
       return [
         '<div class="kz-card" style="cursor:pointer;" onclick="kzAcGaleri(' + g.id + ')">',
         '  <div class="kz-card__badge">' + escHtml(g.sehir) + (g.ilce ? ' / ' + escHtml(g.ilce) : '') + '</div>',
         '  <div class="kz-card__title">' + escHtml(g.ad) + '</div>',
+        guvenceliBadgeHTML,
         '  <div class="kz-card__desc">' + escHtml(g.aciklama || '') + '</div>',
         '  <div style="margin-bottom:16px;">' + etiketHTML + '</div>',
         '  <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#00C2FF;font-weight:600;">',

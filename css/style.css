@@ -1059,6 +1059,109 @@ input, select { font-family: inherit; }
   .kz-fav-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* --- KREDİZMİR Güvenceli Badge System ------------------- */
+.kz-guvenceli-block {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kz-guvenceli-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(212,175,55,0.14);
+  border: 1px solid rgba(212,175,55,0.38);
+  color: var(--kz-gold);
+  font-size: 0.71rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  width: fit-content;
+}
+.kz-guvenceli-alt {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+.kz-guvenceli-etiket {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--kz-muted);
+  font-size: 0.67rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* --- Galeri Başvuru Section ------------------------------ */
+.kz-galeri-basvuru-section {
+  background: rgba(212,175,55,0.04);
+  border-top: 1px solid var(--kz-border);
+}
+.kz-galeri-basvuru {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: flex-start;
+}
+.kz-galeri-basvuru__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kz-gold);
+  margin-bottom: 10px;
+}
+.kz-galeri-basvuru__title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--kz-white);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.kz-galeri-basvuru__desc {
+  font-size: 0.88rem;
+  color: var(--kz-muted);
+  line-height: 1.75;
+}
+.kz-galeri-basvuru__desc ul {
+  margin: 10px 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.kz-galeri-basvuru__desc li { list-style: disc; }
+.kz-galeri-basvuru__note {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: rgba(156,163,175,0.7);
+  font-style: italic;
+  border-left: 2px solid rgba(212,175,55,0.35);
+  padding-left: 10px;
+  line-height: 1.6;
+}
+.kz-galeri-basvuru__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--kz-card-bg);
+  border: 1px solid var(--kz-border);
+  border-radius: var(--kz-radius);
+  padding: 28px 24px;
+  backdrop-filter: blur(8px);
+}
+@media (max-width: 768px) {
+  .kz-galeri-basvuru { grid-template-columns: 1fr; gap: 28px; }
+}
+
 /* --- Animations ------------------------------------------ */
 @keyframes kzFadeIn {
   from { opacity: 0; transform: translateY(8px); }
