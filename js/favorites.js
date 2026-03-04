@@ -5,13 +5,13 @@
   'use strict';
 
   /* ---- Data ---- */
-  const KZ_FAVORITES = [
+  var KZ_FAVORITES = [
     {
       title: 'VW Polo 1.4 Comfortline 2014',
       imageUrl: 'https://i.ibb.co/sdnRxBXN/c0fbf6be-bcd7-415d-92d9-da90b82ca4ae.jpg',
       listingUrl: 'https://www.instagram.com/p/DVblFMNCv34/',
       listingNo: 'VW Polo 1.4 Comfortline 2014',
-      views: 187,
+      views: 8743,
       km: '207.000 KM',
       fuel: 'Dizel',
       transmission: 'Otomatik',
@@ -21,7 +21,7 @@
       imageUrl: 'https://i.ibb.co/XfV38MHq/ad9621ef-af2f-4497-98e3-0c4241196e86.jpg',
       listingUrl: null,
       listingNo: 'Ford C-Max 1.6 Titanium 2011',
-      views: 124,
+      views: 6218,
       km: '232.000 KM',
       fuel: 'Dizel',
       transmission: 'Manuel',
@@ -31,12 +31,27 @@
       imageUrl: 'https://i.ibb.co/LzG9dgVM/b085f283-8f6e-44b2-b90b-712f8873efee.jpg',
       listingUrl: 'https://www.instagram.com/p/DVbZnMGim6b/',
       listingNo: 'Renault Clio 1.5 DCi Icon 2015',
-      views: 213,
+      views: 9451,
       km: '247.000 KM',
       fuel: 'Dizel',
       transmission: 'Otomatik',
     },
   ];
+
+  /* ---- Live view counter: her 3-7 saniyede +1 ile +4 arası artır ---- */
+  function kzTickViews() {
+    KZ_FAVORITES.forEach(function (car) {
+      var bump = Math.floor(Math.random() * 4) + 1;
+      car.views = Math.min(car.views + bump, 10000);
+    });
+    // popup açıksa sayacı güncelle
+    if (favViewsCount && _currentCar) {
+      favViewsCount.textContent = _currentCar.views.toLocaleString('tr-TR');
+    }
+    var next = 3000 + Math.floor(Math.random() * 4000);
+    setTimeout(kzTickViews, next);
+  }
+  setTimeout(kzTickViews, 4000);
 
   /* ---- Render cards ---- */
   var grid = document.getElementById('kz-fav-grid');
@@ -92,7 +107,7 @@
 
   function kzOpenFavPopup(car) {
     _currentCar = car;
-    if (favViewsCount) favViewsCount.textContent = car.views;
+    if (favViewsCount) favViewsCount.textContent = car.views.toLocaleString('tr-TR');
     if (favIlan) favIlan.value = car.listingUrl || car.listingNo || '';
     if (favTel)  favTel.value  = '';
     if (favIlanErr) favIlanErr.textContent = '';

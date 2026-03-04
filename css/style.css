@@ -1027,6 +1027,16 @@ input, select { font-family: inherit; }
   border-color: rgba(212,175,55,0.6);
 }
 
+/* Alt not */
+.kz-fav-note {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 0.82rem;
+  color: var(--kz-muted);
+}
+.kz-fav-note a { color: var(--kz-gold); font-weight: 600; }
+.kz-fav-note a:hover { text-decoration: underline; }
+
 /* Popup views badge */
 .kz-fav-views {
   font-size: 0.88rem;
