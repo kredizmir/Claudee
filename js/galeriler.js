@@ -60,11 +60,11 @@
     });
   }
 
-  // Global: kart tıklama
+  // UPDATED: Open sahibinden links in new tab
   window.kzAcGaleri = function (id) {
     var g = (window.KZ_GALERILER || []).find(function (x) { return x.id === id; });
     if (g && g.link && g.link !== '#') {
-      window.open(g.link, '_blank', 'noopener');
+      window.open(g.link, '_blank', 'noopener,noreferrer');
     }
   };
 
