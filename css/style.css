@@ -1561,3 +1561,115 @@ input, select { font-family: inherit; }
   .kz-grid { grid-template-columns: 1fr; }
   .kz-result__grid { grid-template-columns: 1fr; }
 }
+
+/* ---- Müşteri Araçları Accordion ---- */
+.kz-musteri-accordion {
+  margin-bottom: 32px;
+}
+.kz-musteri-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(19,42,74,0.7);
+  border: 1px solid rgba(0,194,255,0.2);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.kz-musteri-toggle:hover,
+.kz-musteri-toggle--open {
+  border-color: rgba(0,194,255,0.5);
+  background: rgba(19,42,74,0.9);
+}
+.kz-musteri-toggle__icon {
+  display: inline-block;
+  transition: transform .25s;
+}
+.kz-musteri-toggle--open .kz-musteri-toggle__icon {
+  transform: rotate(180deg);
+}
+.kz-musteri-panel {
+  margin-top: 12px;
+  padding: 20px;
+  background: rgba(13,17,23,0.6);
+  border: 1px solid rgba(0,194,255,0.1);
+  border-radius: 12px;
+}
+.kz-musteri-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.kz-musteri-frame {
+  aspect-ratio: 4/3;
+  background: rgba(19,42,74,0.8);
+  border: 1px dashed rgba(0,194,255,0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: rgba(255,255,255,0.3);
+}
+.kz-musteri-promo {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.kz-musteri-cta {
+  display: block;
+  width: 100%;
+}
+.kz-musteri-form-wrap {
+  margin-top: 18px;
+}
+.kz-musteri-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.kz-musteri-input {
+  padding: 11px 14px;
+  background: rgba(19,42,74,0.7);
+  border: 1px solid rgba(0,194,255,0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.kz-musteri-input:focus {
+  border-color: rgba(0,194,255,0.55);
+}
+.kz-musteri-input::placeholder { color: rgba(255,255,255,0.4); }
+.kz-musteri-file-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+.kz-musteri-file-label span {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+.kz-musteri-file-label input[type="file"] {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+.kz-musteri-note {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  margin: 0;
+}
+@media (max-width: 480px) {
+  .kz-musteri-grid { grid-template-columns: repeat(2, 1fr); }
+}

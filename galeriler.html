@@ -41,6 +41,39 @@
   <section class="kz-section" style="padding-top:24px;">
     <div class="kz-container">
 
+      <!-- MÜŞTERİ ARAÇLARI ACCORDION -->
+      <div class="kz-musteri-accordion">
+        <button class="kz-musteri-toggle" id="kz-musteri-toggle" aria-expanded="false">
+          <span>Müşteri Araçları</span>
+          <span class="kz-musteri-toggle__icon">▼</span>
+        </button>
+        <div class="kz-musteri-panel" id="kz-musteri-panel" hidden>
+          <div class="kz-musteri-grid">
+            <div class="kz-musteri-frame">🚗</div>
+            <div class="kz-musteri-frame">🚗</div>
+            <div class="kz-musteri-frame">🚗</div>
+            <div class="kz-musteri-frame">🚗</div>
+            <div class="kz-musteri-frame">🚗</div>
+            <div class="kz-musteri-frame">🚗</div>
+          </div>
+          <p class="kz-musteri-promo">Aracını gönder — hem Instagram'da hem sitemizde binlerce insana sunalım. Üstelik tamamen ücretsiz.</p>
+          <button class="kz-btn kz-btn--gold kz-musteri-cta" id="kz-musteri-cta">Aracını Gönder</button>
+          <div class="kz-musteri-form-wrap" id="kz-musteri-form-wrap" hidden>
+            <form class="kz-musteri-form" id="kz-musteri-form">
+              <input class="kz-musteri-input" type="text" id="kz-m-ad" placeholder="Ad Soyad" required />
+              <input class="kz-musteri-input" type="tel" id="kz-m-tel" placeholder="Telefon" required />
+              <input class="kz-musteri-input" type="text" id="kz-m-arac" placeholder="Araç Bilgisi (opsiyonel)" />
+              <label class="kz-musteri-file-label">
+                <span>📷 Fotoğraf Seç (önden çekim)</span>
+                <input type="file" accept="image/*" id="kz-m-foto" />
+              </label>
+              <button type="submit" class="kz-btn kz-btn--gold" style="width:100%;">Gönder →</button>
+              <p class="kz-musteri-note">Not: Fotoğrafı WhatsApp ekranında ekleyip gönderiniz.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div class="kz-grid" id="kz-galeri-grid">
         <!-- JS tarafından doldurulur -->
         <div class="kz-empty">Yükleniyor…</div>
@@ -98,5 +131,38 @@
 
   <script src="data/data-galeriler.js"></script>
   <script src="js/galeriler.js"></script>
+  <script>
+    (function () {
+      var toggle    = document.getElementById('kz-musteri-toggle');
+      var panel     = document.getElementById('kz-musteri-panel');
+      var ctaBtn    = document.getElementById('kz-musteri-cta');
+      var formWrap  = document.getElementById('kz-musteri-form-wrap');
+      var form      = document.getElementById('kz-musteri-form');
+
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        toggle.classList.toggle('kz-musteri-toggle--open', !open);
+        if (open) { panel.hidden = true; } else { panel.hidden = false; }
+      });
+
+      ctaBtn.addEventListener('click', function () {
+        formWrap.hidden = false;
+        ctaBtn.hidden = true;
+        formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var ad   = document.getElementById('kz-m-ad').value.trim();
+        var tel  = document.getElementById('kz-m-tel').value.trim();
+        var arac = document.getElementById('kz-m-arac').value.trim();
+        var msg  = 'Merhaba KREDİZMİR,\nAracımı ücretsiz yayınlamak istiyorum.\n\n' +
+                   'İsim: ' + ad + '\nTelefon: ' + tel + '\nAraç Bilgisi: ' + (arac || '-') +
+                   '\n\nFotoğrafı bu mesaja ekleyip gönderiyorum.';
+        window.open('https://wa.me/905307258789?text=' + encodeURIComponent(msg), '_blank');
+      });
+    })();
+  </script>
 </body>
 </html>
