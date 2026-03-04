@@ -350,10 +350,7 @@ input, select { font-family: inherit; }
   gap: 20px;
 }
 @media (max-width: 900px) {
-  .kz-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .kz-grid { grid-template-columns: 1fr; }
+  .kz-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .kz-empty {
   text-align: center;
@@ -1058,11 +1055,8 @@ input, select { font-family: inherit; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .kz-fav-grid { grid-template-columns: 1fr; gap: 16px; }
+  .kz-fav-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .kz-favorites-section { padding: 48px 0 56px; }
-}
-@media (min-width: 481px) and (max-width: 768px) {
-  .kz-fav-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* --- KREDİZMİR Güvenceli Badge System ------------------- */
