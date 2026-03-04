@@ -836,6 +836,79 @@ input, select { font-family: inherit; }
   #kz-galeri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 
+/* GALERI YONLENDIRME MODAL */
+#kz-redirect-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+#kz-redirect-overlay.aktif { display: flex; }
+#kz-redirect-modal {
+  background: #0d1117;
+  border: 1px solid rgba(0,194,255,0.25);
+  border-radius: 18px;
+  padding: 36px 32px 28px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,194,255,0.12);
+  animation: kzModalAc 0.22s ease;
+}
+@keyframes kzModalAc {
+  from { opacity:0; transform: scale(0.92); }
+  to   { opacity:1; transform: scale(1); }
+}
+#kz-redirect-modal .kz-modal-icon {
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+}
+#kz-redirect-modal .kz-modal-baslik {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+#kz-redirect-modal .kz-modal-metin {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+#kz-redirect-modal .kz-modal-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+#kz-redirect-modal .kz-btn-devam {
+  background: linear-gradient(135deg,#00C2FF,#0077ff);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 11px 28px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+#kz-redirect-modal .kz-btn-devam:hover { opacity: 0.85; }
+#kz-redirect-modal .kz-btn-iptal {
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 11px 24px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+#kz-redirect-modal .kz-btn-iptal:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
 /* FIRSAT ARACI — neon kart */
 .kz-fav-card--firsat {
   position: relative;

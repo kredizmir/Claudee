@@ -72,12 +72,44 @@
     });
   }
 
-  // UPDATED: Open sahibinden links in new tab
+  // Modal oluştur (bir kez)
+  function modalOlustur() {
+    if (document.getElementById('kz-redirect-overlay')) return;
+    var overlay = document.createElement('div');
+    overlay.id = 'kz-redirect-overlay';
+    overlay.innerHTML = [
+      '<div id="kz-redirect-modal">',
+      '  <div class="kz-modal-icon">🚗</div>',
+      '  <div class="kz-modal-baslik">Cazip ve uygun faiz için araç linklerini bize yönlendirin.</div>',
+      '  <div class="kz-modal-metin">Teklifiniz hazır..</div>',
+      '  <div class="kz-modal-btns">',
+      '    <button class="kz-btn-iptal" onclick="kzModalKapat()">Vazgeç</button>',
+      '    <button class="kz-btn-devam" id="kz-btn-devam-git">Galeriye Git →</button>',
+      '  </div>',
+      '</div>',
+    ].join('');
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) kzModalKapat();
+    });
+  }
+
+  window.kzModalKapat = function () {
+    var overlay = document.getElementById('kz-redirect-overlay');
+    if (overlay) overlay.classList.remove('aktif');
+  };
+
   window.kzAcGaleri = function (id) {
     var g = (window.KZ_GALERILER || []).find(function (x) { return x.id === id; });
-    if (g && g.link && g.link !== '#') {
+    if (!g || !g.link || g.link === '#') return;
+    modalOlustur();
+    var overlay = document.getElementById('kz-redirect-overlay');
+    var devamBtn = document.getElementById('kz-btn-devam-git');
+    devamBtn.onclick = function () {
+      kzModalKapat();
       window.open(g.link, '_blank', 'noopener,noreferrer');
-    }
+    };
+    overlay.classList.add('aktif');
   };
 
   function init() {
