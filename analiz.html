@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KREDİZMİR Finansman Uygunluk Analizi — Kişisel verilerinize göre tahmini finansman uygunluğunuzu öğrenin.">
+  <meta name="theme-color" content="#0A1A2F">
+  <title>Finansman Uygunluk Analizi — KREDİZMİR</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- jsPDF CDN (PDF rapor için) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="kz-header">
+    <div class="kz-container kz-header__inner">
+
+      <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
+        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="kz-logo__fallback" style="display:none;">KREDİ<em>ZMİR</em></span>
+      </a>
+
+      <nav class="kz-nav" aria-label="Ana navigasyon">
+        <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
+        <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+        <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+        <a href="analiz.html"    class="kz-nav__link kz-nav__link--active">Uygunluk Analizi</a>
+      </nav>
+
+      <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="kz-nav kz-nav--mobile" id="kzMobileNav" aria-label="Mobil navigasyon">
+      <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
+      <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+      <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+      <a href="analiz.html"    class="kz-nav__link kz-nav__link--active">Uygunluk Analizi</a>
+    </nav>
+  </header>
+
+  <!-- ===================================================
+       ADIM 1 — ONAY
+       =================================================== -->
+  <main>
+  <section id="kzStep-consent" class="kz-analiz-step">
+    <div class="kz-container kz-analiz-center">
+
+      <div class="kz-consent-card kz-glass">
+
+        <div class="kz-consent-icon" aria-hidden="true">🔍</div>
+        <h1 class="kz-consent-title">Finansman Uygunluk Analizi</h1>
+        <p class="kz-consent-desc">
+          Bu araç, finansal verilerinize dayanarak <strong>ön değerlendirme</strong>
+          amaçlı bir uygunluk kategorisi oluşturur. Kredi onayı vermez,
+          Findeks/KKB skoru hesaplamaz.
+        </p>
+
+        <ul class="kz-consent-list">
+          <li>
+            <span class="kz-consent-list__icon" aria-hidden="true">✓</span>
+            DSR ve BDDK LTV kurallarına göre tahmini finansman aralığı
+          </li>
+          <li>
+            <span class="kz-consent-list__icon" aria-hidden="true">✓</span>
+            Önerilen finansman kanalı (banka / alternatif)
+          </li>
+          <li>
+            <span class="kz-consent-list__icon" aria-hidden="true">✓</span>
+            7 / 30 / 90 günlük iyileştirme planı
+          </li>
+          <li>
+            <span class="kz-consent-list__icon" aria-hidden="true">✓</span>
+            İndirilebilir PDF rapor
+          </li>
+        </ul>
+
+        <label class="kz-consent-row" for="kzConsentCheck">
+          <input type="checkbox" id="kzConsentCheck" class="kz-consent-check">
+          <span class="kz-consent-label">
+            Bu çalışmanın ön değerlendirme amaçlı olduğunu, hiçbir banka
+            adına bağlayıcılığı bulunmadığını anlıyor ve kabul ediyorum.
+          </span>
+        </label>
+
+        <button class="kz-btn kz-btn--primary" id="kzConsentBtn" style="width:100%; justify-content:center;">
+          Analize Başla →
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       ADIM 2 — FORM
+       =================================================== -->
+  <section id="kzStep-form" class="kz-analiz-step" hidden>
+    <div class="kz-page-header">
+      <div class="kz-container">
+        <span class="kz-page-header__eyebrow">Ön Değerlendirme Formu</span>
+        <h2 class="kz-page-header__title">Bilgilerinizi Girin</h2>
+        <p class="kz-page-header__sub">Tüm alanlar tahmini aralıkta girilebilir. Hassas olması şart değil.</p>
+        <div class="kz-divider" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="kz-container">
+      <form id="kzAnalizForm" class="kz-aform" novalidate>
+
+        <!-- ── Bölüm 1: Kredi Geçmişi ── -->
+        <fieldset class="kz-aform__section">
+          <legend class="kz-aform__legend">
+            <span class="kz-aform__legend-icon" aria-hidden="true">📋</span>
+            Kredi Geçmişi
+          </legend>
+
+          <div class="kz-aform__grid">
+
+            <div class="kz-form-group">
+              <label for="kzYasal" class="kz-form-label">Yasal Takip Durumu</label>
+              <select id="kzYasal" name="yasal" class="kz-form-input kz-form-input--select" required>
+                <option value="yok">Yok</option>
+                <option value="kapandı-1yilplus">Kapandı (1+ yıl önce)</option>
+                <option value="kapandı-1yiliçinde">Kapandı (1 yıl içinde)</option>
+                <option value="acik">Açık Takip</option>
+              </select>
+            </div>
+
+            <div class="kz-form-group">
+              <label for="kzGecikme" class="kz-form-label">Son 12 Ay Gecikme</label>
+              <select id="kzGecikme" name="gecikme" class="kz-form-input kz-form-input--select" required>
+                <option value="yok">Yok</option>
+                <option value="1-2">1–2 Kısa Gecikme</option>
+                <option value="30plus">30+ Gün Gecikme</option>
+              </select>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- ── Bölüm 2: Finansal Durum ── -->
+        <fieldset class="kz-aform__section">
+          <legend class="kz-aform__legend">
+            <span class="kz-aform__legend-icon" aria-hidden="true">💳</span>
+            Finansal Durum
+          </legend>
+
+          <div class="kz-aform__grid">
+
+            <div class="kz-form-group">
+              <label for="kzLimit" class="kz-form-label">Kart / KMH Toplam Limit <abbr title="Türk Lirası">(₺)</abbr></label>
+              <input type="number" id="kzLimit" name="limit"
+                class="kz-form-input" placeholder="ör. 150.000" min="0" step="1" inputmode="numeric">
+              <p class="kz-form-hint">Tüm kredi kartı + kredili mevduat limitlerinin toplamı.</p>
+            </div>
+
+            <div class="kz-form-group">
+              <label for="kzBorc" class="kz-form-label">Kart / KMH Toplam Borç <abbr title="Türk Lirası">(₺)</abbr></label>
+              <input type="number" id="kzBorc" name="borc"
+                class="kz-form-input" placeholder="ör. 45.000" min="0" step="1" inputmode="numeric">
+            </div>
+
+            <div class="kz-form-group">
+              <label for="kzOdemeYuku" class="kz-form-label">Aylık Toplam Ödeme Yükü <abbr title="Türk Lirası">(₺)</abbr></label>
+              <input type="number" id="kzOdemeYuku" name="odemeYuku"
+                class="kz-form-input" placeholder="ör. 8.000" min="0" step="1" inputmode="numeric">
+              <p class="kz-form-hint">Tüm kredi + kart taksitlerinin aylık toplamı.</p>
+            </div>
+
+            <div class="kz-form-group">
+              <label for="kzGelir" class="kz-form-label">Net Aylık Gelir <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span></label>
+              <input type="number" id="kzGelir" name="gelir"
+                class="kz-form-input" placeholder="ör. 35.000" min="1" step="1" inputmode="numeric" required>
+              <p class="kz-form-hint">Elde etiğiniz aylık net (vergi sonrası) gelir.</p>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- ── Bölüm 3: Araç Bilgisi ── -->
+        <fieldset class="kz-aform__section">
+          <legend class="kz-aform__legend">
+            <span class="kz-aform__legend-icon" aria-hidden="true">🚗</span>
+            Araç Bilgisi
+          </legend>
+
+          <div class="kz-aform__grid">
+
+            <div class="kz-form-group">
+              <label for="kzAracFiyat" class="kz-form-label">Araç Fiyatı <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span></label>
+              <input type="number" id="kzAracFiyat" name="aracFiyat"
+                class="kz-form-input" placeholder="ör. 1.200.000" min="1" step="1" inputmode="numeric" required>
+            </div>
+
+            <div class="kz-form-group">
+              <label for="kzAracYili" class="kz-form-label">Araç Yılı <span class="kz-required">*</span></label>
+              <select id="kzAracYili" name="aracYili" class="kz-form-input kz-form-input--select" required></select>
+              <p class="kz-form-hint">Vadeye etki eder: araç yaşı × 12 + vade ≤ 144 ay.</p>
+            </div>
+
+            <div class="kz-form-group">
+              <label for="kzPesinat" class="kz-form-label">Peşinat Miktarı <abbr title="Türk Lirası">(₺)</abbr></label>
+              <input type="number" id="kzPesinat" name="pesinat"
+                class="kz-form-input" placeholder="ör. 300.000" min="0" step="1" inputmode="numeric">
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- ── Bölüm 4: Findeks PDF ── -->
+        <fieldset class="kz-aform__section">
+          <legend class="kz-aform__legend">
+            <span class="kz-aform__legend-icon" aria-hidden="true">📄</span>
+            Findeks Raporu <span class="kz-optional">(İsteğe Bağlı)</span>
+          </legend>
+
+          <div class="kz-upload-area" id="kzUploadArea">
+            <input type="file" id="kzFindeksPDF" name="findeks"
+              accept=".pdf" class="kz-upload-input" aria-describedby="kzUploadHint">
+            <label for="kzFindeksPDF" class="kz-upload-label">
+              <span class="kz-upload-icon" aria-hidden="true">⬆️</span>
+              <span class="kz-upload-text">PDF Seçin veya Sürükleyin</span>
+              <span class="kz-upload-sub">Findeks raporu yükleyebilirsiniz (parse edilmez, güvenle saklanır)</span>
+            </label>
+            <p class="kz-upload-filename" id="kzUploadFilename" hidden></p>
+          </div>
+          <p class="kz-form-hint" id="kzUploadHint">Yalnızca PDF. Dosya sunucuda şifreli depolanır; analizi etkilemez.</p>
+          <p class="kz-upload-status" id="kzFindeksStatus" hidden></p>
+        </fieldset>
+
+        <!-- Submit -->
+        <div class="kz-aform__submit-wrap">
+          <button type="submit" class="kz-btn kz-btn--primary kz-aform__submit">
+            Analizi Çalıştır →
+          </button>
+          <p class="kz-aform__disclaimer">
+            Bu analiz bilgilendirme amaçlıdır. Herhangi bir kredi taahhüdü içermez.
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       ADIM 3 — SONUÇLAR
+       =================================================== -->
+  <section id="kzStep-results" class="kz-analiz-step" hidden>
+    <div class="kz-page-header">
+      <div class="kz-container">
+        <span class="kz-page-header__eyebrow">Analiz Tamamlandı</span>
+        <h2 class="kz-page-header__title">Uygunluk Değerlendirmesi</h2>
+        <div class="kz-divider" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="kz-container kz-results-wrap">
+
+      <!-- Sol kolon: Badge + Gauge + Gerekçeler -->
+      <div class="kz-results-left">
+
+        <!-- Badge -->
+        <div class="kz-eligibility-panel kz-glass">
+          <div id="kzGaugeWrap" class="kz-gauge-wrap" aria-hidden="true"></div>
+          <div id="kzResBadge" class="kz-eligibility-badge"></div>
+          <ul id="kzResReasons" class="kz-reasons-list" aria-label="Değerlendirme gerekçeleri"></ul>
+        </div>
+
+        <!-- Limit / Finansman -->
+        <div class="kz-limit-panel kz-glass">
+          <h3 class="kz-panel-title">
+            <span aria-hidden="true">📊</span> Tahmini Finansman Aralığı
+          </h3>
+          <div id="kzResLimit"></div>
+          <p class="kz-panel-disclaimer">
+            Tahmini hesaplamada %4 aylık oran, varsayılan vade kullanılmıştır.
+            Kesin oranlar bankaya ve profile göre değişir.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Sağ kolon: İyileştirme + Eylemler -->
+      <div class="kz-results-right">
+
+        <!-- İyileştirme planı -->
+        <div class="kz-improvement-panel kz-glass">
+          <h3 class="kz-panel-title">
+            <span aria-hidden="true">🗓️</span> İyileştirme Planı
+          </h3>
+          <div id="kzResImprovement" class="kz-improvement-steps"></div>
+        </div>
+
+        <!-- Danışman CTA -->
+        <div class="kz-cta-card">
+          <p class="kz-cta-card__title">Danışmanla İletişime Geç</p>
+          <p class="kz-cta-card__sub">
+            KREDİZMİR finansman danışmanlarımız, profilinize en uygun
+            galeri ve kredi çözümünü sizinle birlikte bulur.
+          </p>
+          <a href="galeriler.html" class="kz-btn kz-btn--primary" style="width:100%; justify-content:center;">
+            Galerilerimizi Gör →
+          </a>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="kz-result-actions">
+          <button id="kzBtnPDF" class="kz-btn kz-btn--outline" type="button">
+            📄 PDF Raporu İndir
+          </button>
+          <button id="kzBtnBack" class="kz-btn kz-btn--outline" type="button">
+            ← Yeniden Analiz
+          </button>
+        </div>
+
+        <!-- Yasal uyarı -->
+        <p class="kz-legal-note">
+          Bu çalışma bilgilendirme amaçlıdır, hiçbir banka adına taahhüt içermez.
+          Findeks/KKB skoru hesaplanmamıştır. Kesin karar için yetkili finans
+          kurumlarına başvurunuz.
+        </p>
+
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="kz-footer">
+    <div class="kz-container kz-footer__inner">
+      <span class="kz-footer__brand">KREDİZMİR</span>
+      <nav class="kz-footer__links" aria-label="Alt navigasyon">
+        <a href="index.html"     class="kz-footer__link">Ana Sayfa</a>
+        <a href="galeriler.html" class="kz-footer__link">Galeriler</a>
+        <a href="hesaplama.html" class="kz-footer__link">Hesaplama</a>
+      </nav>
+      <span class="kz-footer__copy">© 2025 KREDİZMİR. Tüm hakları saklıdır.</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/eligibility.js"></script>
+  <script src="js/limitEngine.js"></script>
+  <script src="js/report.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    /* Araç yılı select'i doldur */
+    (function () {
+      var sel = document.getElementById('kzAracYili');
+      if (!sel) return;
+      var curYear = new Date().getFullYear();
+      for (var y = curYear; y >= curYear - 20; y--) {
+        var opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        if (y === curYear - 3) opt.selected = true;
+        sel.appendChild(opt);
+      }
+    })();
+
+    /* Dosya seçimi göster */
+    (function () {
+      var inp = document.getElementById('kzFindeksPDF');
+      var fn  = document.getElementById('kzUploadFilename');
+      if (inp && fn) {
+        inp.addEventListener('change', function () {
+          if (inp.files.length > 0) {
+            fn.textContent = '📎 ' + inp.files[0].name;
+            fn.hidden = false;
+          }
+        });
+      }
+    })();
+  </script>
+  <script src="js/analiz.js"></script>
+</body>
+</html>
