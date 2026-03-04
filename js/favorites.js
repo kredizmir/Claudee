@@ -15,6 +15,7 @@
       km: '207.000 KM',
       fuel: 'Dizel',
       transmission: 'Otomatik',
+      firsat: true,
     },
     {
       title: 'Ford C-Max 1.6 Titanium 2011',
@@ -58,7 +59,7 @@
   if (grid) {
     KZ_FAVORITES.forEach(function (car, idx) {
       var card = document.createElement('div');
-      card.className = 'kz-fav-card';
+      card.className = 'kz-fav-card' + (car.firsat ? ' kz-fav-card--firsat' : '');
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', car.title + ' — ilanı bize ilet');
@@ -73,6 +74,7 @@
       if (car.transmission) pills += '<span class="kz-fav-pill">⚙️ ' + car.transmission + '</span>';
 
       card.innerHTML =
+        (car.firsat ? '<div class="kz-fav-card__firsat-badge">Fırsat Aracı</div>' : '') +
         '<div class="kz-fav-card__thumb">' +
           imgTag +
           (car.imageUrl ? '' : '🚗') +
@@ -90,6 +92,24 @@
       });
       grid.appendChild(card);
     });
+  }
+
+  /* ---- Ticker ---- */
+  var tickerTrack = document.getElementById('kz-ticker-track');
+  if (tickerTrack && KZ_FAVORITES.length) {
+    var tickerItems = KZ_FAVORITES.concat(KZ_FAVORITES);
+    tickerTrack.innerHTML = tickerItems.map(function (car) {
+      return '<div class="kz-ticker-item">' +
+        (car.imageUrl
+          ? '<img src="' + car.imageUrl + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">'
+          : '<div style="height:80px;background:#132A4A;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🚗</div>'
+        ) +
+        '<div class="kz-ticker-item__info">' +
+          '<div class="kz-ticker-item__title">' + car.title + '</div>' +
+          (car.km ? '<div class="kz-ticker-item__km">📍 ' + car.km + '</div>' : '') +
+        '</div>' +
+      '</div>';
+    }).join('');
   }
 
   /* ---- Popup logic ---- */

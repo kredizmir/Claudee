@@ -76,17 +76,28 @@ input, select { font-family: inherit; }
   width: auto;
 }
 .kz-logo__text {
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--kz-white);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   line-height: 1.1;
 }
+.kz-logo__kred {
+  color: #1E4D8C;
+  -webkit-text-fill-color: #1E4D8C;
+}
+.kz-logo__izmir {
+  background: linear-gradient(135deg, #ffffff 0%, var(--kz-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .kz-logo__sub {
-  font-size: 0.65rem;
-  color: var(--kz-accent);
-  letter-spacing: 0.12em;
+  font-size: 0.58rem;
+  color: var(--kz-gold);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  margin-top: 2px;
+  opacity: 0.9;
 }
 .kz-nav {
   display: flex;
@@ -140,18 +151,35 @@ input, select { font-family: inherit; }
   box-shadow: var(--kz-shadow), inset 0 1px 0 rgba(255,255,255,0.06);
   position: relative;
 }
-.kz-hero__badge {
-  display: inline-block;
-  background: rgba(0,194,255,0.12);
-  border: 1px solid rgba(0,194,255,0.3);
-  color: var(--kz-accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.kz-hero__brand-title {
+  font-size: clamp(0.78rem, 2vw, 0.95rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 100px;
-  margin-bottom: 20px;
+  color: var(--kz-white);
+  margin-bottom: 6px;
+  position: relative;
+  display: inline-block;
+  padding: 0 4px 10px;
+}
+.kz-hero__brand-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--kz-accent), var(--kz-gold));
+  border-radius: 2px;
+}
+.kz-hero__slogan {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--kz-gold);
+  letter-spacing: 0.03em;
+  margin-bottom: 22px;
+  opacity: 0.9;
 }
 .kz-hero__title {
   font-size: clamp(1.9rem, 5vw, 2.9rem);
@@ -350,10 +378,7 @@ input, select { font-family: inherit; }
   gap: 20px;
 }
 @media (max-width: 900px) {
-  .kz-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .kz-grid { grid-template-columns: 1fr; }
+  .kz-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .kz-empty {
   text-align: center;
@@ -663,37 +688,313 @@ input, select { font-family: inherit; }
 /* --- Instagram Section ----------------------------------- */
 .kz-insta-section {
   background: rgba(0,194,255,0.06);
-  border-top: 1px solid var(--kz-border);
-  border-bottom: 1px solid var(--kz-border);
+  border-top: 2px solid rgba(212,175,55,0.4);
+  border-bottom: 2px solid rgba(212,175,55,0.4);
+  padding: 72px 0 !important;
 }
 .kz-insta-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 32px;
   flex-wrap: wrap;
+  text-align: center;
 }
 .kz-insta-text { flex: 1; min-width: 240px; }
 .kz-insta-label {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--kz-accent);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .kz-insta-title {
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-size: 2rem;
+  font-weight: 900;
   color: var(--kz-white);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .kz-insta-desc {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--kz-muted);
-  margin-bottom: 18px;
+  margin-bottom: 28px;
 }
 /* REMOVED: QR section styles */
+
+/* --- Galerilerimiz Carousel Section --------------------- */
+.kz-galeri-section {
+  padding: 88px 0 100px;
+  background: linear-gradient(180deg, #081630 0%, #0b2257 100%);
+  border-top: 1.5px solid rgba(212,175,55,0.35);
+}
+.kz-galeri-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 52px;
+  flex-wrap: wrap;
+}
+.kz-galeri-section-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kz-gold);
+  margin-bottom: 14px;
+}
+.kz-galeri-section-title {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 900;
+  color: var(--kz-white);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  line-height: 1.05;
+}
+.kz-galeri-down-arrows {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0px;
+  color: var(--kz-gold);
+  animation: kz-bounce-down 1.6s ease-in-out infinite;
+}
+@keyframes kz-bounce-down {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(7px); opacity: 0.7; }
+}
+.kz-galeri-section-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 580px;
+  line-height: 1.7;
+}
+
+/* Carousel nav buttons */
+.kz-carousel-nav {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  align-self: center;
+}
+.kz-carousel-btn {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212,175,55,0.5);
+  background: rgba(212,175,55,0.08);
+  color: var(--kz-gold);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+.kz-carousel-btn:hover {
+  background: rgba(212,175,55,0.22);
+  border-color: var(--kz-gold);
+  transform: scale(1.07);
+}
+
+/* Carousel wrap + fade edges */
+.kz-galeri-carousel-wrap {
+  position: relative;
+  margin-bottom: 56px;
+}
+.kz-galeri-carousel-wrap::before,
+.kz-galeri-carousel-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 20px; width: 52px;
+  z-index: 2;
+  pointer-events: none;
+}
+.kz-galeri-carousel-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #081630 0%, transparent 100%);
+}
+.kz-galeri-carousel-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #081630 0%, transparent 100%);
+}
+
+/* Galeri dikey grid */
+#kz-galeri-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 56px;
+}
+#kz-galeri-grid .kz-card {
+  padding: 28px;
+}
+#kz-galeri-grid .kz-card .kz-card__badge { font-size: 0.78rem; margin-bottom: 10px; }
+#kz-galeri-grid .kz-card .kz-card__title { font-size: 1.2rem; margin-bottom: 8px; }
+#kz-galeri-grid .kz-card .kz-card__desc  { font-size: 0.92rem; }
+@media (max-width: 600px) {
+  #kz-galeri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+
+/* GALERI YONLENDIRME MODAL */
+#kz-redirect-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+#kz-redirect-overlay.aktif { display: flex; }
+#kz-redirect-modal {
+  background: #0d1117;
+  border: 1px solid rgba(0,194,255,0.25);
+  border-radius: 18px;
+  padding: 36px 32px 28px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,194,255,0.12);
+  animation: kzModalAc 0.22s ease;
+}
+@keyframes kzModalAc {
+  from { opacity:0; transform: scale(0.92); }
+  to   { opacity:1; transform: scale(1); }
+}
+#kz-redirect-modal .kz-modal-icon {
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+}
+#kz-redirect-modal .kz-modal-baslik {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+#kz-redirect-modal .kz-modal-metin {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+#kz-redirect-modal .kz-modal-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+#kz-redirect-modal .kz-btn-devam {
+  background: linear-gradient(135deg,#00C2FF,#0077ff);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 11px 28px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+#kz-redirect-modal .kz-btn-devam:hover { opacity: 0.85; }
+#kz-redirect-modal .kz-btn-iptal {
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 11px 24px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+#kz-redirect-modal .kz-btn-iptal:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+/* FIRSAT ARACI — neon kart */
+.kz-fav-card--firsat {
+  position: relative;
+  border-color: #FFE500;
+  border-width: 2.5px;
+  outline: 2px solid rgba(255,229,0,0.45);
+  outline-offset: 3px;
+  animation: kz-neon-pulse 2s ease-in-out infinite;
+}
+.kz-fav-card--firsat:hover {
+  border-color: #FFE500;
+}
+@keyframes kz-neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(255,229,0,0.6), 0 0 48px rgba(255,229,0,0.25), 0 4px 24px rgba(0,0,0,0.5);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(255,229,0,0.95), 0 0 80px rgba(255,229,0,0.45), 0 4px 24px rgba(0,0,0,0.5);
+  }
+}
+.kz-fav-card__firsat-badge {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FFE500;
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 100px;
+  z-index: 10;
+  box-shadow: 0 0 18px rgba(255,229,0,0.9), 0 2px 8px rgba(0,0,0,0.4);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Başvuru CTA block */
+.kz-galeri-basvuru-cta {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.kz-galeri-basvuru-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kz-accent);
+  margin-bottom: 10px;
+}
+.kz-galeri-basvuru-title {
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  font-weight: 800;
+  color: var(--kz-white);
+  margin-bottom: 12px;
+}
+.kz-galeri-basvuru-desc {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.92rem;
+  max-width: 580px;
+  margin: 0 auto 16px;
+  line-height: 1.7;
+}
+.kz-galeri-basvuru-desc strong { color: var(--kz-gold); }
+.kz-galeri-basvuru-soru {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.kz-galeri-basvuru-btn {
+  font-size: 1.05rem;
+  padding: 14px 40px;
+}
+.kz-galeri-basvuru-tag {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(212,175,55,0.65);
+}
 
 /* --- Gallery Modal --------------------------------------- */
 .kz-modal-backdrop {
@@ -868,38 +1169,49 @@ input, select { font-family: inherit; }
 
 /* NEW: Weekly Favorite Cars — Premium Vitrin */
 .kz-favorites-section {
-  padding: 64px 0 72px;
+  padding: 72px 0 80px;
+  background: linear-gradient(160deg, #0b2257 0%, #133070 45%, #0d2250 100%);
+  border-top: 1.5px solid rgba(212,175,55,0.45);
+  border-bottom: 1.5px solid rgba(212,175,55,0.45);
+  position: relative;
+  overflow: hidden;
+}
+.kz-favorites-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212,175,55,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 20% 100%, rgba(0,194,255,0.05) 0%, transparent 60%);
-  border-top: 1px solid var(--kz-border);
-  border-bottom: 1px solid var(--kz-border);
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0,194,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
 }
 .kz-fav-header { text-align: center; margin-bottom: 44px; }
 .kz-fav-header__top { margin-bottom: 14px; }
 .kz-fav-badge {
   display: inline-block;
-  background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0.08));
-  border: 1px solid rgba(212,175,55,0.4);
-  color: var(--kz-gold);
-  font-size: 0.72rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 5px 16px;
+  padding: 5px 18px;
   border-radius: 100px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
 }
 .kz-fav-title {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
   font-weight: 900;
-  color: var(--kz-white);
+  color: #ffffff;
   letter-spacing: -0.01em;
   margin-bottom: 10px;
   line-height: 1.15;
+  text-shadow: 0 2px 24px rgba(0,100,200,0.3);
 }
 .kz-fav-subtitle {
-  font-size: 0.95rem;
-  color: var(--kz-muted);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
 }
 
 /* Grid — 3 fixed columns */
@@ -911,8 +1223,8 @@ input, select { font-family: inherit; }
 
 /* Card */
 .kz-fav-card {
-  background: rgba(13, 28, 50, 0.75);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(8, 22, 55, 0.85);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
@@ -1034,14 +1346,72 @@ input, select { font-family: inherit; }
 }
 
 /* Alt not */
-.kz-fav-note {
+.kz-fav-note-wrap {
   text-align: center;
-  margin-top: 28px;
-  font-size: 0.82rem;
-  color: var(--kz-muted);
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
 }
-.kz-fav-note a { color: var(--kz-gold); font-weight: 600; }
-.kz-fav-note a:hover { text-decoration: underline; }
+.kz-fav-note {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+
+/* Ticker */
+.kz-ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.kz-ticker-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: kz-ticker-scroll 18s linear infinite;
+}
+.kz-ticker-track:hover { animation-play-state: paused; }
+@keyframes kz-ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.kz-ticker-item {
+  width: 140px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d1117;
+  border: 1px solid rgba(0,194,255,0.15);
+  cursor: pointer;
+  transition: border-color .2s;
+}
+.kz-ticker-item:hover { border-color: rgba(0,194,255,0.5); }
+.kz-ticker-item img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+}
+.kz-ticker-item__info {
+  padding: 6px 8px;
+}
+.kz-ticker-item__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+.kz-ticker-item__km {
+  font-size: 0.65rem;
+  color: #00C2FF;
+}
 
 /* Popup views badge */
 .kz-fav-views {
@@ -1058,11 +1428,8 @@ input, select { font-family: inherit; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .kz-fav-grid { grid-template-columns: 1fr; gap: 16px; }
+  .kz-fav-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .kz-favorites-section { padding: 48px 0 56px; }
-}
-@media (min-width: 481px) and (max-width: 768px) {
-  .kz-fav-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* --- KREDİZMİR Güvenceli Badge System ------------------- */
@@ -1193,4 +1560,116 @@ input, select { font-family: inherit; }
   .kz-hero__title { font-size: 1.65rem; }
   .kz-grid { grid-template-columns: 1fr; }
   .kz-result__grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Müşteri Araçları Accordion ---- */
+.kz-musteri-accordion {
+  margin-bottom: 32px;
+}
+.kz-musteri-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(19,42,74,0.7);
+  border: 1px solid rgba(0,194,255,0.2);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.kz-musteri-toggle:hover,
+.kz-musteri-toggle--open {
+  border-color: rgba(0,194,255,0.5);
+  background: rgba(19,42,74,0.9);
+}
+.kz-musteri-toggle__icon {
+  display: inline-block;
+  transition: transform .25s;
+}
+.kz-musteri-toggle--open .kz-musteri-toggle__icon {
+  transform: rotate(180deg);
+}
+.kz-musteri-panel {
+  margin-top: 12px;
+  padding: 20px;
+  background: rgba(13,17,23,0.6);
+  border: 1px solid rgba(0,194,255,0.1);
+  border-radius: 12px;
+}
+.kz-musteri-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.kz-musteri-frame {
+  aspect-ratio: 4/3;
+  background: rgba(19,42,74,0.8);
+  border: 1px dashed rgba(0,194,255,0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: rgba(255,255,255,0.3);
+}
+.kz-musteri-promo {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.kz-musteri-cta {
+  display: block;
+  width: 100%;
+}
+.kz-musteri-form-wrap {
+  margin-top: 18px;
+}
+.kz-musteri-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.kz-musteri-input {
+  padding: 11px 14px;
+  background: rgba(19,42,74,0.7);
+  border: 1px solid rgba(0,194,255,0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.kz-musteri-input:focus {
+  border-color: rgba(0,194,255,0.55);
+}
+.kz-musteri-input::placeholder { color: rgba(255,255,255,0.4); }
+.kz-musteri-file-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+.kz-musteri-file-label span {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+.kz-musteri-file-label input[type="file"] {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+.kz-musteri-note {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  margin: 0;
+}
+@media (max-width: 480px) {
+  .kz-musteri-grid { grid-template-columns: repeat(2, 1fr); }
 }
