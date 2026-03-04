@@ -80,7 +80,7 @@
     }
   };
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function init() {
     grid = document.getElementById('kz-galeri-grid');
     searchInput = document.getElementById('kz-galeri-search');
     countEl = document.getElementById('kz-galeri-count');
@@ -99,5 +99,11 @@
         renderKartlar(filtrele(this.value));
       });
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

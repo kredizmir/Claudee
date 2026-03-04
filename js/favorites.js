@@ -74,11 +74,11 @@
       if (car.transmission) pills += '<span class="kz-fav-pill">⚙️ ' + car.transmission + '</span>';
 
       card.innerHTML =
+        (car.firsat ? '<div class="kz-fav-card__firsat-badge">🔥 FIRSAT ARACI</div>' : '') +
         '<div class="kz-fav-card__thumb">' +
           imgTag +
           (car.imageUrl ? '' : '🚗') +
           '<div class="kz-fav-card__num">0' + (idx + 1) + '</div>' +
-          (car.firsat ? '<div class="kz-fav-card__firsat-badge">🔥 FIRSAT ARACI</div>' : '') +
           '<div class="kz-fav-card__overlay-title">' + car.title + '</div>' +
         '</div>' +
         '<div class="kz-fav-card__body">' +

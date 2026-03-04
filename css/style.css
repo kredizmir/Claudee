@@ -838,29 +838,41 @@ input, select { font-family: inherit; }
 
 /* FIRSAT ARACI — neon kart */
 .kz-fav-card--firsat {
-  border: 2.5px solid #FFE500 !important;
-  box-shadow: 0 0 16px rgba(255,229,0,0.55), 0 0 40px rgba(255,229,0,0.2), 0 4px 24px rgba(0,0,0,0.5) !important;
-  animation: kz-neon-pulse 2.2s ease-in-out infinite;
+  position: relative;
+  border-color: #FFE500;
+  border-width: 2.5px;
+  outline: 2px solid rgba(255,229,0,0.45);
+  outline-offset: 3px;
+  animation: kz-neon-pulse 2s ease-in-out infinite;
+}
+.kz-fav-card--firsat:hover {
+  border-color: #FFE500;
 }
 @keyframes kz-neon-pulse {
-  0%, 100% { box-shadow: 0 0 16px rgba(255,229,0,0.55), 0 0 40px rgba(255,229,0,0.2), 0 4px 24px rgba(0,0,0,0.5); }
-  50%       { box-shadow: 0 0 28px rgba(255,229,0,0.85), 0 0 64px rgba(255,229,0,0.35), 0 4px 24px rgba(0,0,0,0.5); }
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(255,229,0,0.6), 0 0 48px rgba(255,229,0,0.25), 0 4px 24px rgba(0,0,0,0.5);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(255,229,0,0.95), 0 0 80px rgba(255,229,0,0.45), 0 4px 24px rgba(0,0,0,0.5);
+  }
 }
 .kz-fav-card__firsat-badge {
   position: absolute;
-  top: 46px;
-  left: 14px;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
   background: #FFE500;
   color: #000;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 900;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 4px;
-  z-index: 5;
-  box-shadow: 0 0 12px rgba(255,229,0,0.8);
+  padding: 5px 18px;
+  border-radius: 100px;
+  z-index: 10;
+  box-shadow: 0 0 18px rgba(255,229,0,0.9), 0 2px 8px rgba(0,0,0,0.4);
   white-space: nowrap;
+  pointer-events: none;
 }
 
 /* Başvuru CTA block */
