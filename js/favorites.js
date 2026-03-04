@@ -11,7 +11,7 @@
       imageUrl: 'https://i.ibb.co/sdnRxBXN/c0fbf6be-bcd7-415d-92d9-da90b82ca4ae.jpg',
       listingUrl: 'https://www.instagram.com/p/DVblFMNCv34/',
       listingNo: 'VW Polo 1.4 Comfortline 2014',
-      views: 8743,
+      views: 13284,
       km: '207.000 KM',
       fuel: 'Dizel',
       transmission: 'Otomatik',
@@ -21,7 +21,7 @@
       imageUrl: 'https://i.ibb.co/XfV38MHq/ad9621ef-af2f-4497-98e3-0c4241196e86.jpg',
       listingUrl: null,
       listingNo: 'Ford C-Max 1.6 Titanium 2011',
-      views: 6218,
+      views: 9657,
       km: '232.000 KM',
       fuel: 'Dizel',
       transmission: 'Manuel',
@@ -31,7 +31,7 @@
       imageUrl: 'https://i.ibb.co/LzG9dgVM/b085f283-8f6e-44b2-b90b-712f8873efee.jpg',
       listingUrl: 'https://www.instagram.com/p/DVbZnMGim6b/',
       listingNo: 'Renault Clio 1.5 DCi Icon 2015',
-      views: 9451,
+      views: 17832,
       km: '247.000 KM',
       fuel: 'Dizel',
       transmission: 'Otomatik',
@@ -41,8 +41,8 @@
   /* ---- Live view counter: her 3-7 saniyede +1 ile +4 arası artır ---- */
   function kzTickViews() {
     KZ_FAVORITES.forEach(function (car) {
-      var bump = Math.floor(Math.random() * 4) + 1;
-      car.views = Math.min(car.views + bump, 10000);
+      var bump = Math.floor(Math.random() * 9) + 2;
+      car.views = Math.min(car.views + bump, 20000);
     });
     // popup açıksa sayacı güncelle
     if (favViewsCount && _currentCar) {
