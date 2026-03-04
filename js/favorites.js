@@ -15,6 +15,7 @@
       km: '207.000 KM',
       fuel: 'Dizel',
       transmission: 'Otomatik',
+      firsat: true,
     },
     {
       title: 'Ford C-Max 1.6 Titanium 2011',
@@ -58,7 +59,7 @@
   if (grid) {
     KZ_FAVORITES.forEach(function (car, idx) {
       var card = document.createElement('div');
-      card.className = 'kz-fav-card';
+      card.className = 'kz-fav-card' + (car.firsat ? ' kz-fav-card--firsat' : '');
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', car.title + ' — ilanı bize ilet');
@@ -77,6 +78,7 @@
           imgTag +
           (car.imageUrl ? '' : '🚗') +
           '<div class="kz-fav-card__num">0' + (idx + 1) + '</div>' +
+          (car.firsat ? '<div class="kz-fav-card__firsat-badge">🔥 FIRSAT ARACI</div>' : '') +
           '<div class="kz-fav-card__overlay-title">' + car.title + '</div>' +
         '</div>' +
         '<div class="kz-fav-card__body">' +
