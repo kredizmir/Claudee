@@ -94,6 +94,24 @@
     });
   }
 
+  /* ---- Ticker ---- */
+  var tickerTrack = document.getElementById('kz-ticker-track');
+  if (tickerTrack && KZ_FAVORITES.length) {
+    var tickerItems = KZ_FAVORITES.concat(KZ_FAVORITES);
+    tickerTrack.innerHTML = tickerItems.map(function (car) {
+      return '<div class="kz-ticker-item">' +
+        (car.imageUrl
+          ? '<img src="' + car.imageUrl + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">'
+          : '<div style="height:80px;background:#132A4A;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">🚗</div>'
+        ) +
+        '<div class="kz-ticker-item__info">' +
+          '<div class="kz-ticker-item__title">' + car.title + '</div>' +
+          (car.km ? '<div class="kz-ticker-item__km">📍 ' + car.km + '</div>' : '') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
   /* ---- Popup logic ---- */
   var _currentCar = null;
   var favModal     = document.getElementById('kz-fav-modal');
