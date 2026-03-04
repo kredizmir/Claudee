@@ -724,7 +724,7 @@ input, select { font-family: inherit; }
 
 /* --- Galerilerimiz Carousel Section --------------------- */
 .kz-galeri-section {
-  padding: 72px 0 80px;
+  padding: 88px 0 100px;
   background: linear-gradient(180deg, #081630 0%, #0b2257 100%);
   border-top: 1.5px solid rgba(212,175,55,0.35);
 }
@@ -733,27 +733,27 @@ input, select { font-family: inherit; }
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 40px;
+  margin-bottom: 52px;
   flex-wrap: wrap;
 }
 .kz-galeri-section-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--kz-gold);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 .kz-galeri-section-title {
-  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
   font-weight: 900;
   color: var(--kz-white);
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  line-height: 1.1;
+  gap: 12px;
+  margin-bottom: 14px;
+  line-height: 1.05;
 }
 .kz-galeri-down-arrows {
   display: inline-flex;
@@ -767,10 +767,10 @@ input, select { font-family: inherit; }
   50%       { transform: translateY(7px); opacity: 0.7; }
 }
 .kz-galeri-section-sub {
-  font-size: 0.92rem;
-  color: rgba(255,255,255,0.55);
-  max-width: 520px;
-  line-height: 1.65;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 580px;
+  line-height: 1.7;
 }
 
 /* Carousel nav buttons */
@@ -781,7 +781,7 @@ input, select { font-family: inherit; }
   align-self: center;
 }
 .kz-carousel-btn {
-  width: 46px; height: 46px;
+  width: 56px; height: 56px;
   border-radius: 50%;
   border: 1.5px solid rgba(212,175,55,0.5);
   background: rgba(212,175,55,0.08);
@@ -822,22 +822,26 @@ input, select { font-family: inherit; }
 /* Carousel track */
 #kz-galeri-grid {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
   scroll-behavior: smooth;
-  padding: 8px 4px 20px;
+  padding: 12px 4px 28px;
 }
 #kz-galeri-grid::-webkit-scrollbar { display: none; }
 #kz-galeri-grid .kz-card {
-  flex: 0 0 260px;
+  flex: 0 0 320px;
   scroll-snap-align: start;
   min-width: 0;
+  padding: 28px;
 }
+#kz-galeri-grid .kz-card .kz-card__badge { font-size: 0.78rem; margin-bottom: 10px; }
+#kz-galeri-grid .kz-card .kz-card__title { font-size: 1.2rem; margin-bottom: 8px; }
+#kz-galeri-grid .kz-card .kz-card__desc  { font-size: 0.92rem; }
 @media (max-width: 600px) {
-  #kz-galeri-grid .kz-card { flex: 0 0 220px; }
+  #kz-galeri-grid .kz-card { flex: 0 0 260px; }
 }
 
 /* Başvuru CTA block */
