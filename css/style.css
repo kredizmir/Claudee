@@ -688,35 +688,37 @@ input, select { font-family: inherit; }
 /* --- Instagram Section ----------------------------------- */
 .kz-insta-section {
   background: rgba(0,194,255,0.06);
-  border-top: 1px solid var(--kz-border);
-  border-bottom: 1px solid var(--kz-border);
+  border-top: 2px solid rgba(212,175,55,0.4);
+  border-bottom: 2px solid rgba(212,175,55,0.4);
+  padding: 72px 0 !important;
 }
 .kz-insta-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 32px;
   flex-wrap: wrap;
+  text-align: center;
 }
 .kz-insta-text { flex: 1; min-width: 240px; }
 .kz-insta-label {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--kz-accent);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .kz-insta-title {
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-size: 2rem;
+  font-weight: 900;
   color: var(--kz-white);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .kz-insta-desc {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--kz-muted);
-  margin-bottom: 18px;
+  margin-bottom: 28px;
 }
 /* REMOVED: QR section styles */
 
