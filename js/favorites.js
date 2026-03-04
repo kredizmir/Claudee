@@ -39,30 +39,34 @@
   ];
 
   /* ---- Render cards ---- */
-  const grid = document.getElementById('kz-fav-grid');
+  var grid = document.getElementById('kz-fav-grid');
   if (grid) {
-    KZ_FAVORITES.forEach(function (car) {
-      const card = document.createElement('div');
+    KZ_FAVORITES.forEach(function (car, idx) {
+      var card = document.createElement('div');
       card.className = 'kz-fav-card';
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', car.title + ' — ilanı bize ilet');
 
-      const thumbInner = car.imageUrl
-        ? '<img src="' + car.imageUrl + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'" />🚗'
-        : '🚗';
+      var imgTag = car.imageUrl
+        ? '<img src="' + car.imageUrl + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'" />'
+        : '';
 
-      const metaParts = [];
-      if (car.km)           metaParts.push('<span>📍 ' + car.km + '</span>');
-      if (car.fuel)         metaParts.push('<span>⛽ ' + car.fuel + '</span>');
-      if (car.transmission) metaParts.push('<span>⚙️ ' + car.transmission + '</span>');
+      var pills = '';
+      if (car.km)           pills += '<span class="kz-fav-pill">📍 ' + car.km + '</span>';
+      if (car.fuel)         pills += '<span class="kz-fav-pill">⛽ ' + car.fuel + '</span>';
+      if (car.transmission) pills += '<span class="kz-fav-pill">⚙️ ' + car.transmission + '</span>';
 
       card.innerHTML =
-        '<div class="kz-fav-card__thumb">' + thumbInner + '</div>' +
+        '<div class="kz-fav-card__thumb">' +
+          imgTag +
+          (car.imageUrl ? '' : '🚗') +
+          '<div class="kz-fav-card__num">0' + (idx + 1) + '</div>' +
+          '<div class="kz-fav-card__overlay-title">' + car.title + '</div>' +
+        '</div>' +
         '<div class="kz-fav-card__body">' +
-          '<div class="kz-fav-card__title">' + car.title + '</div>' +
-          '<div class="kz-fav-card__meta">' + metaParts.join('') + '</div>' +
-          '<div class="kz-fav-card__cta">İlanı Bize İlet →</div>' +
+          (pills ? '<div class="kz-fav-card__meta">' + pills + '</div>' : '') +
+          '<div class="kz-fav-card__cta-btn">İlanı Bize İlet &rarr;</div>' +
         '</div>';
 
       card.addEventListener('click', function () { kzOpenFavPopup(car); });

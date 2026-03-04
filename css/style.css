@@ -860,38 +860,76 @@ input, select { font-family: inherit; }
   .kz-sticky-bar__btns .kz-btn { flex: 1; justify-content: center; }
 }
 
-/* NEW: Weekly Favorite Cars section */
+/* NEW: Weekly Favorite Cars — Premium Vitrin */
 .kz-favorites-section {
-  background: rgba(212,175,55,0.04);
+  padding: 64px 0 72px;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212,175,55,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 100%, rgba(0,194,255,0.05) 0%, transparent 60%);
   border-top: 1px solid var(--kz-border);
   border-bottom: 1px solid var(--kz-border);
 }
+.kz-fav-header { text-align: center; margin-bottom: 44px; }
+.kz-fav-header__top { margin-bottom: 14px; }
+.kz-fav-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0.08));
+  border: 1px solid rgba(212,175,55,0.4);
+  color: var(--kz-gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 100px;
+}
+.kz-fav-title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 900;
+  color: var(--kz-white);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+.kz-fav-subtitle {
+  font-size: 0.95rem;
+  color: var(--kz-muted);
+}
+
+/* Grid — 3 fixed columns */
 .kz-fav-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
+
+/* Card */
 .kz-fav-card {
-  background: var(--kz-card-bg);
-  border: 1px solid var(--kz-border);
-  border-radius: var(--kz-radius);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--kz-shadow);
-  cursor: pointer;
+  background: rgba(13, 28, 50, 0.75);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
   overflow: hidden;
-  transition: border-color var(--kz-transition), transform var(--kz-transition);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
-.kz-fav-card:hover { border-color: rgba(0,194,255,0.4); transform: translateY(-3px); }
-.kz-fav-card:focus-visible { outline: 2px solid var(--kz-accent); outline-offset: 2px; }
+.kz-fav-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,175,55,0.45);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,55,0.15);
+}
+.kz-fav-card:focus-visible { outline: 2px solid var(--kz-gold); outline-offset: 3px; }
+
+/* Thumb — tall image with gradient overlay */
 .kz-fav-card__thumb {
   width: 100%;
-  height: 148px;
-  background: linear-gradient(135deg, rgba(0,194,255,0.08) 0%, rgba(19,42,74,0.9) 100%);
+  height: 210px;
+  background: linear-gradient(135deg, rgba(0,194,255,0.06), rgba(10,26,47,1));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.2rem;
+  font-size: 4rem;
   position: relative;
   overflow: hidden;
 }
@@ -901,28 +939,94 @@ input, select { font-family: inherit; }
   object-fit: cover;
   position: absolute;
   inset: 0;
+  transition: transform 0.4s ease;
 }
-.kz-fav-card__body { padding: 14px 16px 18px; }
-.kz-fav-card__title {
-  font-size: 0.92rem;
-  font-weight: 700;
+.kz-fav-card:hover .kz-fav-card__thumb img { transform: scale(1.04); }
+
+/* Dark gradient overlay at bottom of image */
+.kz-fav-card__thumb::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(10,22,42,0.95) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Number badge top-left */
+.kz-fav-card__num {
+  position: absolute;
+  top: 12px; left: 14px;
+  background: rgba(212,175,55,0.18);
+  border: 1px solid rgba(212,175,55,0.5);
+  color: var(--kz-gold);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  z-index: 2;
+}
+
+/* Title overlaid on bottom of image */
+.kz-fav-card__overlay-title {
+  position: absolute;
+  bottom: 14px; left: 16px; right: 16px;
+  font-size: 0.95rem;
+  font-weight: 800;
   color: var(--kz-white);
-  margin-bottom: 6px;
-  line-height: 1.3;
+  line-height: 1.25;
+  z-index: 2;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
-.kz-fav-card__meta {
-  font-size: 0.78rem;
-  color: var(--kz-muted);
+
+/* Body */
+.kz-fav-card__body {
+  padding: 14px 16px 18px;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Meta pills */
+.kz-fav-card__meta {
+  display: flex;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
 }
-.kz-fav-card__cta {
-  font-size: 0.8rem;
+.kz-fav-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--kz-muted);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+/* CTA button */
+.kz-fav-card__cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.08));
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 10px;
+  color: var(--kz-gold);
+  font-size: 0.82rem;
   font-weight: 700;
-  color: var(--kz-accent);
+  letter-spacing: 0.03em;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
+.kz-fav-card:hover .kz-fav-card__cta-btn {
+  background: linear-gradient(135deg, rgba(212,175,55,0.25), rgba(212,175,55,0.12));
+  border-color: rgba(212,175,55,0.6);
+}
+
 /* Popup views badge */
 .kz-fav-views {
   font-size: 0.88rem;
@@ -935,6 +1039,15 @@ input, select { font-family: inherit; }
   text-align: center;
 }
 .kz-fav-views strong { color: var(--kz-accent); font-size: 1.05rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .kz-fav-grid { grid-template-columns: 1fr; gap: 16px; }
+  .kz-favorites-section { padding: 48px 0 56px; }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .kz-fav-grid { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* --- Animations ------------------------------------------ */
 @keyframes kzFadeIn {
