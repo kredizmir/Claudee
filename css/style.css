@@ -82,8 +82,8 @@ input, select { font-family: inherit; }
   line-height: 1.1;
 }
 .kz-logo__kred {
-  color: #0B1F3A;
-  -webkit-text-fill-color: #0B1F3A;
+  color: #1E4D8C;
+  -webkit-text-fill-color: #1E4D8C;
 }
 .kz-logo__izmir {
   background: linear-gradient(135deg, #ffffff 0%, var(--kz-accent) 100%);
