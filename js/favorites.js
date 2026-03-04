@@ -74,7 +74,7 @@
       if (car.transmission) pills += '<span class="kz-fav-pill">⚙️ ' + car.transmission + '</span>';
 
       card.innerHTML =
-        (car.firsat ? '<div class="kz-fav-card__firsat-badge">🔥 FIRSAT ARACI</div>' : '') +
+        (car.firsat ? '<div class="kz-fav-card__firsat-badge">Fırsat Aracı</div>' : '') +
         '<div class="kz-fav-card__thumb">' +
           imgTag +
           (car.imageUrl ? '' : '🚗') +
