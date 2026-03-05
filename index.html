@@ -350,11 +350,23 @@
         var btn = document.createElement('button');
         btn.className = 'kz-chat-opt';
         btn.textContent = opt.label;
-        btn.addEventListener('click', function() {
-          addMsg(opt.label, false);
-          optWrap.innerHTML = '';
-          setTimeout(function(){ showStep(opt.next, opt.waMsg); }, 300);
-        });
+        btn.addEventListener('click', (function(o){
+          return function() {
+            /* iOS Safari blocks window.open inside setTimeout — handle 'wa' directly */
+            if (o.next === 'wa') {
+              var msg = o.waMsg || 'Merhaba KREDİZMİR, bilgi almak istiyorum.';
+              window.open('https://wa.me/' + WA_HAKAN + '?text=' + encodeURIComponent(msg), '_blank');
+              addMsg(o.label, false);
+              optWrap.innerHTML = '';
+              addMsg('WhatsApp açılıyor… Hakan Bey sizi bekliyor.', true);
+              setTimeout(function(){ showStep('start'); }, 1200);
+              return;
+            }
+            addMsg(o.label, false);
+            optWrap.innerHTML = '';
+            setTimeout(function(){ showStep(o.next, o.waMsg); }, 300);
+          };
+        })(opt));
         optWrap.appendChild(btn);
       });
     }
