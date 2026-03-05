@@ -6,6 +6,9 @@
   <meta name="description" content="KREDİZMİR — 2. el taşıt finansmanında güvenilir çözüm ortağınız. Vergi levhalı, bireysel ve DJS finansman seçenekleriyle yanınızdayız." />
   <title>KREDİZMİR | 2. El Taşıt Finansmanı</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -150,52 +153,6 @@
     </div>
   </div>
 
-  <!-- MÜŞTERİ ARAÇLARI -->
-  <section class="kz-musteri-section">
-    <div class="kz-container">
-      <div class="kz-musteri-accordion">
-        <button class="kz-musteri-toggle" id="kz-musteri-toggle" aria-expanded="false">
-          <span>Müşteri Araçları</span>
-          <svg class="kz-musteri-toggle__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="kz-musteri-body" id="kz-musteri-body">
-          <div class="kz-musteri-info">
-            <p class="kz-musteri-desc">Aracını gönder — hem Instagram'da hem sitemizde binlerce insana sunalım. Üstelik tamamen ücretsiz.</p>
-            <button class="kz-btn kz-btn--gold" id="kz-musteri-cta-btn">Aracını Gönder</button>
-          </div>
-          <div class="kz-musteri-grid">
-            <div class="kz-musteri-frame">🚗</div>
-            <div class="kz-musteri-frame">🚗</div>
-            <div class="kz-musteri-frame">🚗</div>
-            <div class="kz-musteri-frame">🚗</div>
-            <div class="kz-musteri-frame">🚗</div>
-            <div class="kz-musteri-frame">🚗</div>
-          </div>
-          <div class="kz-musteri-form" id="kz-musteri-form" style="display:none;">
-            <div class="kz-form-group">
-              <label class="kz-label" for="kz-m-isim">Ad Soyad</label>
-              <input class="kz-input" id="kz-m-isim" type="text" placeholder="Adınız Soyadınız" autocomplete="name" />
-            </div>
-            <div class="kz-form-group">
-              <label class="kz-label" for="kz-m-tel">Telefon</label>
-              <input class="kz-input" id="kz-m-tel" type="tel" placeholder="05xx xxx xx xx" autocomplete="tel" />
-            </div>
-            <div class="kz-form-group">
-              <label class="kz-label" for="kz-m-arac">Araç Bilgisi <span style="color:var(--kz-muted);font-weight:400;">(isteğe bağlı)</span></label>
-              <input class="kz-input" id="kz-m-arac" type="text" placeholder="Marka, model, yıl…" />
-            </div>
-            <div class="kz-form-group">
-              <label class="kz-label" for="kz-m-foto">Fotoğraf <span style="color:var(--kz-muted);font-weight:400;">(önden çekim)</span></label>
-              <input class="kz-input kz-input--file" id="kz-m-foto" type="file" accept="image/*" />
-            </div>
-            <button class="kz-btn kz-btn--primary kz-btn--full" id="kz-musteri-submit">📲 WhatsApp'tan Gönder</button>
-            <p class="kz-musteri-note">Not: Fotoğrafı WhatsApp ekranında ekleyip gönderiniz.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- GALERİLERİMİZ — Carousel -->
   <section class="kz-galeri-section" id="galeriler">
     <div class="kz-container">
@@ -218,6 +175,18 @@
       <!-- Galeri Grid -->
       <div id="kz-galeri-grid">
         <div class="kz-empty">Yükleniyor…</div>
+      </div>
+
+      <!-- Finans Bilgi Paneli -->
+      <div class="kz-finans-panel">
+        <h2 class="kz-finans-panel__title">Aracı satın almadan önce finans teklifinizi öğrenin.</h2>
+        <p class="kz-finans-panel__sub">KREDİZMİR olarak o araç için</p>
+        <ul class="kz-finans-panel__list">
+          <li><span class="kz-finans-panel__check">✔</span> size özel faiz oranı</li>
+          <li><span class="kz-finans-panel__check">✔</span> uygun peşinat planı</li>
+          <li><span class="kz-finans-panel__check">✔</span> aylık ödeme seçenekleri</li>
+        </ul>
+        <p class="kz-finans-panel__extra">Araç motor yürüyen ve eksper durumu hakkında detaylı bilgi hazırlayalım.</p>
       </div>
 
       <!-- Başvuru -->
@@ -244,18 +213,35 @@
     </div>
   </section>
 
-  <!-- CHATBOT WIDGET -->
-  <div id="kz-chat-btn" class="kz-chat-fab" aria-label="Yardım al" role="button" tabindex="0">
-    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span class="kz-chat-fab__label">Yardım</span>
+  <!-- WHATSAPP FAB -->
+  <div id="kz-wa-btn" class="kz-wa-fab" aria-label="WhatsApp ile iletişim" role="button" tabindex="0">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.529 5.853L.057 23.467a.5.5 0 0 0 .617.617l5.666-1.477A11.936 11.936 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.178-1.381l-.362-.214-3.742.976.999-3.669-.236-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    <span class="kz-wa-fab__label">WhatsApp</span>
   </div>
-  <div id="kz-chat-box" class="kz-chat-box" role="dialog" aria-label="Sohbet" aria-hidden="true">
-    <div class="kz-chat-header">
-      <span>KREDİZMİR Asistan</span>
-      <button id="kz-chat-close" aria-label="Kapat" class="kz-chat-close">✕</button>
+  <!-- WHATSAPP CONTACT POPUP -->
+  <div id="kz-wa-popup" class="kz-wa-popup" aria-hidden="true">
+    <div class="kz-wa-popup__inner">
+      <button class="kz-wa-popup__close" id="kz-wa-popup-close" aria-label="Kapat">✕</button>
+      <p class="kz-wa-popup__title">Bizimle iletişime geçebilirsiniz.</p>
+      <a href="https://wa.me/905307258789?text=Merhaba%20KRED%C4%B0ZM%C4%B0R" target="_blank" rel="noopener" class="kz-wa-popup__contact">
+        <span class="kz-wa-popup__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.529 5.853L.057 23.467a.5.5 0 0 0 .617.617l5.666-1.477A11.936 11.936 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.178-1.381l-.362-.214-3.742.976.999-3.669-.236-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        </span>
+        <div>
+          <div class="kz-wa-popup__name">Oğuz Bey</div>
+          <div class="kz-wa-popup__phone">0530 725 87 89</div>
+        </div>
+      </a>
+      <a href="https://wa.me/905363972232?text=Merhaba%20KRED%C4%B0ZM%C4%B0R" target="_blank" rel="noopener" class="kz-wa-popup__contact">
+        <span class="kz-wa-popup__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.529 5.853L.057 23.467a.5.5 0 0 0 .617.617l5.666-1.477A11.936 11.936 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.178-1.381l-.362-.214-3.742.976.999-3.669-.236-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        </span>
+        <div>
+          <div class="kz-wa-popup__name">Hakan Bey</div>
+          <div class="kz-wa-popup__phone">0536 397 22 32</div>
+        </div>
+      </a>
     </div>
-    <div class="kz-chat-messages" id="kz-chat-messages"></div>
-    <div class="kz-chat-options" id="kz-chat-options"></div>
   </div>
 
   <!-- FOOTER -->
@@ -273,152 +259,31 @@
   <script src="js/main.js"></script>
   <script src="js/favorites.js"></script>
   <script>
-  /* ---- Chatbot ---- */
+  /* ---- WhatsApp FAB ---- */
   (function(){
-    var WA_HAKAN = '905363972232';
-    var fab      = document.getElementById('kz-chat-btn');
-    var box      = document.getElementById('kz-chat-box');
-    var closeBtn = document.getElementById('kz-chat-close');
-    var msgWrap  = document.getElementById('kz-chat-messages');
-    var optWrap  = document.getElementById('kz-chat-options');
+    var fab     = document.getElementById('kz-wa-btn');
+    var popup   = document.getElementById('kz-wa-popup');
+    var closeBtn = document.getElementById('kz-wa-popup-close');
 
-    var FLOW = {
-      start: {
-        msg: 'Merhaba! Size nasıl yardımcı olabilirim?',
-        opts: [
-          { label: '🚗 Araç kredisi almak istiyorum', next: 'kredi' },
-          { label: '🏦 Hangi bankalarla çalışıyorsunuz?', next: 'bankalar' },
-          { label: '📋 Gerekli belgeler neler?', next: 'belgeler' },
-          { label: '📍 Anlaşmalı galeriler', next: 'galeriler' },
-          { label: '📞 Hemen bağlanın', next: 'wa' },
-        ]
-      },
-      kredi: {
-        msg: 'Araç kredisi için uzmanlarımız size özel teklif hazırlasın. Hakan Bey ile WhatsApp\'tan iletişime geçelim mi?',
-        opts: [
-          { label: '✅ Evet, WhatsApp\'tan bağlanın', next: 'wa', waMsg: 'Merhaba, araç kredisi hakkında bilgi almak istiyorum.' },
-          { label: '← Geri', next: 'start' }
-        ]
-      },
-      bankalar: {
-        msg: 'Ziraat, Halkbank, Vakıfbank, Garanti, QNB, TEB ve daha birçok banka ile anlaşmalıyız. Detay için uzmanımızla konuşun.',
-        opts: [
-          { label: '📲 Uzmanla konuş', next: 'wa', waMsg: 'Merhaba, anlaşmalı bankalar hakkında bilgi almak istiyorum.' },
-          { label: '← Geri', next: 'start' }
-        ]
-      },
-      belgeler: {
-        msg: 'Temel belgeler: Nüfus cüzdanı, ikametgah, gelir belgesi (maaş bordrosu veya vergi levhası). Duruma göre ek belge gerekebilir.',
-        opts: [
-          { label: '📲 Detaylı bilgi al', next: 'wa', waMsg: 'Merhaba, kredi için gerekli belgeler hakkında bilgi almak istiyorum.' },
-          { label: '← Geri', next: 'start' }
-        ]
-      },
-      galeriler: {
-        msg: 'İzmir\'de 27 anlaşmalı galerimiz bulunuyor. Aşağıdan galerilerimize göz atabilir veya bizimle iletişime geçebilirsiniz.',
-        opts: [
-          { label: '🔍 Galeriye Git', next: 'galeri_link' },
-          { label: '📲 Bilgi al', next: 'wa', waMsg: 'Merhaba, anlaşmalı galeriler hakkında bilgi almak istiyorum.' },
-          { label: '← Geri', next: 'start' }
-        ]
-      },
-      galeri_link: { msg: '', opts: [] },
-      wa: { msg: '', opts: [] }
-    };
-
-    function addMsg(text, isBot) {
-      var d = document.createElement('div');
-      d.className = 'kz-chat-msg ' + (isBot ? 'kz-chat-msg--bot' : 'kz-chat-msg--user');
-      d.textContent = text;
-      msgWrap.appendChild(d);
-      msgWrap.scrollTop = msgWrap.scrollHeight;
+    function openPopup() {
+      popup.classList.add('kz-wa-popup--open');
+      popup.setAttribute('aria-hidden', 'false');
+    }
+    function closePopup() {
+      popup.classList.remove('kz-wa-popup--open');
+      popup.setAttribute('aria-hidden', 'true');
     }
 
-    function showStep(key, waMsg) {
-      var step = FLOW[key];
-      optWrap.innerHTML = '';
-      if (key === 'wa') {
-        var msg = waMsg || 'Merhaba KREDİZMİR, bilgi almak istiyorum.';
-        window.open('https://wa.me/' + WA_HAKAN + '?text=' + encodeURIComponent(msg), '_blank');
-        addMsg('WhatsApp açılıyor… Hakan Bey sizi bekliyor.', true);
-        setTimeout(function(){ showStep('start'); }, 1200);
-        return;
-      }
-      if (key === 'galeri_link') {
-        document.getElementById('galeriler').scrollIntoView({ behavior: 'smooth' });
-        closeChat();
-        return;
-      }
-      if (step.msg) addMsg(step.msg, true);
-      step.opts.forEach(function(opt) {
-        var btn = document.createElement('button');
-        btn.className = 'kz-chat-opt';
-        btn.textContent = opt.label;
-        btn.addEventListener('click', (function(o){
-          return function() {
-            /* iOS Safari blocks window.open inside setTimeout — handle 'wa' directly */
-            if (o.next === 'wa') {
-              var msg = o.waMsg || 'Merhaba KREDİZMİR, bilgi almak istiyorum.';
-              window.open('https://wa.me/' + WA_HAKAN + '?text=' + encodeURIComponent(msg), '_blank');
-              addMsg(o.label, false);
-              optWrap.innerHTML = '';
-              addMsg('WhatsApp açılıyor… Hakan Bey sizi bekliyor.', true);
-              setTimeout(function(){ showStep('start'); }, 1200);
-              return;
-            }
-            addMsg(o.label, false);
-            optWrap.innerHTML = '';
-            setTimeout(function(){ showStep(o.next, o.waMsg); }, 300);
-          };
-        })(opt));
-        optWrap.appendChild(btn);
-      });
-    }
-
-    function openChat() {
-      box.classList.add('kz-chat-box--open');
-      box.setAttribute('aria-hidden', 'false');
-      if (!msgWrap.hasChildNodes()) showStep('start');
-    }
-    function closeChat() {
-      box.classList.remove('kz-chat-box--open');
-      box.setAttribute('aria-hidden', 'true');
-    }
-
-    fab.addEventListener('click', function(){ box.classList.contains('kz-chat-box--open') ? closeChat() : openChat(); });
-    fab.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fab.click(); } });
-    closeBtn.addEventListener('click', closeChat);
-  })();
-  </script>
-  <script>
-  (function(){
-    var toggle = document.getElementById('kz-musteri-toggle');
-    var body   = document.getElementById('kz-musteri-body');
-    var ctaBtn = document.getElementById('kz-musteri-cta-btn');
-    var form   = document.getElementById('kz-musteri-form');
-    var submitBtn = document.getElementById('kz-musteri-submit');
-
-    if(toggle && body){
-      toggle.addEventListener('click', function(){
-        var open = body.classList.toggle('kz-musteri-body--open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
-    if(ctaBtn && form){
-      ctaBtn.addEventListener('click', function(){
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        if(form.style.display === 'block') document.getElementById('kz-m-isim').focus();
-      });
-    }
-    if(submitBtn){
-      submitBtn.addEventListener('click', function(){
-        var isim = (document.getElementById('kz-m-isim').value||'').trim();
-        var tel  = (document.getElementById('kz-m-tel').value||'').trim();
-        var arac = (document.getElementById('kz-m-arac').value||'').trim();
-        var msg  = 'Merhaba KREDİZMİR,\nAracımı ücretsiz yayınlamak istiyorum.\nİsim: ' + (isim||'-') + '\nTelefon: ' + (tel||'-') + '\nAraç Bilgisi: ' + (arac||'-') + '\nFotoğrafı bu mesaja ekleyip gönderiyorum.';
-        window.open('https://wa.me/905363972232?text=' + encodeURIComponent(msg), '_blank');
-      });
-    }
+    fab.addEventListener('click', function(){
+      popup.classList.contains('kz-wa-popup--open') ? closePopup() : openPopup();
+    });
+    fab.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fab.click(); }
+    });
+    closeBtn.addEventListener('click', closePopup);
+    document.addEventListener('click', function(e){
+      if(!fab.contains(e.target) && !popup.contains(e.target)) closePopup();
+    });
   })();
   </script>
 </body>
