@@ -19,6 +19,8 @@ var cors     = require('cors');
 var multer   = require('multer');
 var path     = require('path');
 var fs       = require('fs');
+var axios    = require('axios');
+var cheerio  = require('cheerio');
 
 var app  = express();
 var PORT = process.env.PORT || 3000;
@@ -157,6 +159,107 @@ app.get('/leads', function (req, res) {
   } catch (err) {
     res.status(500).json({ error: 'Lead listesi okunamadı.' });
   }
+});
+
+/* ============================================================
+   POST /sahibinden-fetch
+   Body: { url: "https://www.sahibinden.com/ilan/..." }
+   Yanıt: { ok, model, yil, km, yakit, vites, fiyat, imageUrl }
+   ============================================================ */
+var SAHIBINDEN_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'Accept-Language': 'tr-TR,tr;q=0.9,en-US;q=0.8',
+  'Referer': 'https://www.sahibinden.com/'
+};
+
+app.post('/sahibinden-fetch', function (req, res) {
+  var url = (req.body && req.body.url) ? req.body.url.trim() : '';
+
+  if (!url || !url.startsWith('https://www.sahibinden.com/')) {
+    return res.status(400).json({ ok: false, error: 'Geçerli bir sahibinden.com URL\'si girin.' });
+  }
+
+  axios.get(url, { headers: SAHIBINDEN_HEADERS, timeout: 10000 })
+    .then(function (response) {
+      var $ = cheerio.load(response.data);
+
+      /* --- Model: og:title öncelikli --- */
+      var model = $('meta[property="og:title"]').attr('content') || '';
+      if (!model) model = $('h1.classifiedDetailTitle').text().trim();
+      model = model.replace(/\s*-\s*sahibinden\.com.*$/i, '').trim();
+
+      /* --- Yıl (Yıl satırından) --- */
+      var yil = '';
+      $('dl.classifiedInfoList dt, .classified-info-list dt').each(function () {
+        if ($(this).text().trim() === 'Yıl') {
+          yil = $(this).next('dd').text().trim();
+        }
+      });
+
+      /* --- KM --- */
+      var km = '';
+      $('dl.classifiedInfoList dt, .classified-info-list dt').each(function () {
+        if ($(this).text().trim() === 'Kilometre') {
+          km = $(this).next('dd').text().trim().replace(/\s+km/i, '');
+        }
+      });
+
+      /* --- Yakıt Tipi --- */
+      var yakit = '';
+      $('dl.classifiedInfoList dt, .classified-info-list dt').each(function () {
+        if ($(this).text().trim() === 'Yakıt Tipi') {
+          yakit = $(this).next('dd').text().trim();
+        }
+      });
+
+      /* --- Vites Tipi --- */
+      var vites = '';
+      $('dl.classifiedInfoList dt, .classified-info-list dt').each(function () {
+        if ($(this).text().trim() === 'Vites Tipi') {
+          vites = $(this).next('dd').text().trim();
+        }
+      });
+
+      /* --- Fiyat --- */
+      var fiyat = $('meta[property="product:price:amount"]').attr('content') || '';
+      if (!fiyat) {
+        fiyat = $('.classifiedPrice h3').first().text().trim().replace(/[^\d.]/g, '');
+      }
+
+      /* --- Görsel URL --- */
+      var imageUrl = $('meta[property="og:image"]').attr('content') || '';
+      if (!imageUrl) {
+        imageUrl = $('img.classifiedDetailMainPhoto').first().attr('src') || '';
+      }
+
+      res.json({ ok: true, model: model, yil: yil, km: km, yakit: yakit, vites: vites, fiyat: fiyat, imageUrl: imageUrl });
+    })
+    .catch(function (err) {
+      var blocked = err.response && (err.response.status === 403 || err.response.status === 429);
+      console.error('sahibinden-fetch hata:', err.message);
+      res.json({ ok: false, error: 'Sayfa getirilemedi. Manuel giriş yapınız.', blocked: blocked || false });
+    });
+});
+
+/* ============================================================
+   GET /image-proxy?url=...
+   Dış domain resimlerini CORS ile proxy'le (html2canvas için)
+   ============================================================ */
+app.get('/image-proxy', function (req, res) {
+  var imgUrl = req.query.url;
+  if (!imgUrl) return res.status(400).send('url parametresi gerekli');
+
+  axios.get(imgUrl, { responseType: 'stream', timeout: 10000, headers: { 'Referer': 'https://www.sahibinden.com/' } })
+    .then(function (response) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Content-Type', response.headers['content-type'] || 'image/jpeg');
+      response.data.pipe(res);
+    })
+    .catch(function (err) {
+      console.error('image-proxy hata:', err.message);
+      res.status(502).send('Resim proxy hatası');
+    });
 });
 
 /* ============================================================

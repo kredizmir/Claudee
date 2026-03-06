@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KREDİZMİR araç ilan görseli üretici. Sahibinden.com URL veya manuel giriş ile Instagram/WhatsApp şablonu oluşturun." />
+  <title>Şablon Üretici | KREDİZMİR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/sablon.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="kz-header">
+    <div class="kz-container">
+      <div class="kz-header__inner">
+        <a href="index.html" class="kz-logo">
+          <div>
+            <div class="kz-logo__text"><span class="kz-logo__kred">KRED</span><span class="kz-logo__izmir">İZMİR</span></div>
+            <div class="kz-logo__sub">Taksitle araba sahibi ol.</div>
+          </div>
+        </a>
+        <nav class="kz-nav">
+          <a href="index.html" class="kz-nav__link">Ana Sayfa</a>
+          <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+          <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+          <a href="sablon.html" class="kz-nav__link active">Şablon</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- SAYFA BAŞLIĞI -->
+  <section class="kz-section--sm" style="padding-top:48px;">
+    <div class="kz-container">
+      <h1 class="kz-page-title">Araç Şablon Üretici</h1>
+      <p class="kz-page-subtitle">Sahibinden.com ilanından veya manuel giriş ile 1080×1080 Instagram/WhatsApp şablonu oluşturun.</p>
+    </div>
+  </section>
+
+  <!-- ANA İÇERİK -->
+  <section class="kz-section" style="padding-top:16px;">
+    <div class="kz-container">
+      <div class="kz-two-col">
+
+        <!-- SOL PANEL: FORM -->
+        <div>
+          <div class="kz-card">
+            <div class="kz-card__badge">Veri Girişi</div>
+            <h2 class="kz-card__title" style="font-size:1.1rem;margin-bottom:16px;">Araç Bilgilerini Girin</h2>
+
+            <!-- SEKMELER -->
+            <div class="sb-tabs">
+              <button type="button" class="sb-tab-btn active" data-tab="manuel">Manuel Giriş</button>
+              <button type="button" class="sb-tab-btn" data-tab="sahibinden">Sahibinden.com URL</button>
+            </div>
+
+            <!-- MANUEL GİRİŞ SEKMESİ -->
+            <div class="sb-tab-panel active" id="sb-panel-manuel">
+              <div class="kz-form">
+
+                <div class="kz-form-group">
+                  <label class="kz-label" for="sb-model">Araç Modeli</label>
+                  <input class="kz-input" id="sb-model" type="text" placeholder="Örn: HYUNDAİ İ30 1.6 CRDİ STYLE" />
+                </div>
+
+                <div class="kz-form-row">
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-yil">Yıl</label>
+                    <input class="kz-input" id="sb-yil" type="number" min="1990" max="2030" placeholder="2014" />
+                  </div>
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-km">Kilometre</label>
+                    <input class="kz-input" id="sb-km" type="text" placeholder="230.000" />
+                  </div>
+                </div>
+
+                <div class="kz-form-row">
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-yakit">Yakıt Tipi</label>
+                    <select class="kz-input" id="sb-yakit">
+                      <option value="Dizel">Dizel</option>
+                      <option value="Benzin">Benzin</option>
+                      <option value="LPG">LPG</option>
+                      <option value="Hibrit">Hibrit</option>
+                      <option value="Elektrik">Elektrik</option>
+                    </select>
+                  </div>
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-vites">Vites</label>
+                    <select class="kz-input" id="sb-vites">
+                      <option value="Manuel">Manuel</option>
+                      <option value="Otomatik">Otomatik</option>
+                      <option value="Yarı Otomatik">Yarı Otomatik</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="kz-form-row">
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-pesinat">Peşinat (₺)</label>
+                    <input class="kz-input" id="sb-pesinat" type="number" min="0" step="1000" placeholder="200000" />
+                  </div>
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-pesin">Peşin Fiyat (₺)</label>
+                    <input class="kz-input" id="sb-pesin" type="number" min="0" step="1000" placeholder="650000" />
+                  </div>
+                </div>
+
+                <div class="kz-form-group">
+                  <label class="kz-label" for="sb-gorsel">Araç Görseli</label>
+                  <input class="kz-input" id="sb-gorsel" type="file" accept="image/*" style="padding:8px;" />
+                </div>
+
+              </div>
+            </div>
+
+            <!-- SAHİBİNDEN URL SEKMESİ -->
+            <div class="sb-tab-panel" id="sb-panel-sahibinden">
+              <div class="kz-form">
+                <div class="kz-form-group">
+                  <label class="kz-label" for="sb-url">Sahibinden.com İlan URL'si</label>
+                  <input class="kz-input" id="sb-url" type="url" placeholder="https://www.sahibinden.com/ilan/..." />
+                </div>
+                <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-fetch-btn">
+                  Veriyi Getir →
+                </button>
+                <div class="sb-fetch-status" id="sb-fetch-status"></div>
+                <p style="font-size:0.75rem;color:var(--kz-muted);margin-top:10px;line-height:1.5;">
+                  Veriler getirilince tüm alanlar doldurulur ve düzenlenebilir. Görsel otomatik yüklenir.
+                </p>
+              </div>
+            </div>
+
+            <!-- TOPLU İŞLEM (Accordion) -->
+            <button type="button" class="sb-accordion-toggle" id="sb-accordion-btn">
+              ▼ &nbsp;Toplu İşlem (CSV / Liste)
+            </button>
+            <div class="sb-accordion-body" id="sb-accordion-body">
+              <p class="sb-csv-note">
+                CSV formatı (başlık satırı zorunlu):<br />
+                <code>model,yil,km,yakit,vites,pesinat,pesin,imageUrl</code><br />
+                <code>"VW Polo 1.4",2014,"207.000",Dizel,Otomatik,185000,920000,https://...</code>
+              </p>
+              <div class="kz-form-group">
+                <label class="kz-label" for="sb-csv-file">CSV Dosyası Yükle</label>
+                <input class="kz-input" id="sb-csv-file" type="file" accept=".csv,text/csv" style="padding:8px;" />
+              </div>
+              <div class="kz-form-group" style="margin-top:10px;">
+                <label class="kz-label" for="sb-csv-text">Veya Yapıştır (başlıksız, virgülle ayrılmış)</label>
+                <textarea class="kz-input" id="sb-csv-text" rows="4" style="resize:vertical;"
+                  placeholder='VW Polo 1.4,2014,"207.000",Dizel,Otomatik,185000,920000'></textarea>
+              </div>
+              <button type="button" class="kz-btn kz-btn--gold kz-btn--full" id="sb-batch-btn">
+                Tümünü Oluştur ve İndir (ZIP)
+              </button>
+              <div class="sb-progress" id="sb-progress">
+                <span id="sb-progress-text">0 / 0 oluşturuldu...</span>
+                <div class="sb-progress-bar">
+                  <div class="sb-progress-fill" id="sb-progress-fill"></div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /kz-card giriş -->
+
+          <!-- EYLEMLER -->
+          <div class="kz-card" style="margin-top:16px;">
+            <div class="kz-card__badge">Eylemler</div>
+            <div class="sb-actions">
+              <button type="button" class="kz-btn kz-btn--primary kz-btn--full" id="sb-generate-btn">
+                Şablon Oluştur →
+              </button>
+              <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-download-btn" disabled>
+                PNG İndir (1080×1080)
+              </button>
+              <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-reset-btn">
+                Sıfırla
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /sol panel -->
+
+        <!-- SAĞ PANEL: ÖNİZLEME -->
+        <div class="sb-preview-section">
+          <div class="kz-card">
+            <div class="kz-card__badge">Önizleme</div>
+            <h2 class="kz-card__title" style="font-size:1.05rem;margin-bottom:16px;">Canlı Önizleme</h2>
+
+            <div class="sb-preview-wrap" id="sb-preview-wrap">
+              <div class="sb-preview-outer" id="sb-preview-outer">
+
+                <!-- ══════════════════════════════════════════
+                     ŞABLON KARTI — 1080×1080 px
+                     ══════════════════════════════════════════ -->
+                <div id="kz-sablon-canvas">
+
+                  <!-- 1. Özellikler Şeridi -->
+                  <div class="sb-specs-strip">
+                    <div class="sb-specs-items">
+                      <div class="sb-spec-dot"></div>
+                      <span class="sb-spec-text" id="cv-km">230.000 KM</span>
+                      <div class="sb-spec-sep"></div>
+                      <span class="sb-spec-text" id="cv-yakit">Dizel</span>
+                      <div class="sb-spec-sep"></div>
+                      <span class="sb-spec-text" id="cv-vites">Manuel</span>
+                    </div>
+                    <!-- Logo rozeti -->
+                    <div class="sb-logo-badge">
+                      <div class="sb-logo-badge__icon">🚗</div>
+                      <div class="sb-logo-badge__text">KREDİZMİR</div>
+                      <div class="sb-logo-badge__sub">TAKSİTLE ARABA<br>SAHİBİ OL</div>
+                    </div>
+                  </div>
+
+                  <!-- 2. Araç Görseli -->
+                  <div class="sb-image-zone">
+                    <div class="sb-car-frame">
+                      <img class="sb-car-img" id="cv-img" src="" alt="Araç Görseli"
+                           style="display:none;" crossorigin="anonymous" />
+                      <div class="sb-car-placeholder" id="cv-placeholder">
+                        <span>🚙</span>
+                      </div>
+                    </div>
+                    <div class="sb-model-bar">
+                      <div class="sb-model-text" id="cv-model">HYUNDAİ İ30 1.6 CRDİ STYLE 2014</div>
+                    </div>
+                  </div>
+
+                  <!-- 3. Fiyat Alanı -->
+                  <div class="sb-price-zone">
+                    <div class="sb-price-pesinat" id="cv-pesinat">200.000 PEŞİNAT</div>
+                    <div class="sb-price-pesin" id="cv-pesin">650.000 PEŞİN</div>
+                  </div>
+
+                </div><!-- /#kz-sablon-canvas -->
+
+              </div><!-- /.sb-preview-outer -->
+            </div><!-- /.sb-preview-wrap -->
+
+            <p class="sb-preview-note">1080×1080 px — Instagram / WhatsApp için optimize edildi</p>
+          </div>
+        </div><!-- /sağ panel -->
+
+      </div><!-- /kz-two-col -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="kz-footer">
+    <div class="kz-container">
+      <p class="kz-footer__text">
+        © 2024 KREDİZMİR — Tüm hakları saklıdır. |
+        Bu site yalnızca ön bilgilendirme amaçlıdır; kesin kredi taahhüdü değildir.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/sablon.js"></script>
+</body>
+</html>
