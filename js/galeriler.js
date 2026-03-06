@@ -35,7 +35,7 @@
       }
 
       return [
-        '<div class="kz-card" style="cursor:pointer;" onclick="kzAcGaleri(' + g.id + ')">',
+        '<a class="kz-card" href="' + g.link + '" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;cursor:pointer;">',
         '  <div class="kz-card__badge">' + escHtml(g.sehir) + (g.ilce ? ' / ' + escHtml(g.ilce) : '') + '</div>',
         '  <div class="kz-card__title">' + escHtml(g.ad) + '</div>',
         guvenceliBadgeHTML,
@@ -44,7 +44,7 @@
         '  <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#00C2FF;font-weight:600;">',
         '    Galeriye Git <span style="font-size:1rem;">→</span>',
         '  </div>',
-        '</div>',
+        '</a>',
       ].join('\n');
     }).join('\n');
   }
@@ -71,64 +71,6 @@
       );
     });
   }
-
-  var kzCountdownTimer = null;
-
-  // Modal oluştur (bir kez)
-  function modalOlustur() {
-    if (document.getElementById('kz-redirect-overlay')) return;
-    var overlay = document.createElement('div');
-    overlay.id = 'kz-redirect-overlay';
-    overlay.innerHTML = [
-      '<div id="kz-redirect-modal">',
-      '  <button class="kz-modal-kapat-btn" id="kz-modal-kapat-btn" aria-label="Kapat">✕</button>',
-      '  <h2 class="kz-modal-baslik">Aracı satın almadan önce finans teklifinizi öğrenin.</h2>',
-      '  <p class="kz-modal-alt-baslik">KREDİZMİR olarak o araç için</p>',
-      '  <ul class="kz-modal-liste">',
-      '    <li><span class="kz-modal-check">✔</span> size özel faiz oranı</li>',
-      '    <li><span class="kz-modal-check">✔</span> uygun peşinat planı</li>',
-      '    <li><span class="kz-modal-check">✔</span> aylık ödeme seçenekleri</li>',
-      '  </ul>',
-      '  <p class="kz-modal-extra">Araç motor yürüyen ve eksper durumu hakkında detaylı bilgi hazırlayalım.</p>',
-      '  <p class="kz-modal-geri-sayim">Galeriye <span id="kz-sayim-sayi">10</span> saniye sonra yönlendirileceksiniz…</p>',
-      '</div>',
-    ].join('');
-    document.body.appendChild(overlay);
-    document.getElementById('kz-modal-kapat-btn').addEventListener('click', kzModalKapat);
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) kzModalKapat();
-    });
-  }
-
-  window.kzModalKapat = function () {
-    if (kzCountdownTimer) { clearInterval(kzCountdownTimer); kzCountdownTimer = null; }
-    var overlay = document.getElementById('kz-redirect-overlay');
-    if (overlay) overlay.classList.remove('aktif');
-  };
-
-  window.kzAcGaleri = function (id) {
-    var g = (window.KZ_GALERILER || []).find(function (x) { return x.id === id; });
-    if (!g || !g.link || g.link === '#') return;
-    modalOlustur();
-    var overlay = document.getElementById('kz-redirect-overlay');
-    overlay.classList.add('aktif');
-
-    if (kzCountdownTimer) { clearInterval(kzCountdownTimer); kzCountdownTimer = null; }
-    var kalan = 10;
-    var sayiEl = document.getElementById('kz-sayim-sayi');
-    if (sayiEl) sayiEl.textContent = kalan;
-
-    kzCountdownTimer = setInterval(function () {
-      kalan--;
-      if (sayiEl) sayiEl.textContent = kalan;
-      if (kalan <= 0) {
-        clearInterval(kzCountdownTimer);
-        kzCountdownTimer = null;
-        kzModalKapat();
-        window.open(g.link, '_blank', 'noopener,noreferrer');
-      }
-    }, 1000);
-  };
 
   function init() {
     grid = document.getElementById('kz-galeri-grid');
