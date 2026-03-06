@@ -36,10 +36,9 @@
     <div class="kz-container">
       <div class="kz-vitrin-header">
         <span class="kz-vitrin-title">KREDİZMİR VİTRİN</span>
-        <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-vitrin-badge" id="kz-vitrin-badge-link">
+        <span class="kz-vitrin-badge">
           <span class="kz-vitrin-badge__dot">●</span> Canlı
-          <span class="kz-vitrin-viewers" id="kz-vitrin-viewers">👁 <span id="kz-vitrin-viewers-num">42</span> izliyor</span>
-        </a>
+        </span>
       </div>
     </div>
     <div class="kz-vitrin-wrap">
@@ -59,7 +58,7 @@
           <div class="kz-insta-label">Instagram Kanalımız</div>
           <div class="kz-insta-title">Güncel Araç İlanlarını Takip Edin</div>
           <div class="kz-insta-desc">En yeni araç ilanları ve fırsatlar için kanalımıza katılın. Her gün yeni araçlar ekleniyor!</div>
-          <a href="https://instagram.com/kredizmir" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
+          <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
             📷 Kanala Katıl →
           </a>
         </div>
@@ -318,20 +317,6 @@
       if (e.key === 'Escape') closeVitrinModal();
     });
 
-    // --- Canlı izleyen sayısı ---
-    var numEl = document.getElementById('kz-vitrin-viewers-num');
-    if (numEl) {
-      var current = 42;
-      setInterval(function() {
-        var delta = Math.floor(Math.random() * 7) - 3; // -3 ile +3 arası
-        current = Math.max(10, Math.min(100, current + delta));
-        numEl.style.opacity = '0';
-        setTimeout(function() {
-          numEl.textContent = current;
-          numEl.style.opacity = '1';
-        }, 200);
-      }, 4000);
-    }
   })();
   </script>
   <script>
