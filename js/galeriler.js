@@ -35,7 +35,7 @@
       }
 
       return [
-        '<div class="kz-card" style="cursor:pointer;" onclick="kzAcGaleri(' + g.id + ')">',
+        '<a class="kz-card" href="' + g.link + '" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;cursor:pointer;">',
         '  <div class="kz-card__badge">' + escHtml(g.sehir) + (g.ilce ? ' / ' + escHtml(g.ilce) : '') + '</div>',
         '  <div class="kz-card__title">' + escHtml(g.ad) + '</div>',
         guvenceliBadgeHTML,
@@ -44,7 +44,7 @@
         '  <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#00C2FF;font-weight:600;">',
         '    Galeriye Git <span style="font-size:1rem;">→</span>',
         '  </div>',
-        '</div>',
+        '</a>',
       ].join('\n');
     }).join('\n');
   }
@@ -71,12 +71,6 @@
       );
     });
   }
-
-  window.kzAcGaleri = function (id) {
-    var g = (window.KZ_GALERILER || []).find(function (x) { return x.id === id; });
-    if (!g || !g.link || g.link === '#') return;
-    window.open(g.link, '_blank', 'noopener,noreferrer');
-  };
 
   function init() {
     grid = document.getElementById('kz-galeri-grid');
