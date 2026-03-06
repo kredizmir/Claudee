@@ -738,7 +738,7 @@ input, select { font-family: inherit; }
 }
 .kz-galeri-section-label {
   display: block;
-  font-size: 0.88rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -836,105 +836,6 @@ input, select { font-family: inherit; }
   #kz-galeri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 
-/* GALERI YONLENDIRME MODAL — Premium Finans Bildirimi */
-#kz-redirect-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-}
-#kz-redirect-overlay.aktif { display: flex; }
-#kz-redirect-modal {
-  background: #F8FAFF;
-  border-radius: 16px;
-  padding: 30px;
-  max-width: 440px;
-  width: 92%;
-  text-align: left;
-  box-shadow: 0px 8px 25px rgba(11,58,138,0.12);
-  animation: kzModalAc 0.22s ease;
-  position: relative;
-  font-family: 'Montserrat', system-ui, sans-serif;
-}
-@keyframes kzModalAc {
-  from { opacity:0; transform: scale(0.92); }
-  to   { opacity:1; transform: scale(1); }
-}
-.kz-modal-kapat-btn {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  background: transparent;
-  border: none;
-  font-size: 1.1rem;
-  color: #9CA3AF;
-  cursor: pointer;
-  line-height: 1;
-  padding: 4px;
-  transition: color .2s;
-}
-.kz-modal-kapat-btn:hover { color: #0B3A8A; }
-#kz-redirect-modal .kz-modal-baslik {
-  font-size: 28px;
-  font-weight: 700;
-  color: #0B3A8A;
-  letter-spacing: 0.3px;
-  text-align: center;
-  margin-bottom: 14px;
-  line-height: 1.3;
-}
-@media (max-width: 480px) {
-  #kz-redirect-modal .kz-modal-baslik { font-size: 22px; }
-}
-#kz-redirect-modal .kz-modal-alt-baslik {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #2D3748;
-  text-align: center;
-  margin-bottom: 14px;
-}
-#kz-redirect-modal .kz-modal-liste {
-  list-style: none;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-#kz-redirect-modal .kz-modal-liste li {
-  font-size: 18px;
-  font-weight: 500;
-  color: #2D3748;
-  line-height: 1.6;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-#kz-redirect-modal .kz-modal-check {
-  color: #16A34A;
-  font-weight: 700;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-#kz-redirect-modal .kz-modal-extra {
-  font-size: 0.9rem;
-  color: #4A5568;
-  line-height: 1.6;
-  margin-bottom: 18px;
-}
-#kz-redirect-modal .kz-modal-geri-sayim {
-  font-size: 0.82rem;
-  color: #9CA3AF;
-  text-align: center;
-  font-style: italic;
-}
-#kz-redirect-modal .kz-modal-geri-sayim span {
-  font-weight: 700;
-  color: #0B3A8A;
-}
 
 /* FIRSAT ARACI — neon kart */
 .kz-fav-card--firsat {
@@ -1438,6 +1339,99 @@ input, select { font-family: inherit; }
 .kz-ticker-item__km {
   font-size: 0.65rem;
   color: #00C2FF;
+}
+
+/* === KREDİZMİR VİTRİN === */
+.kz-vitrin-section {
+  padding: 48px 0 36px;
+  background: var(--kz-primary);
+  border-bottom: 1px solid rgba(0,194,255,0.1);
+}
+.kz-vitrin-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kz-vitrin-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--kz-gold);
+  text-transform: uppercase;
+}
+.kz-vitrin-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00C2FF;
+  animation: kz-vitrin-blink 1.6s ease-in-out infinite;
+}
+@keyframes kz-vitrin-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.kz-vitrin-wrap {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+.kz-vitrin-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: kz-vitrin-scroll 28s linear infinite;
+}
+.kz-vitrin-track:hover { animation-play-state: paused; }
+@keyframes kz-vitrin-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.kz-vitrin-item {
+  width: 220px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d1117;
+  border: 1px solid rgba(0,194,255,0.15);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.kz-vitrin-item:hover {
+  border-color: var(--kz-gold);
+  transform: translateY(-4px);
+}
+.kz-vitrin-item img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+.kz-vitrin-item__body {
+  padding: 10px 12px 12px;
+}
+.kz-vitrin-item__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+.kz-vitrin-item__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.kz-vitrin-item__km {
+  font-size: 0.68rem;
+  color: #9CA3AF;
+}
+.kz-vitrin-item__fiyat {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--kz-gold);
 }
 
 /* Popup views badge */

@@ -35,7 +35,7 @@
       }
 
       return [
-        '<a class="kz-card" href="' + g.link + '" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;cursor:pointer;">',
+        '<a class="kz-card" href="' + g.link + '" style="display:block;text-decoration:none;cursor:pointer;">',
         '  <div class="kz-card__badge">' + escHtml(g.sehir) + (g.ilce ? ' / ' + escHtml(g.ilce) : '') + '</div>',
         '  <div class="kz-card__title">' + escHtml(g.ad) + '</div>',
         guvenceliBadgeHTML,
