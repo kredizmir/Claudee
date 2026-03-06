@@ -1361,10 +1361,36 @@ input, select { font-family: inherit; }
   text-transform: uppercase;
 }
 .kz-vitrin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.72rem;
   font-weight: 700;
   color: #00C2FF;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(0,194,255,0.08);
+  border: 1px solid rgba(0,194,255,0.25);
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.kz-vitrin-badge:hover {
+  background: rgba(0,194,255,0.16);
+  border-color: rgba(0,194,255,0.5);
+}
+.kz-vitrin-badge__dot {
   animation: kz-vitrin-blink 1.6s ease-in-out infinite;
+}
+.kz-vitrin-viewers {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.07);
+  padding: 2px 7px;
+  border-radius: 10px;
+  border-left: 1px solid rgba(255,255,255,0.1);
+  transition: opacity 0.4s;
 }
 @keyframes kz-vitrin-blink {
   0%, 100% { opacity: 1; }
@@ -1432,6 +1458,108 @@ input, select { font-family: inherit; }
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--kz-gold);
+}
+
+/* ---- VİTRİN DETAY MODAL ---- */
+.kz-vitrin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.kz-vitrin-modal-backdrop.kz-vitrin-modal--open {
+  opacity: 1;
+}
+.kz-vitrin-modal {
+  background: #0d1117;
+  border: 1px solid rgba(0,194,255,0.2);
+  border-radius: 18px;
+  overflow: hidden;
+  max-width: 420px;
+  width: 100%;
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.25s;
+  position: relative;
+}
+.kz-vitrin-modal-backdrop.kz-vitrin-modal--open .kz-vitrin-modal {
+  transform: translateY(0) scale(1);
+}
+.kz-vitrin-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.15s;
+}
+.kz-vitrin-modal__close:hover { background: rgba(255,255,255,0.2); }
+.kz-vitrin-modal__img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.kz-vitrin-modal__body {
+  padding: 18px 20px 22px;
+}
+.kz-vitrin-modal__badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #00C2FF;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.kz-vitrin-modal__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+.kz-vitrin-modal__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.kz-vitrin-modal__km {
+  font-size: 0.8rem;
+  color: #9CA3AF;
+}
+.kz-vitrin-modal__fiyat {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--kz-gold);
+}
+.kz-vitrin-modal__actions {
+  display: flex;
+  gap: 10px;
+}
+.kz-vitrin-modal__actions .kz-btn {
+  flex: 1;
+  text-align: center;
+  font-size: 0.82rem;
+  padding: 11px 8px;
 }
 
 /* Popup views badge */

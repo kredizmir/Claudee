@@ -36,7 +36,10 @@
     <div class="kz-container">
       <div class="kz-vitrin-header">
         <span class="kz-vitrin-title">KREDİZMİR VİTRİN</span>
-        <span class="kz-vitrin-badge">● Canlı</span>
+        <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-vitrin-badge" id="kz-vitrin-badge-link">
+          <span class="kz-vitrin-badge__dot">●</span> Canlı
+          <span class="kz-vitrin-viewers" id="kz-vitrin-viewers">👁 <span id="kz-vitrin-viewers-num">42</span> izliyor</span>
+        </a>
       </div>
     </div>
     <div class="kz-vitrin-wrap">
@@ -63,6 +66,26 @@
       </div>
     </div>
   </section>
+
+  <!-- VİTRİN DETAY MODAL -->
+  <div id="kz-vitrin-modal" class="kz-vitrin-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-vitrin-modal-title" style="display:none">
+    <div class="kz-vitrin-modal">
+      <button class="kz-vitrin-modal__close" id="kz-vitrin-modal-close" aria-label="Kapat">✕</button>
+      <img id="kz-vitrin-modal-img" src="" alt="" class="kz-vitrin-modal__img">
+      <div class="kz-vitrin-modal__body">
+        <div class="kz-vitrin-modal__badge">🚗 Vitrin İlanı</div>
+        <div class="kz-vitrin-modal__title" id="kz-vitrin-modal-title"></div>
+        <div class="kz-vitrin-modal__meta">
+          <span class="kz-vitrin-modal__km" id="kz-vitrin-modal-km"></span>
+          <span class="kz-vitrin-modal__fiyat" id="kz-vitrin-modal-fiyat"></span>
+        </div>
+        <div class="kz-vitrin-modal__actions">
+          <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">📷 Kanalda Gör →</a>
+          <a href="tel:+905363972232" class="kz-btn kz-btn--primary">📞 Teklif Al</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- GALERİ MODAL -->
   <div id="kz-gallery-modal" class="kz-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-modal-title">
@@ -242,8 +265,9 @@
 
     // Sonsuz döngü için ×2 duplicate
     var items = KZ_VITRIN.concat(KZ_VITRIN);
-    track.innerHTML = items.map(function(car) {
-      return '<div class="kz-vitrin-item">' +
+    track.innerHTML = items.map(function(car, i) {
+      var idx = i % KZ_VITRIN.length;
+      return '<div class="kz-vitrin-item" data-idx="' + idx + '" role="button" tabindex="0" style="cursor:pointer">' +
         '<img src="' + car.img + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
         '<div class="kz-vitrin-item__body">' +
           '<div class="kz-vitrin-item__title">' + car.title + '</div>' +
@@ -254,6 +278,60 @@
         '</div>' +
       '</div>';
     }).join('');
+
+    // Detay modal
+    var modal    = document.getElementById('kz-vitrin-modal');
+    var mClose   = document.getElementById('kz-vitrin-modal-close');
+    var mImg     = document.getElementById('kz-vitrin-modal-img');
+    var mTitle   = document.getElementById('kz-vitrin-modal-title');
+    var mKm      = document.getElementById('kz-vitrin-modal-km');
+    var mFiyat   = document.getElementById('kz-vitrin-modal-fiyat');
+
+    function openVitrinModal(car) {
+      mImg.src      = car.img;
+      mImg.alt      = car.title;
+      mTitle.textContent = car.title;
+      mKm.textContent    = car.km;
+      mFiyat.textContent = car.fiyat;
+      modal.style.display = 'flex';
+      requestAnimationFrame(function(){
+        modal.classList.add('kz-vitrin-modal--open');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVitrinModal() {
+      modal.classList.remove('kz-vitrin-modal--open');
+      setTimeout(function(){ modal.style.display = 'none'; }, 250);
+      document.body.style.overflow = '';
+    }
+
+    track.addEventListener('click', function(e) {
+      var item = e.target.closest('.kz-vitrin-item');
+      if (!item) return;
+      openVitrinModal(KZ_VITRIN[+item.dataset.idx]);
+    });
+    mClose.addEventListener('click', closeVitrinModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeVitrinModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVitrinModal();
+    });
+
+    // --- Canlı izleyen sayısı ---
+    var numEl = document.getElementById('kz-vitrin-viewers-num');
+    if (numEl) {
+      var current = 42;
+      setInterval(function() {
+        var delta = Math.floor(Math.random() * 7) - 3; // -3 ile +3 arası
+        current = Math.max(10, Math.min(100, current + delta));
+        numEl.style.opacity = '0';
+        setTimeout(function() {
+          numEl.textContent = current;
+          numEl.style.opacity = '1';
+        }, 200);
+      }, 4000);
+    }
   })();
   </script>
   <script>
