@@ -1341,6 +1341,99 @@ input, select { font-family: inherit; }
   color: #00C2FF;
 }
 
+/* === KREDİZMİR VİTRİN === */
+.kz-vitrin-section {
+  padding: 48px 0 36px;
+  background: var(--kz-primary);
+  border-bottom: 1px solid rgba(0,194,255,0.1);
+}
+.kz-vitrin-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kz-vitrin-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--kz-gold);
+  text-transform: uppercase;
+}
+.kz-vitrin-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00C2FF;
+  animation: kz-vitrin-blink 1.6s ease-in-out infinite;
+}
+@keyframes kz-vitrin-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.kz-vitrin-wrap {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+.kz-vitrin-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: kz-vitrin-scroll 28s linear infinite;
+}
+.kz-vitrin-track:hover { animation-play-state: paused; }
+@keyframes kz-vitrin-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.kz-vitrin-item {
+  width: 220px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d1117;
+  border: 1px solid rgba(0,194,255,0.15);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.kz-vitrin-item:hover {
+  border-color: var(--kz-gold);
+  transform: translateY(-4px);
+}
+.kz-vitrin-item img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+.kz-vitrin-item__body {
+  padding: 10px 12px 12px;
+}
+.kz-vitrin-item__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+.kz-vitrin-item__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.kz-vitrin-item__km {
+  font-size: 0.68rem;
+  color: #9CA3AF;
+}
+.kz-vitrin-item__fiyat {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--kz-gold);
+}
+
 /* Popup views badge */
 .kz-fav-views {
   font-size: 0.88rem;
