@@ -279,9 +279,6 @@
     track.innerHTML = items.map(function(car) {
       return '<div class="kz-vitrin-item">' +
         '<img src="' + car.img + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-        '<div class="kz-vitrin-item__body">' +
-          '<div class="kz-vitrin-item__title">' + car.title + '</div>' +
-        '</div>' +
       '</div>';
     }).join('');
 

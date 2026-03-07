@@ -2165,6 +2165,5 @@ input, select { font-family: inherit; }
 }
 
 /* === VİTRİN KART BOYUT GÜNCELLEMESİ === */
-.kz-vitrin-item { width: 300px; }
-.kz-vitrin-item img { height: 200px; }
-.kz-vitrin-item__title { margin-bottom: 0; font-size: 0.88rem; }
+.kz-vitrin-item { width: 320px; }
+.kz-vitrin-item img { height: 215px; }
