@@ -1408,7 +1408,7 @@ input, select { font-family: inherit; }
   width: max-content;
   animation: kz-vitrin-scroll 28s linear infinite;
 }
-.kz-vitrin-track:hover { animation-play-state: paused; }
+/* continuous scroll — no pause on hover */
 @keyframes kz-vitrin-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -1420,12 +1420,8 @@ input, select { font-family: inherit; }
   overflow: hidden;
   background: #0d1117;
   border: 1px solid rgba(0,194,255,0.15);
-  cursor: pointer;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.kz-vitrin-item:hover {
-  border-color: var(--kz-gold);
-  transform: translateY(-4px);
+  cursor: default;
+  pointer-events: none;
 }
 .kz-vitrin-item img {
   width: 100%;
@@ -2023,19 +2019,23 @@ input, select { font-family: inherit; }
 
 /* === KZ-FİNANS CTA SECTION === */
 .kz-finans-cta-section {
-  padding: 72px 0;
+  padding: 56px 0;
+  background: #1B3D72;
+}
+
+.kz-galeri-basvuru-wrap {
   background: var(--kz-primary);
+  padding: 0 0 72px;
 }
 
 .kz-finans-cta-box {
-  background: linear-gradient(135deg, #0B3A8A 0%, #0F4AA3 100%);
+  background: rgba(255,255,255,0.06);
   border-radius: 18px;
-  padding: 50px 48px;
+  padding: 44px 48px;
   text-align: center;
-  max-width: 1100px;
+  max-width: 760px;
   margin: 0 auto;
-  box-shadow: 0 0 60px rgba(15, 74, 163, 0.45), 0 16px 48px rgba(0,0,0,0.4);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
 .kz-finans-cta-header {
@@ -2165,6 +2165,6 @@ input, select { font-family: inherit; }
 }
 
 /* === VİTRİN KART BOYUT GÜNCELLEMESİ === */
-.kz-vitrin-item { width: 240px; }
-.kz-vitrin-item img { height: 220px; }
-.kz-vitrin-item__title { margin-bottom: 0; }
+.kz-vitrin-item { width: 300px; }
+.kz-vitrin-item img { height: 200px; }
+.kz-vitrin-item__title { margin-bottom: 0; font-size: 0.88rem; }

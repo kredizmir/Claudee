@@ -120,14 +120,30 @@
     </div>
   </div>
 
+  <!-- GALERİLERİMİZ — Carousel -->
+  <section class="kz-galeri-section" id="galeriler">
+    <div class="kz-container">
+
+      <!-- Başlık -->
+      <div class="kz-galeri-section-header">
+        <div>
+          <span class="kz-galeri-section-label">✦ Anlaşmalı Galeriler</span>
+          <p class="kz-galeri-section-sub">İzmir'de 27 anlaşmalı galerimizden araç beğenin ya da Türkiye genelinde dışarıdan bulduğunuz araçlara da taksitlendirme yapıyoruz.</p>
+        </div>
+      </div>
+
+      <!-- Galeri Grid -->
+      <div class="kz-grid" id="kz-galeri-grid">
+        <div class="kz-empty">Yükleniyor…</div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- FİNANS TEKLİF CTA -->
   <section class="kz-finans-cta-section">
     <div class="kz-container">
       <div class="kz-finans-cta-box">
-        <div class="kz-finans-cta-header">
-          <span class="kz-finans-cta-icon">🚘</span>
-          <h2 class="kz-finans-cta-title">10 Saniyede Finans Teklifinizi Öğrenin</h2>
-        </div>
         <p class="kz-finans-cta-desc">
           👉 Şehir fark etmez. Galeri farketmez, Şahıs farketmez.<br>
           Dilediğiniz aracı taksitlendirelim.<br>
@@ -160,24 +176,9 @@
     </div>
   </section>
 
-  <!-- GALERİLERİMİZ — Carousel -->
-  <section class="kz-galeri-section" id="galeriler">
+  <!-- GALERİ BAŞVURUSU -->
+  <div class="kz-galeri-basvuru-wrap">
     <div class="kz-container">
-
-      <!-- Başlık -->
-      <div class="kz-galeri-section-header">
-        <div>
-          <span class="kz-galeri-section-label">✦ Anlaşmalı Galeriler</span>
-          <p class="kz-galeri-section-sub">İzmir'de 27 anlaşmalı galerimizden araç beğenin ya da Türkiye genelinde dışarıdan bulduğunuz araçlara da taksitlendirme yapıyoruz.</p>
-        </div>
-      </div>
-
-      <!-- Galeri Grid -->
-      <div class="kz-grid" id="kz-galeri-grid">
-        <div class="kz-empty">Yükleniyor…</div>
-      </div>
-
-      <!-- Başvuru -->
       <div class="kz-galeri-basvuru-cta">
         <div class="kz-galeri-basvuru-label">Galeri Başvurusu</div>
         <h3 class="kz-galeri-basvuru-title">KREDİZMİR Anlaşmalı Galeri Ağı'na Katılın</h3>
@@ -197,9 +198,8 @@
         </a>
         <div class="kz-galeri-basvuru-tag">KREDİZMİR ÇÖZÜM ORTAĞI</div>
       </div>
-
     </div>
-  </section>
+  </div>
 
   <!-- WHATSAPP FAB -->
   <div id="kz-wa-btn" class="kz-wa-fab" aria-label="WhatsApp ile iletişim" role="button" tabindex="0">
@@ -250,11 +250,11 @@
   (function(){
     var KZ_VITRIN = [
       {
-        title: 'Hyundai iX35 1.6 GDi Elite 2014',
+        title: 'Hyundai ix35 1.6 GDi Elite 2014',
         img: 'https://i.ibb.co/3mvNXpf4/b811c836-2cb6-4635-adcb-a1b6427d0fd6.jpg'
       },
       {
-        title: 'VW Polo 1.4 Comfortline 2014',
+        title: 'Volkswagen Polo 1.4 Comfortline 2014',
         img: 'https://i.ibb.co/gZG3RPx9/1f0f8d38-87fd-4938-97c4-54b320bc4694.jpg'
       },
       {
@@ -262,11 +262,11 @@
         img: 'https://i.ibb.co/FLX4Jw9D/0918b21d-4aac-41bd-b9a6-5907282542cd.jpg'
       },
       {
-        title: 'Ford C-Max 1.6 Titanium 2011',
+        title: 'Ford C-MAX 1.6 Titanium 2011',
         img: 'https://i.ibb.co/3HjpRkm/6703cc4b-7c93-44f5-8ce4-309ad2ab7de9.jpg'
       },
       {
-        title: 'Hyundai Getz 1.4 DOCH 100 HP 2010',
+        title: 'Hyundai Getz 1.4 DOHC 100 HP 2010',
         img: 'https://i.ibb.co/N65JjZpY/a9a29e75-cd6a-466b-8491-4caa69d793d8.jpg'
       }
     ];
@@ -276,54 +276,14 @@
 
     // Sonsuz döngü için ×2 duplicate
     var items = KZ_VITRIN.concat(KZ_VITRIN);
-    track.innerHTML = items.map(function(car, i) {
-      var idx = i % KZ_VITRIN.length;
-      return '<div class="kz-vitrin-item" data-idx="' + idx + '" role="button" tabindex="0" style="cursor:pointer">' +
+    track.innerHTML = items.map(function(car) {
+      return '<div class="kz-vitrin-item">' +
         '<img src="' + car.img + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
         '<div class="kz-vitrin-item__body">' +
           '<div class="kz-vitrin-item__title">' + car.title + '</div>' +
         '</div>' +
       '</div>';
     }).join('');
-
-    // Detay modal
-    var modal    = document.getElementById('kz-vitrin-modal');
-    var mClose   = document.getElementById('kz-vitrin-modal-close');
-    var mImg     = document.getElementById('kz-vitrin-modal-img');
-    var mTitle   = document.getElementById('kz-vitrin-modal-title');
-    var mKm      = document.getElementById('kz-vitrin-modal-km');
-    var mFiyat   = document.getElementById('kz-vitrin-modal-fiyat');
-
-    function openVitrinModal(car) {
-      mImg.src      = car.img;
-      mImg.alt      = car.title;
-      mTitle.textContent = car.title;
-      if (mKm) mKm.textContent = '';
-      if (mFiyat) mFiyat.textContent = '';
-      modal.style.display = 'flex';
-      requestAnimationFrame(function(){
-        modal.classList.add('kz-vitrin-modal--open');
-      });
-      document.body.style.overflow = 'hidden';
-    }
-    function closeVitrinModal() {
-      modal.classList.remove('kz-vitrin-modal--open');
-      setTimeout(function(){ modal.style.display = 'none'; }, 250);
-      document.body.style.overflow = '';
-    }
-
-    track.addEventListener('click', function(e) {
-      var item = e.target.closest('.kz-vitrin-item');
-      if (!item) return;
-      openVitrinModal(KZ_VITRIN[+item.dataset.idx]);
-    });
-    mClose.addEventListener('click', closeVitrinModal);
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) closeVitrinModal();
-    });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeVitrinModal();
-    });
 
   })();
   </script>
