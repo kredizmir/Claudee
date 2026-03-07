@@ -2166,23 +2166,4 @@ input, select { font-family: inherit; }
 
 /* === VİTRİN KART BOYUT GÜNCELLEMESİ === */
 .kz-vitrin-item { width: 320px; }
-.kz-vitrin-item__thumb {
-  width: 100%;
-  height: 215px;
-  background: linear-gradient(135deg, #1e2330 0%, #252d3d 50%, #1a2030 100%);
-  border-radius: 10px 10px 0 0;
-  position: relative;
-  overflow: hidden;
-}
-.kz-vitrin-item__thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
-  animation: kz-shimmer 2s infinite;
-}
-@keyframes kz-shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-.kz-vitrin-item__title { margin-bottom: 0; font-size: 0.88rem; }
+.kz-vitrin-item img { height: 215px; }

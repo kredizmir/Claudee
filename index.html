@@ -278,10 +278,7 @@
     var items = KZ_VITRIN.concat(KZ_VITRIN);
     track.innerHTML = items.map(function(car) {
       return '<div class="kz-vitrin-item">' +
-        '<div class="kz-vitrin-item__thumb"></div>' +
-        '<div class="kz-vitrin-item__body">' +
-          '<div class="kz-vitrin-item__title">' + car.title + '</div>' +
-        '</div>' +
+        '<img src="' + car.img + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
       '</div>';
     }).join('');
 
