@@ -59,6 +59,7 @@
             <div class="sb-tabs">
               <button type="button" class="sb-tab-btn active" data-tab="manuel">Manuel Giriş</button>
               <button type="button" class="sb-tab-btn" data-tab="sahibinden">Sahibinden.com URL</button>
+              <button type="button" class="sb-tab-btn" data-tab="coklu">Çoklu URL</button>
             </div>
 
             <!-- MANUEL GİRİŞ SEKMESİ -->
@@ -118,6 +119,10 @@
                   <input class="kz-input" id="sb-gorsel" type="file" accept="image/*" style="padding:8px;" />
                 </div>
 
+                <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-queue-add-btn" style="margin-top:8px;">
+                  + Kuyruğa Ekle
+                </button>
+
               </div>
             </div>
 
@@ -128,42 +133,44 @@
                   <label class="kz-label" for="sb-url">Sahibinden.com İlan URL'si</label>
                   <input class="kz-input" id="sb-url" type="url" placeholder="https://www.sahibinden.com/ilan/..." />
                 </div>
-                <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-fetch-btn">
-                  Veriyi Getir →
-                </button>
+                <div class="kz-form-row">
+                  <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-fetch-btn">
+                    Önizlemeye Getir →
+                  </button>
+                  <button type="button" class="kz-btn kz-btn--gold kz-btn--full" id="sb-fetch-queue-btn">
+                    Kuyruğa Ekle →
+                  </button>
+                </div>
                 <div class="sb-fetch-status" id="sb-fetch-status"></div>
                 <p style="font-size:0.75rem;color:var(--kz-muted);margin-top:10px;line-height:1.5;">
-                  Veriler getirilince tüm alanlar doldurulur ve düzenlenebilir. Görsel otomatik yüklenir.
+                  "Önizlemeye Getir" → düzenleyip tek PNG indir. "Kuyruğa Ekle" → toplu üretim için listeye ekle.
                 </p>
               </div>
             </div>
 
-            <!-- TOPLU İŞLEM (Accordion) -->
-            <button type="button" class="sb-accordion-toggle" id="sb-accordion-btn">
-              ▼ &nbsp;Toplu İşlem (CSV / Liste)
-            </button>
-            <div class="sb-accordion-body" id="sb-accordion-body">
-              <p class="sb-csv-note">
-                CSV formatı (başlık satırı zorunlu):<br />
-                <code>model,yil,km,yakit,vites,pesinat,pesin,imageUrl</code><br />
-                <code>"VW Polo 1.4",2014,"207.000",Dizel,Otomatik,185000,920000,https://...</code>
-              </p>
-              <div class="kz-form-group">
-                <label class="kz-label" for="sb-csv-file">CSV Dosyası Yükle</label>
-                <input class="kz-input" id="sb-csv-file" type="file" accept=".csv,text/csv" style="padding:8px;" />
-              </div>
-              <div class="kz-form-group" style="margin-top:10px;">
-                <label class="kz-label" for="sb-csv-text">Veya Yapıştır (başlıksız, virgülle ayrılmış)</label>
-                <textarea class="kz-input" id="sb-csv-text" rows="4" style="resize:vertical;"
-                  placeholder='VW Polo 1.4,2014,"207.000",Dizel,Otomatik,185000,920000'></textarea>
-              </div>
-              <button type="button" class="kz-btn kz-btn--gold kz-btn--full" id="sb-batch-btn">
-                Tümünü Oluştur ve İndir (ZIP)
-              </button>
-              <div class="sb-progress" id="sb-progress">
-                <span id="sb-progress-text">0 / 0 oluşturuldu...</span>
-                <div class="sb-progress-bar">
-                  <div class="sb-progress-fill" id="sb-progress-fill"></div>
+            <!-- ÇOKLU URL SEKMESİ -->
+            <div class="sb-tab-panel" id="sb-panel-coklu">
+              <div class="kz-form">
+                <div class="kz-form-group">
+                  <label class="kz-label" for="sb-multi-urls">Sahibinden.com URL'leri (her satıra bir tane)</label>
+                  <textarea class="kz-input" id="sb-multi-urls" rows="6" style="resize:vertical;"
+                    placeholder="https://www.sahibinden.com/ilan/...&#10;https://www.sahibinden.com/ilan/...&#10;https://www.sahibinden.com/ilan/..."></textarea>
+                </div>
+                <div class="kz-form-row">
+                  <div class="kz-form-group" style="flex:1;">
+                    <label class="kz-label" for="sb-multi-pesinat">Tümü için Peşinat (₺)</label>
+                    <input class="kz-input" id="sb-multi-pesinat" type="number" min="0" step="1000" placeholder="200000" />
+                  </div>
+                </div>
+                <button type="button" class="kz-btn kz-btn--gold kz-btn--full" id="sb-multi-fetch-btn">
+                  Hepsini Çek ve Kuyruğa Ekle →
+                </button>
+                <div class="sb-multi-status" id="sb-multi-status"></div>
+                <div class="sb-progress" id="sb-multi-progress">
+                  <span id="sb-multi-progress-text">0 / 0 çekildi...</span>
+                  <div class="sb-progress-bar">
+                    <div class="sb-progress-fill" id="sb-multi-progress-fill"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -183,6 +190,49 @@
               <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-reset-btn">
                 Sıfırla
               </button>
+            </div>
+          </div>
+
+          <!-- ARAÇ KUYRUĞU -->
+          <div class="kz-card" style="margin-top:16px;" id="sb-queue-card">
+            <div class="kz-card__badge">Toplu Üretim</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h2 class="kz-card__title" style="font-size:1rem;margin:0;">Araç Kuyruğu <span class="sb-queue-count" id="sb-queue-count">0 araç</span></h2>
+              <div style="display:flex;gap:8px;">
+                <button type="button" class="kz-btn kz-btn--outline" id="sb-queue-clear-btn" style="font-size:0.78rem;padding:6px 12px;">Temizle</button>
+                <button type="button" class="kz-btn kz-btn--gold" id="sb-queue-generate-btn" style="font-size:0.78rem;padding:6px 12px;" disabled>
+                  Tümünü Üret → ZIP
+                </button>
+              </div>
+            </div>
+
+            <!-- Kuyruk tablosu -->
+            <div id="sb-queue-empty" class="sb-queue-empty">
+              Henüz araç eklenmedi. Sahibinden URL'si girin veya manuel doldurup "Kuyruğa Ekle" yapın.
+            </div>
+            <div id="sb-queue-table-wrap" style="display:none;">
+              <table class="sb-queue-table" id="sb-queue-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Model / Yıl</th>
+                    <th>KM</th>
+                    <th>Yakıt / Vites</th>
+                    <th>Peşinat</th>
+                    <th>Peşin</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="sb-queue-tbody"></tbody>
+              </table>
+            </div>
+
+            <!-- ZIP ilerleme -->
+            <div class="sb-progress" id="sb-zip-progress" style="margin-top:12px;">
+              <span id="sb-zip-progress-text">0 / 0 oluşturuldu...</span>
+              <div class="sb-progress-bar">
+                <div class="sb-progress-fill" id="sb-zip-progress-fill"></div>
+              </div>
             </div>
           </div>
 

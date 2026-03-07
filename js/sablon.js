@@ -3,7 +3,7 @@
  * js/sablon.js
  *
  * Tüm client-side mantık: form yönetimi, canlı önizleme,
- * sahibinden.com fetch, PNG indirme, toplu ZIP üretimi.
+ * sahibinden.com fetch, PNG indirme, araç kuyruğu, toplu ZIP üretimi.
  */
 
 (function () {
@@ -12,6 +12,7 @@
   /* ── Durum ──────────────────────────────────────── */
   var _imageDataUrl = '';    // yüklü/getirilen görsel data URL veya proxy URL
   var _previewReady = false; // PNG indir butonunu etkinleştirme bayrağı
+  var _queue = [];           // araç kuyruğu [{model,yil,km,yakit,vites,pesinat,pesin,imageUrl}]
 
   /* ── DOM Referansları ───────────────────────────── */
   var fModel      = document.getElementById('sb-model');
@@ -37,20 +38,34 @@
   var tabBtns     = document.querySelectorAll('.sb-tab-btn');
   var tabPanels   = document.querySelectorAll('.sb-tab-panel');
   var fetchBtn    = document.getElementById('sb-fetch-btn');
+  var fetchQueueBtn = document.getElementById('sb-fetch-queue-btn');
   var fetchStatus = document.getElementById('sb-fetch-status');
-  var accordBtn   = document.getElementById('sb-accordion-btn');
-  var accordBody  = document.getElementById('sb-accordion-body');
   var generateBtn = document.getElementById('sb-generate-btn');
   var downloadBtn = document.getElementById('sb-download-btn');
   var resetBtn    = document.getElementById('sb-reset-btn');
-  var batchBtn    = document.getElementById('sb-batch-btn');
-  var csvFileInput = document.getElementById('sb-csv-file');
-  var csvTextarea  = document.getElementById('sb-csv-text');
-  var progressWrap = document.getElementById('sb-progress');
-  var progressText = document.getElementById('sb-progress-text');
-  var progressFill = document.getElementById('sb-progress-fill');
   var previewOuter = document.getElementById('sb-preview-outer');
   var previewWrap  = document.getElementById('sb-preview-wrap');
+
+  /* Kuyruk elemanları */
+  var queueAddBtn      = document.getElementById('sb-queue-add-btn');
+  var queueClearBtn    = document.getElementById('sb-queue-clear-btn');
+  var queueGenerateBtn = document.getElementById('sb-queue-generate-btn');
+  var queueCountEl     = document.getElementById('sb-queue-count');
+  var queueEmpty       = document.getElementById('sb-queue-empty');
+  var queueTableWrap   = document.getElementById('sb-queue-table-wrap');
+  var queueTbody       = document.getElementById('sb-queue-tbody');
+  var zipProgress      = document.getElementById('sb-zip-progress');
+  var zipProgressText  = document.getElementById('sb-zip-progress-text');
+  var zipProgressFill  = document.getElementById('sb-zip-progress-fill');
+
+  /* Çoklu URL elemanları */
+  var multiUrls        = document.getElementById('sb-multi-urls');
+  var multiPesinat     = document.getElementById('sb-multi-pesinat');
+  var multiFetchBtn    = document.getElementById('sb-multi-fetch-btn');
+  var multiStatus      = document.getElementById('sb-multi-status');
+  var multiProgress    = document.getElementById('sb-multi-progress');
+  var multiProgressText = document.getElementById('sb-multi-progress-text');
+  var multiProgressFill = document.getElementById('sb-multi-progress-fill');
 
   /* ── Sayı formatlayıcı ──────────────────────────── */
   function formatMoney(val) {
@@ -126,23 +141,18 @@
     });
   }
 
-  /* ── Accordion (Toplu İşlem) ────────────────────── */
-  function initAccordion() {
-    accordBtn.addEventListener('click', function () {
-      accordBody.classList.toggle('open');
-      accordBtn.textContent = accordBody.classList.contains('open')
-        ? '▲  Toplu İşlem (CSV / Liste)'
-        : '▼  Toplu İşlem (CSV / Liste)';
-    });
+  /* ── Sahibinden.com veri çekme (tek URL) ────────── */
+  function fetchSahibindenUrl(url) {
+    return fetch('/sahibinden-fetch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: url })
+    }).then(function (r) { return r.json(); });
   }
 
-  /* ── Sahibinden.com veri çekme ──────────────────── */
   function fetchSahibinden() {
     var url = fUrl.value.trim();
-    if (!url) {
-      showStatus('warn', 'Lütfen bir URL girin.');
-      return;
-    }
+    if (!url) { showStatus('warn', 'Lütfen bir URL girin.'); return; }
     if (!url.startsWith('https://www.sahibinden.com/')) {
       showStatus('error', 'Geçerli bir sahibinden.com URL\'si girin.');
       return;
@@ -152,47 +162,232 @@
     fetchBtn.textContent = 'Getiriliyor...';
     showStatus('', '');
 
-    fetch('/sahibinden-fetch', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url })
-    })
-      .then(function (r) { return r.json(); })
+    fetchSahibindenUrl(url)
       .then(function (data) {
         fetchBtn.disabled = false;
-        fetchBtn.textContent = 'Veriyi Getir →';
+        fetchBtn.textContent = 'Önizlemeye Getir →';
 
         if (!data.ok) {
           showStatus('error', data.error || 'Veri getirilemedi. Manuel giriş yapınız.');
           return;
         }
 
-        /* Formları doldur */
-        fModel.value = data.model || '';
-        fYil.value   = data.yil   || '';
-        fKm.value    = data.km    || '';
-        setSelectValue(fYakit, data.yakit);
-        setSelectValue(fVites, data.vites);
-        if (data.fiyat) fPesin.value = data.fiyat.replace(/[^\d]/g, '');
-
+        fillForm(data);
         syncToCanvas();
-
-        /* Görsel */
         if (data.imageUrl) applyImage('/image-proxy?url=' + encodeURIComponent(data.imageUrl));
-
-        showStatus('ok', 'Veriler başarıyla getirildi. Alanları düzenleyebilirsiniz.');
+        showStatus('ok', 'Veriler getirildi. Düzenleyip PNG indirebilirsiniz.');
 
         /* Manuel giriş sekmesine geç */
-        tabBtns.forEach(function (b) { b.classList.remove('active'); });
-        tabPanels.forEach(function (p) { p.classList.remove('active'); });
-        tabBtns[0].classList.add('active');
-        document.getElementById('sb-panel-manuel').classList.add('active');
+        switchTab('manuel');
       })
       .catch(function (err) {
         fetchBtn.disabled = false;
-        fetchBtn.textContent = 'Veriyi Getir →';
+        fetchBtn.textContent = 'Önizlemeye Getir →';
         showStatus('error', 'Sunucuya bağlanılamadı: ' + err.message);
       });
+  }
+
+  /* URL'den çek → kuyruğa ekle */
+  function fetchToQueue() {
+    var url = fUrl.value.trim();
+    if (!url) { showStatus('warn', 'Lütfen bir URL girin.'); return; }
+    if (!url.startsWith('https://www.sahibinden.com/')) {
+      showStatus('error', 'Geçerli bir sahibinden.com URL\'si girin.');
+      return;
+    }
+
+    fetchQueueBtn.disabled = true;
+    fetchQueueBtn.textContent = 'Getiriliyor...';
+
+    fetchSahibindenUrl(url)
+      .then(function (data) {
+        fetchQueueBtn.disabled = false;
+        fetchQueueBtn.textContent = 'Kuyruğa Ekle →';
+
+        if (!data.ok) {
+          showStatus('error', data.error || 'Veri getirilemedi.');
+          return;
+        }
+
+        var v = {
+          model: data.model || '',
+          yil: data.yil || '',
+          km: data.km || '',
+          yakit: data.yakit || 'Dizel',
+          vites: data.vites || 'Manuel',
+          pesinat: '',
+          pesin: data.fiyat ? data.fiyat.replace(/[^\d]/g, '') : '',
+          imageUrl: data.imageUrl || ''
+        };
+        addToQueue(v);
+        showStatus('ok', '"' + v.model + '" kuyruğa eklendi (' + _queue.length + ' araç).');
+      })
+      .catch(function (err) {
+        fetchQueueBtn.disabled = false;
+        fetchQueueBtn.textContent = 'Kuyruğa Ekle →';
+        showStatus('error', 'Hata: ' + err.message);
+      });
+  }
+
+  /* ── Çoklu URL çekme ────────────────────────────── */
+  function fetchMultipleUrls() {
+    var raw = multiUrls.value.trim();
+    if (!raw) {
+      setMultiStatus('warn', 'Lütfen en az bir URL girin.');
+      return;
+    }
+
+    var urls = raw.split(/\r?\n/)
+      .map(function (u) { return u.trim(); })
+      .filter(function (u) { return u.startsWith('https://www.sahibinden.com/'); });
+
+    if (urls.length === 0) {
+      setMultiStatus('error', 'Geçerli sahibinden.com URL\'si bulunamadı.');
+      return;
+    }
+
+    var globalPesinat = multiPesinat.value ? multiPesinat.value.replace(/[^\d]/g, '') : '';
+    var total = urls.length;
+    var idx = 0;
+    var successCount = 0;
+
+    multiFetchBtn.disabled = true;
+    multiProgress.classList.add('active');
+    setMultiStatus('', '');
+
+    function processNext() {
+      if (idx >= total) {
+        multiFetchBtn.disabled = false;
+        multiProgress.classList.remove('active');
+        setMultiStatus('ok', total + ' URL işlendi, ' + successCount + ' araç kuyruğa eklendi.');
+        return;
+      }
+
+      multiProgressText.textContent = (idx + 1) + ' / ' + total + ' çekiliyor...';
+      multiProgressFill.style.width = Math.round((idx / total) * 100) + '%';
+
+      fetchSahibindenUrl(urls[idx])
+        .then(function (data) {
+          if (data.ok) {
+            var v = {
+              model: data.model || '',
+              yil: data.yil || '',
+              km: data.km || '',
+              yakit: data.yakit || 'Dizel',
+              vites: data.vites || 'Manuel',
+              pesinat: globalPesinat,
+              pesin: data.fiyat ? data.fiyat.replace(/[^\d]/g, '') : '',
+              imageUrl: data.imageUrl || ''
+            };
+            addToQueue(v);
+            successCount++;
+          }
+        })
+        .catch(function () { /* sessizce geç */ })
+        .then(function () {
+          idx++;
+          setTimeout(processNext, 600); // sahibinden rate-limit için
+        });
+    }
+
+    processNext();
+  }
+
+  function setMultiStatus(type, msg) {
+    multiStatus.className = 'sb-multi-status';
+    multiStatus.textContent = msg;
+    if (type) multiStatus.classList.add(type);
+    multiStatus.style.display = msg ? 'block' : 'none';
+  }
+
+  /* ── Kuyruk yönetimi ────────────────────────────── */
+  function addToQueue(vehicle) {
+    vehicle._id = Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+    _queue.push(vehicle);
+    renderQueue();
+  }
+
+  function removeFromQueue(id) {
+    _queue = _queue.filter(function (v) { return v._id !== id; });
+    renderQueue();
+  }
+
+  function clearQueue() {
+    _queue = [];
+    renderQueue();
+  }
+
+  function renderQueue() {
+    var count = _queue.length;
+    queueCountEl.textContent = count + ' araç';
+    queueGenerateBtn.disabled = count === 0;
+
+    if (count === 0) {
+      queueEmpty.style.display = 'block';
+      queueTableWrap.style.display = 'none';
+    } else {
+      queueEmpty.style.display = 'none';
+      queueTableWrap.style.display = 'block';
+
+      queueTbody.innerHTML = '';
+      _queue.forEach(function (v, i) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + (i + 1) + '</td>' +
+          '<td class="sb-queue-model">' + escHtml((v.model || '') + (v.yil ? ' ' + v.yil : '')) + '</td>' +
+          '<td>' + escHtml(v.km || '-') + '</td>' +
+          '<td>' + escHtml((v.yakit || '') + ' / ' + (v.vites || '')) + '</td>' +
+          '<td>' + (v.pesinat ? formatMoney(v.pesinat) : '-') + '</td>' +
+          '<td>' + (v.pesin   ? formatMoney(v.pesin)   : '-') + '</td>' +
+          '<td><button class="sb-queue-del-btn" data-id="' + escHtml(v._id) + '">✕</button></td>';
+        queueTbody.appendChild(tr);
+      });
+
+      /* Sil butonları */
+      queueTbody.querySelectorAll('.sb-queue-del-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          removeFromQueue(btn.dataset.id);
+        });
+      });
+    }
+  }
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  /* ── Manuel kuyruğa ekle ────────────────────────── */
+  function addManualToQueue() {
+    var model = (fModel.value || '').trim();
+    if (!model) { alert('Lütfen en azından araç modelini girin.'); return; }
+
+    var v = {
+      model: model,
+      yil: (fYil.value || '').trim(),
+      km: (fKm.value || '').trim(),
+      yakit: fYakit.value || 'Dizel',
+      vites: fVites.value || 'Manuel',
+      pesinat: fPesinat.value ? fPesinat.value.replace(/[^\d]/g, '') : '',
+      pesin: fPesin.value ? fPesin.value.replace(/[^\d]/g, '') : '',
+      imageUrl: _imageDataUrl || ''
+    };
+
+    addToQueue(v);
+    alert('"' + model + '" kuyruğa eklendi. (' + _queue.length + ' araç)');
+  }
+
+  /* ── Formu doldur ───────────────────────────────── */
+  function fillForm(data) {
+    fModel.value = data.model || '';
+    fYil.value   = data.yil   || '';
+    fKm.value    = data.km    || '';
+    setSelectValue(fYakit, data.yakit);
+    setSelectValue(fVites, data.vites);
+    if (data.fiyat) fPesin.value = data.fiyat.replace(/[^\d]/g, '');
   }
 
   function showStatus(type, msg) {
@@ -211,40 +406,13 @@
     }
   }
 
-  /* ── CSV Parser ─────────────────────────────────── */
-  function parseCSV(text) {
-    /* BOM temizle */
-    text = text.replace(/^\uFEFF/, '');
-    var lines = text.split(/\r?\n/).filter(function (l) { return l.trim(); });
-    if (lines.length < 1) return [];
-
-    var headers = splitCSVLine(lines[0]);
-    var hasHeader = isNaN(parseInt(headers[1], 10)) ||
-      headers[0].toLowerCase().indexOf('model') !== -1;
-
-    var dataLines = hasHeader ? lines.slice(1) : lines;
-    var cols = hasHeader ? headers : ['model','yil','km','yakit','vites','pesinat','pesin','imageUrl'];
-
-    return dataLines.map(function (line) {
-      var vals = splitCSVLine(line);
-      var obj = {};
-      cols.forEach(function (c, i) { obj[c.trim().toLowerCase()] = (vals[i] || '').trim(); });
-      return obj;
-    }).filter(function (o) { return o.model; });
-  }
-
-  function splitCSVLine(line) {
-    var result = [];
-    var cur = '';
-    var inQ = false;
-    for (var i = 0; i < line.length; i++) {
-      var c = line[i];
-      if (c === '"') { inQ = !inQ; continue; }
-      if (c === ',' && !inQ) { result.push(cur); cur = ''; continue; }
-      cur += c;
-    }
-    result.push(cur);
-    return result;
+  function switchTab(tabName) {
+    tabBtns.forEach(function (b) { b.classList.remove('active'); });
+    tabPanels.forEach(function (p) { p.classList.remove('active'); });
+    var btn = document.querySelector('[data-tab="' + tabName + '"]');
+    var panel = document.getElementById('sb-panel-' + tabName);
+    if (btn) btn.classList.add('active');
+    if (panel) panel.classList.add('active');
   }
 
   /* ── Araç nesnesini canvas'a yaz ────────────────── */
@@ -262,7 +430,21 @@
   /* ── Görsel yüklenip yüklenmediğini bekle ───────── */
   function waitForImage(url) {
     return new Promise(function (resolve) {
-      if (!url) { resolve(); return; }
+      if (!url) {
+        cvImg.style.display = 'none';
+        cvPH.style.display  = 'flex';
+        resolve();
+        return;
+      }
+
+      /* data URL → direkt kullan */
+      if (url.indexOf('data:') === 0) {
+        cvImg.onload  = function () { cvImg.style.display = 'block'; cvPH.style.display = 'none'; resolve(); };
+        cvImg.onerror = function () { cvImg.style.display = 'none';  cvPH.style.display = 'flex'; resolve(); };
+        cvImg.src = url;
+        return;
+      }
+
       var proxyUrl = '/image-proxy?url=' + encodeURIComponent(url);
       cvImg.onload  = function () { cvImg.style.display = 'block'; cvPH.style.display = 'none'; resolve(); };
       cvImg.onerror = function () { cvImg.style.display = 'none'; cvPH.style.display = 'flex'; resolve(); };
@@ -319,13 +501,10 @@
     });
   }
 
-  /* ── Toplu ZIP üretimi ───────────────────────────── */
-  function downloadBatch() {
-    var csvText = csvTextarea.value.trim();
-    var vehicles = csvText ? parseCSV(csvText) : [];
-
-    if (vehicles.length === 0) {
-      alert('Lütfen CSV yükleyin veya araç listesi yapıştırın.');
+  /* ── Kuyruktan toplu ZIP üretimi ─────────────────── */
+  function downloadQueueAsZip() {
+    if (_queue.length === 0) {
+      alert('Kuyruk boş. Önce araç ekleyin.');
       return;
     }
 
@@ -334,67 +513,58 @@
       return;
     }
 
-    batchBtn.disabled = true;
-    progressWrap.classList.add('active');
+    queueGenerateBtn.disabled = true;
+    zipProgress.classList.add('active');
     var zip = new JSZip();
-    var total = vehicles.length;
+    var total = _queue.length;
     var idx = 0;
 
     function processNext() {
       if (idx >= total) {
-        progressText.textContent = total + ' / ' + total + ' tamamlandı. ZIP hazırlanıyor...';
+        zipProgressText.textContent = total + ' / ' + total + ' tamamlandı. ZIP hazırlanıyor...';
         zip.generateAsync({ type: 'blob' }).then(function (blob) {
           saveAs(blob, 'kredizmir_sablonlar.zip');
-          progressWrap.classList.remove('active');
-          batchBtn.disabled = false;
-          progressText.textContent = '0 / 0 oluşturuldu...';
-          progressFill.style.width = '0%';
+          zipProgress.classList.remove('active');
+          queueGenerateBtn.disabled = false;
+          zipProgressText.textContent = '0 / 0 oluşturuldu...';
+          zipProgressFill.style.width = '0%';
         });
         return;
       }
 
-      var v = vehicles[idx];
-      progressText.textContent = (idx + 1) + ' / ' + total + ' oluşturuluyor: ' + (v.model || '');
-      progressFill.style.width = Math.round(((idx) / total) * 100) + '%';
+      var v = _queue[idx];
+      zipProgressText.textContent = (idx + 1) + ' / ' + total + ' oluşturuluyor: ' + (v.model || '');
+      zipProgressFill.style.width = Math.round((idx / total) * 100) + '%';
 
       applyVehicleToCanvas(v);
 
-      var imagePromise = v.imageurl
-        ? waitForImage(v.imageurl)
-        : Promise.resolve();
-
-      imagePromise.then(function () {
-        return new Promise(function (res) { setTimeout(res, 80); });
-      }).then(function () {
-        return renderToPNG();
-      }).then(function (canvas) {
-        return new Promise(function (res) {
-          canvas.toBlob(function (blob) {
-            zip.file(makeFilename(v), blob);
-            res();
-          }, 'image/png');
+      waitForImage(v.imageUrl || '')
+        .then(function () {
+          return new Promise(function (res) { setTimeout(res, 120); });
+        })
+        .then(function () {
+          return renderToPNG();
+        })
+        .then(function (canvas) {
+          return new Promise(function (res) {
+            canvas.toBlob(function (blob) {
+              zip.file(makeFilename(v), blob);
+              res();
+            }, 'image/png');
+          });
+        })
+        .then(function () {
+          idx++;
+          setTimeout(processNext, 60);
+        })
+        .catch(function (err) {
+          console.error('Batch hata (' + (v.model || '') + '):', err);
+          idx++;
+          setTimeout(processNext, 60);
         });
-      }).then(function () {
-        idx++;
-        setTimeout(processNext, 50);
-      }).catch(function (err) {
-        console.error('Batch hata (' + v.model + '):', err);
-        idx++;
-        setTimeout(processNext, 50);
-      });
     }
 
     processNext();
-  }
-
-  /* ── CSV dosyası yüklenince textarea'ya yaz ─────── */
-  function handleCSVFile(file) {
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      csvTextarea.value = e.target.result;
-    };
-    reader.readAsText(file, 'UTF-8');
   }
 
   /* ── Formu sıfırla ───────────────────────────────── */
@@ -435,9 +605,10 @@
 
     /* Sahibinden fetch */
     fetchBtn.addEventListener('click', fetchSahibinden);
+    fetchQueueBtn.addEventListener('click', fetchToQueue);
 
-    /* Accordion */
-    initAccordion();
+    /* Çoklu URL */
+    multiFetchBtn.addEventListener('click', fetchMultipleUrls);
 
     /* Eylem butonları */
     generateBtn.addEventListener('click', generatePreview);
@@ -446,11 +617,14 @@
     });
     resetBtn.addEventListener('click', resetForm);
 
-    /* Batch */
-    batchBtn.addEventListener('click', downloadBatch);
-    csvFileInput.addEventListener('change', function () {
-      handleCSVFile(csvFileInput.files[0]);
+    /* Kuyruk */
+    queueAddBtn.addEventListener('click', addManualToQueue);
+    queueClearBtn.addEventListener('click', function () {
+      if (_queue.length === 0 || confirm('Kuyruktaki tüm araçlar silinecek. Emin misiniz?')) {
+        clearQueue();
+      }
     });
+    queueGenerateBtn.addEventListener('click', downloadQueueAsZip);
 
     /* Ekran boyutu değişiminde ölçeği yenile */
     window.addEventListener('resize', applyScale);
@@ -462,6 +636,7 @@
     bindEvents();
     syncToCanvas();
     applyScale();
+    renderQueue();
   }
 
   document.addEventListener('DOMContentLoaded', init);
