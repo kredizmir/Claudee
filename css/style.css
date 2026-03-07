@@ -2137,3 +2137,34 @@ input, select { font-family: inherit; }
     text-align: center;
   }
 }
+
+/* === İLAN FORM === */
+.kz-finans-ilan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.kz-finans-ilan-input {
+  width: 100%;
+  max-width: 480px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.kz-finans-ilan-input::placeholder { color: rgba(255,255,255,0.45); }
+.kz-finans-ilan-input:focus { border-color: #22C55E; }
+@media (max-width: 768px) {
+  .kz-finans-ilan-input { max-width: 100%; }
+}
+
+/* === VİTRİN KART BOYUT GÜNCELLEMESİ === */
+.kz-vitrin-item { width: 240px; }
+.kz-vitrin-item img { height: 220px; }
+.kz-vitrin-item__title { margin-bottom: 0; }

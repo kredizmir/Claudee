@@ -129,32 +129,29 @@
           <h2 class="kz-finans-cta-title">10 Saniyede Finans Teklifinizi Öğrenin</h2>
         </div>
         <p class="kz-finans-cta-desc">
-          Beğendiğiniz aracı satın almadan önce finans planınızı öğrenin.<br><br>
-          Türkiye'nin her yerinden;<br>
-          • Şahıstan<br>
-          • Galeriden<br><br>
-          bulduğunuz <strong>2007 model ve üzeri</strong>, ağır hasar kaydı bulunmayan araçlar için
-          <strong>48 aya kadar</strong> finans ve taksit planı hazırlayabiliyoruz.<br><br>
-          <em>Aracı bizden almak zorunda değilsiniz.</em><br><br>
-          <strong>KREDİZMİR</strong> olarak biz aracın değil, müşterimizin yanındayız.
+          👉 Şehir fark etmez. Galeri farketmez, Şahıs farketmez.<br>
+          Dilediğiniz aracı taksitlendirelim.<br>
+          <strong>Sizin bulduğunuz araç üzerindende ilerleyebiliriz !</strong>
         </p>
         <p class="kz-finans-cta-sub">
-          Beğendiğiniz aracın ilan linkini bize gönderin.<br>
-          Ekibimiz sizin için uygun peşinat ve aylık ödeme planını hazırlasın.
+          Şahıs veya galeri fark etmeksizin araçlar için uygun taksit planı hazırlayalım.
         </p>
-        <div class="kz-finans-cta-btns">
+        <div class="kz-finans-ilan-form">
+          <input
+            type="text"
+            id="kz-ilan-input"
+            class="kz-finans-ilan-input"
+            placeholder="İlan numarası veya ilan linki yapıştırın…"
+            autocomplete="off"
+          >
           <a
-            href="https://wa.me/905307258789?text=Merhaba%2C%20bir%20ara%C3%A7%20i%C3%A7in%20finans%20teklifi%20almak%20istiyorum.%20%C4%B0lan%20linki%3A%20"
+            id="kz-ilan-wa-btn"
+            href="https://wa.me/905307258789?text=Merhaba%2C%20taksit%20teklifi%20almak%20istiyorum.%20%C4%B0lan%3A%20"
             target="_blank"
             rel="noopener"
             class="kz-btn kz-finans-cta-btn kz-finans-cta-btn--green"
-          >📎 Araç Linki Gönder</a>
-          <a
-            href="https://wa.me/905307258789?text=Merhaba%2C%20finans%20teklifi%20almak%20istiyorum."
-            target="_blank"
-            rel="noopener"
-            class="kz-btn kz-finans-cta-btn kz-finans-cta-btn--amber"
-          >💰 Finans Teklifi Al</a>
+            onclick="return kzIlanGonder(this)"
+          >📲 WhatsApp'a Gönder</a>
         </div>
         <p class="kz-finans-cta-note">
           Not: Ön inceleme yapılır. Kredi puanı ve limitinizi etkilemeden değerlendirme yapılabilir.
@@ -253,40 +250,24 @@
   (function(){
     var KZ_VITRIN = [
       {
+        title: 'Hyundai iX35 1.6 GDi Elite 2014',
+        img: 'https://i.ibb.co/3mvNXpf4/b811c836-2cb6-4635-adcb-a1b6427d0fd6.jpg'
+      },
+      {
         title: 'VW Polo 1.4 Comfortline 2014',
-        km: '207.000 KM',
-        fiyat: '650.000 ₺',
-        img: 'https://i.ibb.co/sdnRxBXN/c0fbf6be-bcd7-415d-92d9-da90b82ca4ae.jpg'
+        img: 'https://i.ibb.co/gZG3RPx9/1f0f8d38-87fd-4938-97c4-54b320bc4694.jpg'
+      },
+      {
+        title: 'Hyundai i30 1.6 CRDi Style 2014',
+        img: 'https://i.ibb.co/FLX4Jw9D/0918b21d-4aac-41bd-b9a6-5907282542cd.jpg'
       },
       {
         title: 'Ford C-Max 1.6 Titanium 2011',
-        km: '232.000 KM',
-        fiyat: '480.000 ₺',
-        img: 'https://i.ibb.co/XfV38MHq/ad9621ef-af2f-4497-98e3-0c4241196e86.jpg'
+        img: 'https://i.ibb.co/3HjpRkm/6703cc4b-7c93-44f5-8ce4-309ad2ab7de9.jpg'
       },
       {
-        title: 'Renault Clio 1.5 DCi Icon 2015',
-        km: '247.000 KM',
-        fiyat: '570.000 ₺',
-        img: 'https://i.ibb.co/LzG9dgVM/b085f283-8f6e-44b2-b90b-712f8873efee.jpg'
-      },
-      {
-        title: 'Toyota Corolla 1.6 Comfort 2013',
-        km: '189.000 KM',
-        fiyat: '720.000 ₺',
-        img: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=400&h=260&fit=crop'
-      },
-      {
-        title: 'Honda Civic 1.6 i-VTEC 2012',
-        km: '215.000 KM',
-        fiyat: '630.000 ₺',
-        img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=260&fit=crop'
-      },
-      {
-        title: 'Hyundai i20 1.4 CRDi Style 2016',
-        km: '174.000 KM',
-        fiyat: '590.000 ₺',
-        img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=260&fit=crop'
+        title: 'Hyundai Getz 1.4 DOCH 100 HP 2010',
+        img: 'https://i.ibb.co/N65JjZpY/a9a29e75-cd6a-466b-8491-4caa69d793d8.jpg'
       }
     ];
 
@@ -301,10 +282,6 @@
         '<img src="' + car.img + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
         '<div class="kz-vitrin-item__body">' +
           '<div class="kz-vitrin-item__title">' + car.title + '</div>' +
-          '<div class="kz-vitrin-item__meta">' +
-            '<span class="kz-vitrin-item__km">' + car.km + '</span>' +
-            '<span class="kz-vitrin-item__fiyat">' + car.fiyat + '</span>' +
-          '</div>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -321,8 +298,8 @@
       mImg.src      = car.img;
       mImg.alt      = car.title;
       mTitle.textContent = car.title;
-      mKm.textContent    = car.km;
-      mFiyat.textContent = car.fiyat;
+      if (mKm) mKm.textContent = '';
+      if (mFiyat) mFiyat.textContent = '';
       modal.style.display = 'flex';
       requestAnimationFrame(function(){
         modal.classList.add('kz-vitrin-modal--open');
@@ -377,6 +354,14 @@
       if(!fab.contains(e.target) && !popup.contains(e.target)) closePopup();
     });
   })();
+  </script>
+  <script>
+  function kzIlanGonder(el) {
+    var val = (document.getElementById('kz-ilan-input').value || '').trim();
+    var base = 'https://wa.me/905307258789?text=Merhaba%2C%20taksit%20teklifi%20almak%20istiyorum.%20%C4%B0lan%3A%20';
+    el.href = base + encodeURIComponent(val);
+    return true;
+  }
   </script>
 </body>
 </html>
