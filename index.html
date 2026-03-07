@@ -36,7 +36,9 @@
     <div class="kz-container">
       <div class="kz-vitrin-header">
         <span class="kz-vitrin-title">KREDİZMİR VİTRİN</span>
-        <span class="kz-vitrin-badge">● Canlı</span>
+        <span class="kz-vitrin-badge">
+          <span class="kz-vitrin-badge__dot">●</span> Canlı
+        </span>
       </div>
     </div>
     <div class="kz-vitrin-wrap">
@@ -56,13 +58,33 @@
           <div class="kz-insta-label">Instagram Kanalımız</div>
           <div class="kz-insta-title">Güncel Araç İlanlarını Takip Edin</div>
           <div class="kz-insta-desc">En yeni araç ilanları ve fırsatlar için kanalımıza katılın. Her gün yeni araçlar ekleniyor!</div>
-          <a href="https://instagram.com/kredizmir" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
+          <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">
             📷 Kanala Katıl →
           </a>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- VİTRİN DETAY MODAL -->
+  <div id="kz-vitrin-modal" class="kz-vitrin-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-vitrin-modal-title" style="display:none">
+    <div class="kz-vitrin-modal">
+      <button class="kz-vitrin-modal__close" id="kz-vitrin-modal-close" aria-label="Kapat">✕</button>
+      <img id="kz-vitrin-modal-img" src="" alt="" class="kz-vitrin-modal__img">
+      <div class="kz-vitrin-modal__body">
+        <div class="kz-vitrin-modal__badge">🚗 Vitrin İlanı</div>
+        <div class="kz-vitrin-modal__title" id="kz-vitrin-modal-title"></div>
+        <div class="kz-vitrin-modal__meta">
+          <span class="kz-vitrin-modal__km" id="kz-vitrin-modal-km"></span>
+          <span class="kz-vitrin-modal__fiyat" id="kz-vitrin-modal-fiyat"></span>
+        </div>
+        <div class="kz-vitrin-modal__actions">
+          <a href="https://www.instagram.com/channel/AbZRpJkUCuh6ebaf/?igsh=MW9vbGc3aTB2cml3NQ==" target="_blank" rel="noopener" class="kz-btn kz-btn--gold">📷 Kanalda Gör →</a>
+          <a href="tel:+905363972232" class="kz-btn kz-btn--primary">📞 Teklif Al</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- GALERİ MODAL -->
   <div id="kz-gallery-modal" class="kz-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="kz-modal-title">
@@ -98,6 +120,46 @@
     </div>
   </div>
 
+  <!-- FİNANS TEKLİF CTA -->
+  <section class="kz-finans-cta-section">
+    <div class="kz-container">
+      <div class="kz-finans-cta-box">
+        <div class="kz-finans-cta-header">
+          <span class="kz-finans-cta-icon">🚘</span>
+          <h2 class="kz-finans-cta-title">10 Saniyede Finans Teklifinizi Öğrenin</h2>
+        </div>
+        <p class="kz-finans-cta-desc">
+          👉 Şehir fark etmez. Galeri farketmez, Şahıs farketmez.<br>
+          Dilediğiniz aracı taksitlendirelim.<br>
+          <strong>Sizin bulduğunuz araç üzerindende ilerleyebiliriz !</strong>
+        </p>
+        <p class="kz-finans-cta-sub">
+          Şahıs veya galeri fark etmeksizin araçlar için uygun taksit planı hazırlayalım.
+        </p>
+        <div class="kz-finans-ilan-form">
+          <input
+            type="text"
+            id="kz-ilan-input"
+            class="kz-finans-ilan-input"
+            placeholder="İlan numarası veya ilan linki yapıştırın…"
+            autocomplete="off"
+          >
+          <a
+            id="kz-ilan-wa-btn"
+            href="https://wa.me/905307258789?text=Merhaba%2C%20taksit%20teklifi%20almak%20istiyorum.%20%C4%B0lan%3A%20"
+            target="_blank"
+            rel="noopener"
+            class="kz-btn kz-finans-cta-btn kz-finans-cta-btn--green"
+            onclick="return kzIlanGonder(this)"
+          >📲 WhatsApp'a Gönder</a>
+        </div>
+        <p class="kz-finans-cta-note">
+          Not: Ön inceleme yapılır. Kredi puanı ve limitinizi etkilemeden değerlendirme yapılabilir.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- GALERİLERİMİZ — Carousel -->
   <section class="kz-galeri-section" id="galeriler">
     <div class="kz-container">
@@ -113,18 +175,6 @@
       <!-- Galeri Grid -->
       <div class="kz-grid" id="kz-galeri-grid">
         <div class="kz-empty">Yükleniyor…</div>
-      </div>
-
-      <!-- Finans Bilgi Paneli -->
-      <div class="kz-finans-panel">
-        <h2 class="kz-finans-panel__title">Aracı satın almadan önce finans teklifinizi öğrenin.</h2>
-        <p class="kz-finans-panel__sub">KREDİZMİR olarak o araç için</p>
-        <ul class="kz-finans-panel__list">
-          <li><span class="kz-finans-panel__check">✔</span> size özel faiz oranı</li>
-          <li><span class="kz-finans-panel__check">✔</span> uygun peşinat planı</li>
-          <li><span class="kz-finans-panel__check">✔</span> aylık ödeme seçenekleri</li>
-        </ul>
-        <p class="kz-finans-panel__extra">Araç motor yürüyen ve eksper durumu hakkında detaylı bilgi hazırlayalım.</p>
       </div>
 
       <!-- Başvuru -->
@@ -200,40 +250,24 @@
   (function(){
     var KZ_VITRIN = [
       {
+        title: 'Hyundai iX35 1.6 GDi Elite 2014',
+        img: 'https://i.ibb.co/3mvNXpf4/b811c836-2cb6-4635-adcb-a1b6427d0fd6.jpg'
+      },
+      {
         title: 'VW Polo 1.4 Comfortline 2014',
-        km: '207.000 KM',
-        fiyat: '650.000 ₺',
-        img: 'https://i.ibb.co/sdnRxBXN/c0fbf6be-bcd7-415d-92d9-da90b82ca4ae.jpg'
+        img: 'https://i.ibb.co/gZG3RPx9/1f0f8d38-87fd-4938-97c4-54b320bc4694.jpg'
+      },
+      {
+        title: 'Hyundai i30 1.6 CRDi Style 2014',
+        img: 'https://i.ibb.co/FLX4Jw9D/0918b21d-4aac-41bd-b9a6-5907282542cd.jpg'
       },
       {
         title: 'Ford C-Max 1.6 Titanium 2011',
-        km: '232.000 KM',
-        fiyat: '480.000 ₺',
-        img: 'https://i.ibb.co/XfV38MHq/ad9621ef-af2f-4497-98e3-0c4241196e86.jpg'
+        img: 'https://i.ibb.co/3HjpRkm/6703cc4b-7c93-44f5-8ce4-309ad2ab7de9.jpg'
       },
       {
-        title: 'Renault Clio 1.5 DCi Icon 2015',
-        km: '247.000 KM',
-        fiyat: '570.000 ₺',
-        img: 'https://i.ibb.co/LzG9dgVM/b085f283-8f6e-44b2-b90b-712f8873efee.jpg'
-      },
-      {
-        title: 'Toyota Corolla 1.6 Comfort 2013',
-        km: '189.000 KM',
-        fiyat: '720.000 ₺',
-        img: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=400&h=260&fit=crop'
-      },
-      {
-        title: 'Honda Civic 1.6 i-VTEC 2012',
-        km: '215.000 KM',
-        fiyat: '630.000 ₺',
-        img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=260&fit=crop'
-      },
-      {
-        title: 'Hyundai i20 1.4 CRDi Style 2016',
-        km: '174.000 KM',
-        fiyat: '590.000 ₺',
-        img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=260&fit=crop'
+        title: 'Hyundai Getz 1.4 DOCH 100 HP 2010',
+        img: 'https://i.ibb.co/N65JjZpY/a9a29e75-cd6a-466b-8491-4caa69d793d8.jpg'
       }
     ];
 
@@ -242,18 +276,55 @@
 
     // Sonsuz döngü için ×2 duplicate
     var items = KZ_VITRIN.concat(KZ_VITRIN);
-    track.innerHTML = items.map(function(car) {
-      return '<div class="kz-vitrin-item">' +
+    track.innerHTML = items.map(function(car, i) {
+      var idx = i % KZ_VITRIN.length;
+      return '<div class="kz-vitrin-item" data-idx="' + idx + '" role="button" tabindex="0" style="cursor:pointer">' +
         '<img src="' + car.img + '" alt="' + car.title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
         '<div class="kz-vitrin-item__body">' +
           '<div class="kz-vitrin-item__title">' + car.title + '</div>' +
-          '<div class="kz-vitrin-item__meta">' +
-            '<span class="kz-vitrin-item__km">' + car.km + '</span>' +
-            '<span class="kz-vitrin-item__fiyat">' + car.fiyat + '</span>' +
-          '</div>' +
         '</div>' +
       '</div>';
     }).join('');
+
+    // Detay modal
+    var modal    = document.getElementById('kz-vitrin-modal');
+    var mClose   = document.getElementById('kz-vitrin-modal-close');
+    var mImg     = document.getElementById('kz-vitrin-modal-img');
+    var mTitle   = document.getElementById('kz-vitrin-modal-title');
+    var mKm      = document.getElementById('kz-vitrin-modal-km');
+    var mFiyat   = document.getElementById('kz-vitrin-modal-fiyat');
+
+    function openVitrinModal(car) {
+      mImg.src      = car.img;
+      mImg.alt      = car.title;
+      mTitle.textContent = car.title;
+      if (mKm) mKm.textContent = '';
+      if (mFiyat) mFiyat.textContent = '';
+      modal.style.display = 'flex';
+      requestAnimationFrame(function(){
+        modal.classList.add('kz-vitrin-modal--open');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVitrinModal() {
+      modal.classList.remove('kz-vitrin-modal--open');
+      setTimeout(function(){ modal.style.display = 'none'; }, 250);
+      document.body.style.overflow = '';
+    }
+
+    track.addEventListener('click', function(e) {
+      var item = e.target.closest('.kz-vitrin-item');
+      if (!item) return;
+      openVitrinModal(KZ_VITRIN[+item.dataset.idx]);
+    });
+    mClose.addEventListener('click', closeVitrinModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeVitrinModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVitrinModal();
+    });
+
   })();
   </script>
   <script>
@@ -283,6 +354,14 @@
       if(!fab.contains(e.target) && !popup.contains(e.target)) closePopup();
     });
   })();
+  </script>
+  <script>
+  function kzIlanGonder(el) {
+    var val = (document.getElementById('kz-ilan-input').value || '').trim();
+    var base = 'https://wa.me/905307258789?text=Merhaba%2C%20taksit%20teklifi%20almak%20istiyorum.%20%C4%B0lan%3A%20';
+    el.href = base + encodeURIComponent(val);
+    return true;
+  }
   </script>
 </body>
 </html>
