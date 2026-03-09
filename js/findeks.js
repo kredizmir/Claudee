@@ -1,218 +1,204 @@
-/* =========================================================
-   KREDİZMİR — findeks.js
-   Heuristik Findeks/KKB Tahmin Motoru
-   5 sorudan Risk Skoru → Tahmini Puan üretir.
-   ========================================================= */
+/**
+ * KREDİZMİR — findeks.js
+ * Tahmini Findeks / KKB Puan Hesaplama Motoru
+ *
+ * UYARI: Resmi Findeks puanı üretmez. Kullanıcının beyan ettiği
+ * bilgilere göre tahmini ön değerlendirme yapar.
+ *
+ * Puan aralığı: 1 – 1900
+ */
 
-(function (global) {
+(function (root, factory) {
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory();
+  } else {
+    root.KzFindeks = factory();
+  }
+}(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  /* -------------------------------------------------------
-     Ağırlıklar & Hesaplama
-     ------------------------------------------------------- */
+  /* ============================================================
+     PUAN BANTLARI
+     ============================================================ */
+  var BANDS = [
+    { max: 699,  label: 'Çok Riskli', color: '#ef4444' },
+    { max: 1099, label: 'Riskli',     color: '#f97316' },
+    { max: 1399, label: 'Orta',       color: '#f59e0b' },
+    { max: 1599, label: 'İyi',        color: '#84cc16' },
+    { max: 1900, label: 'Çok İyi',    color: '#22c55e' }
+  ];
 
-  /**
-   * Kanuni takip / icra / varlık yönetimi skoru (0-35)
-   * @param {'none'|'old'|'mid'|'recent'|'open'} durum
-   * @param {boolean} birden fazla dosya var mı
-   */
-  function takipSkoru(durum, cok) {
-    const base = { none: 0, old: 8, mid: 14, recent: 22, open: 35 };
-    const s = (base[durum] ?? 35) + (cok ? 5 : 0);
-    return Math.min(s, 35);
-  }
-
-  /**
-   * Son 12 ay gecikme skoru (0-25)
-   * @param {'none'|'low'|'mid'|'high'|'very_high'} durum
-   * @param {boolean} yakın tarihli mi
-   */
-  function gecikmeSkoru(durum, yakin) {
-    const base = { none: 0, low: 6, mid: 10, high: 18, very_high: 25 };
-    const s = (base[durum] ?? 0) + (yakin ? 3 : 0);
-    return Math.min(s, 25);
-  }
-
-  /**
-   * Utilization (borç/limit) skoru (0-20)
-   * @param {number} borc
-   * @param {number} limit
-   */
-  function utilizationSkoru(borc, limit) {
-    if (!limit || limit <= 0) return 20; // limit yoksa ince dosya → en kötü
-    const u = borc / limit;
-    if (u < 0.10) return 0;
-    if (u < 0.30) return 3;
-    if (u < 0.50) return 7;
-    if (u < 0.70) return 12;
-    if (u < 0.90) return 16;
-    return 20;
-  }
-
-  /**
-   * Aylık ödeme yükü skoru (0-15)
-   * @param {number} aylikOdeme
-   * @param {number|null} gelir
-   */
-  function odemeSkoru(aylikOdeme, gelir) {
-    if (gelir && gelir > 0) {
-      const dsr = aylikOdeme / gelir;
-      if (dsr < 0.20) return 0;
-      if (dsr < 0.30) return 4;
-      if (dsr < 0.40) return 8;
-      if (dsr < 0.50) return 12;
-      return 15;
+  function getBand(score) {
+    for (var i = 0; i < BANDS.length; i++) {
+      if (score <= BANDS[i].max) return BANDS[i];
     }
-    // Gelir yok → varsayımsal
-    if (aylikOdeme < 10000) return 3;
-    if (aylikOdeme < 20000) return 7;
-    return 12;
+    return BANDS[BANDS.length - 1];
   }
 
-  /**
-   * Limit yapısı mikro skor (0-5)
-   * @param {number} limit
-   */
-  function limitMikroSkoru(limit) {
-    if (limit <= 20000)  return 4;
-    if (limit <= 100000) return 2;
-    if (limit <= 400000) return 0;
-    return 1;
-  }
+  /* ============================================================
+     ANA HESAPLAMA FONKSİYONU
+     ============================================================ */
+  function calculateCreditScore(params) {
+    var takipDurumu    = params.takipDurumu;
+    var gecikmeSikligi = params.gecikmeSikligi;
+    var gecikmeGunu    = params.gecikmeGunu;
+    var toplamLimit    = params.toplamLimit;
+    var toplamBorc     = params.toplamBorc;
+    var netGelir       = params.netGelir;
+    var aylikOdeme     = params.aylikOdeme;
 
-  /**
-   * Risk Skoru → Findeks Puan & Band
-   * @param {number} risk (0-100)
-   */
-  function risktenPuan(risk) {
-    const puan = Math.round(Math.max(1, Math.min(1900, 1900 - risk * 10.5)));
-    return { puan, band: [Math.max(1, puan - 70), Math.min(1900, puan + 70)] };
-  }
+    /* -- Doğrulama -- */
+    if (!takipDurumu)    throw new Error('Takip durumu zorunludur.');
+    if (!gecikmeSikligi) throw new Error('Gecikme sıklığı zorunludur.');
+    if (gecikmeGunu === undefined || gecikmeGunu === null || gecikmeGunu === '')
+      throw new Error('Gecikme günü zorunludur.');
+    if (typeof toplamLimit !== 'number' || toplamLimit <= 0)
+      throw new Error("Toplam limit 0'dan büyük olmalıdır.");
+    if (typeof toplamBorc !== 'number' || toplamBorc < 0)
+      throw new Error('Toplam borç geçerli bir sayı olmalıdır.');
+    if (typeof netGelir !== 'number' || netGelir <= 0)
+      throw new Error("Net gelir 0'dan büyük olmalıdır.");
+    if (typeof aylikOdeme !== 'number' || aylikOdeme < 0)
+      throw new Error('Aylık ödeme geçerli bir sayı olmalıdır.');
+    if (gecikmeSikligi === 'Hiç olmadı' && gecikmeGunu !== '0')
+      throw new Error("Hiç gecikme yoksa gecikme günü '0' olmalıdır.");
+    if (gecikmeSikligi !== 'Hiç olmadı' && gecikmeGunu === '0')
+      throw new Error('Gecikme varsa gecikme günü 0 olamaz.');
 
-  /**
-   * Puan → Sonuç sınıfı
-   * @param {number} puan
-   * @param {boolean} acikTakip
-   * @param {boolean} cokYakinGecikme30
-   */
-  function siniflandir(puan, acikTakip, cokYakinGecikme30) {
-    if (acikTakip) return 'cikmaz';
-    if (puan >= 1600) return cokYakinGecikme30 ? 'zor' : 'cikar';
-    if (puan >= 1400) return cokYakinGecikme30 ? 'zor' : 'cikar_zor';
-    if (puan >= 1200) return 'zor';
-    return 'cikmaz';
-  }
+    var BASE_SCORE = 1000;
 
-  /**
-   * Ana hesaplama fonksiyonu
-   * @param {Object} v — cevaplar
-   * @returns {Object} sonuç objesi
-   */
-  function hesapla(v) {
-    const ts  = takipSkoru(v.takipDurum, v.takipCok || false);
-    const gs  = gecikmeSkoru(v.gecikmeDurum, v.gecikmeYakin || false);
-    const us  = utilizationSkoru(Number(v.borc) || 0, Number(v.limit) || 0);
-    const os  = odemeSkoru(Number(v.aylikOdeme) || 0, v.gelir ? Number(v.gelir) : null);
-    const lms = limitMikroSkoru(Number(v.limit) || 0);
+    /* -- Takip puanı -- */
+    var takipPuani = { 'Yok': 220, 'Var ama kapandı': -120, 'Var ve devam ediyor': -520 }[takipDurumu];
+    if (takipPuani === undefined) throw new Error('Geçersiz takip durumu.');
 
-    const risk = ts + gs + us + os + lms;
-    const { puan, band } = risktenPuan(risk);
-    const acikTakip = (v.takipDurum === 'open');
-    const yakinGecikme30 = (v.gecikmeDurum === 'high' || v.gecikmeDurum === 'very_high') && v.gecikmeYakin;
-    const sonuc = siniflandir(puan, acikTakip, yakinGecikme30);
-    const utilRatio = (Number(v.limit) > 0) ? (Number(v.borc) / Number(v.limit) * 100).toFixed(1) : null;
+    /* -- Gecikme sıklığı -- */
+    var gecikmeSiklikPuani = { 'Hiç olmadı': 280, '1 kez': 170, '2 kez': 80, '3 ve üzeri': -20 }[gecikmeSikligi];
+    if (gecikmeSiklikPuani === undefined) throw new Error('Geçersiz gecikme sıklığı.');
 
-    // En kritik 3 faktör
-    const faktorler = [
-      { label: 'Kanuni Takip / İcra', skor: ts, max: 35 },
-      { label: 'Son 12 Ay Gecikme', skor: gs, max: 25 },
-      { label: 'Kart/Kredi Kullanım Oranı (Utilization)', skor: us, max: 20 },
-      { label: 'Aylık Ödeme Yükü', skor: os, max: 15 },
-      { label: 'Limit Yapısı', skor: lms, max: 5 }
-    ].sort((a, b) => b.skor - a.skor).slice(0, 3);
+    /* -- Gecikme günü -- */
+    var gecikmeGunPuani = { '0': 0, '1-30 gün': -30, '31-60 gün': -90, '61-90 gün': -170, '90+ gün': -280 }[gecikmeGunu];
+    if (gecikmeGunPuani === undefined) throw new Error('Geçersiz gecikme günü.');
+
+    var gecikmePuani = gecikmeSiklikPuani + gecikmeGunPuani;
+
+    /* -- Borç / Limit oranı -- */
+    var borcLimitOrani = (toplamBorc / toplamLimit) * 100;
+    var borcLimitPuani;
+    if      (borcLimitOrani <= 10) borcLimitPuani = 220;
+    else if (borcLimitOrani <= 20) borcLimitPuani = 190;
+    else if (borcLimitOrani <= 40) borcLimitPuani = 140;
+    else if (borcLimitOrani <= 60) borcLimitPuani = 80;
+    else if (borcLimitOrani <= 80) borcLimitPuani = 20;
+    else if (borcLimitOrani <= 95) borcLimitPuani = -60;
+    else                           borcLimitPuani = -130;
+
+    /* -- Ödeme / Gelir oranı -- */
+    var odemeGelirOrani = (aylikOdeme / netGelir) * 100;
+    var gelirOdemePuani;
+    if      (odemeGelirOrani <= 10) gelirOdemePuani = 180;
+    else if (odemeGelirOrani <= 20) gelirOdemePuani = 150;
+    else if (odemeGelirOrani <= 30) gelirOdemePuani = 110;
+    else if (odemeGelirOrani <= 40) gelirOdemePuani = 60;
+    else if (odemeGelirOrani <= 50) gelirOdemePuani = 0;
+    else if (odemeGelirOrani <= 65) gelirOdemePuani = -80;
+    else                            gelirOdemePuani = -170;
+
+    /* -- Kombine düzeltme -- */
+    var kombineDuzeltme = 0;
+
+    if (takipDurumu === 'Yok' && gecikmeSikligi === 'Hiç olmadı' && borcLimitOrani < 40)
+      kombineDuzeltme += 90;
+    if (takipDurumu === 'Yok' && gecikmeSikligi === '1 kez' && gecikmeGunu === '1-30 gün' && borcLimitOrani < 50)
+      kombineDuzeltme += 20;
+    if (takipDurumu === 'Var ama kapandı' && gecikmeSikligi === 'Hiç olmadı' && borcLimitOrani < 30)
+      kombineDuzeltme += 25;
+
+    if (takipDurumu === 'Var ve devam ediyor') kombineDuzeltme -= 120;
+    if (gecikmeGunu === '31-60 gün') kombineDuzeltme -= 90;
+    else if (gecikmeGunu === '61-90 gün') kombineDuzeltme -= 130;
+    else if (gecikmeGunu === '90+ gün')   kombineDuzeltme -= 180;
+
+    if (borcLimitOrani > 95 && odemeGelirOrani > 50)
+      kombineDuzeltme -= 110;
+    if (takipDurumu === 'Var ama kapandı' && gecikmeSikligi === '3 ve üzeri')
+      kombineDuzeltme -= 70;
+    if (gecikmeSikligi === 'Hiç olmadı' && borcLimitOrani > 85)
+      kombineDuzeltme -= 40;
+
+    /* -- Nihai puan -- */
+    var tahminiPuan = Math.max(1, Math.min(1900,
+      Math.round(BASE_SCORE + takipPuani + gecikmePuani + borcLimitPuani + gelirOdemePuani + kombineDuzeltme)
+    ));
+
+    var band       = getBand(tahminiPuan);
+    var puanBandi  = band.label;
+
+    /* -- Genel profil -- */
+    var genelProfil;
+    if      (tahminiPuan >= 1600) genelProfil = 'Çok Güçlü';
+    else if (tahminiPuan >= 1450) genelProfil = 'Güçlü';
+    else if (tahminiPuan >= 1200) genelProfil = 'Orta';
+    else if (tahminiPuan >= 900)  genelProfil = 'Zayıf';
+    else                          genelProfil = 'Çok Zayıf';
+
+    /* -- Risk özeti -- */
+    var riskOzeti = [];
+    if (takipDurumu === 'Yok')
+      riskOzeti.push('Aktif takip veya icra kaydı bulunmuyor.');
+    else if (takipDurumu === 'Var ama kapandı')
+      riskOzeti.push('Geçmişte kapanmış takip kaydı puanı baskılıyor.');
+    else
+      riskOzeti.push('Aktif takip kaydı puanı ciddi biçimde düşürüyor.');
+
+    if (gecikmeSikligi === 'Hiç olmadı')
+      riskOzeti.push('Son 12 ay ödeme performansı temiz.');
+    else if (gecikmeGunu === '1-30 gün')
+      riskOzeti.push('Kısa süreli gecikme puana sınırlı negatif etki etti.');
+    else if (gecikmeGunu === '31-60 gün')
+      riskOzeti.push('30 günü aşan gecikme risk seviyesini artırıyor.');
+    else
+      riskOzeti.push('Uzun gecikme süresi puanı ciddi şekilde baskılıyor.');
+
+    if (borcLimitOrani <= 40)
+      riskOzeti.push('Borç/limit oranı sağlıklı seviyede (%' + borcLimitOrani.toFixed(0) + ').');
+    else if (borcLimitOrani <= 80)
+      riskOzeti.push('Borç/limit oranı (%' + borcLimitOrani.toFixed(0) + ') orta seviyede; indirilebilir.');
+    else
+      riskOzeti.push('Borç/limit oranı (%' + borcLimitOrani.toFixed(0) + ') yüksek, puanı aşağı çekiyor.');
+
+    if (odemeGelirOrani <= 30)
+      riskOzeti.push('Gelire göre aylık ödeme yükü makul (%' + odemeGelirOrani.toFixed(0) + ').');
+    else if (odemeGelirOrani <= 50)
+      riskOzeti.push('Gelire göre aylık ödeme yükü sınırda (%' + odemeGelirOrani.toFixed(0) + ').');
+    else
+      riskOzeti.push('Aylık ödeme/gelir oranı (%' + odemeGelirOrani.toFixed(0) + ') yüksek.');
 
     return {
-      puan, band, sonuc, risk,
-      skorDetay: { ts, gs, us, os, lms },
-      faktorler,
-      utilRatio,
-      acikTakip,
-      ineDosya: (Number(v.limit) || 0) < 50000,
-      gelirBilgisiYok: !v.gelir,
+      tahminiPuan    : tahminiPuan,
+      puanBandi      : puanBandi,
+      bandColor      : band.color,
+      genelProfil    : genelProfil,
+      borcLimitOrani : parseFloat(borcLimitOrani.toFixed(1)),
+      odemeGelirOrani: parseFloat(odemeGelirOrani.toFixed(1)),
+      riskOzeti      : riskOzeti,
+      hesaplamaDetayi: {
+        baslangicPuani : BASE_SCORE,
+        takipPuani     : takipPuani,
+        gecikmePuani   : gecikmePuani,
+        borcLimitPuani : borcLimitPuani,
+        gelirOdemePuani: gelirOdemePuani,
+        kombineDuzeltme: kombineDuzeltme,
+        nihaiPuan      : tahminiPuan
+      }
     };
   }
 
-  /* -------------------------------------------------------
-     İyileştirme Planı
-     ------------------------------------------------------- */
-
-  const IYILESTIRME = {
-    '7gun': [
-      'Kart borcunu toplam limitin %30\'unun altına çek.',
-      'Varsa gecikmiş ödemeleri kapat, otomatik ödeme talimatı aç.',
-      'Yeni kredi başvurusu yapma — sorgular puanı olumsuz etkiler.',
-    ],
-    '30gun': [
-      'Kartları 2 bankada konsolide et, gereksiz limitleri kapat.',
-      'KMH (kredili mevduat) kullanımını minimumlara indir.',
-      'Maaş/düzenli gelir banka hareketi güçlendir.',
-    ],
-    '90gun': [
-      'Borç/limit oranını %10–%20 bandına oturt.',
-      'Taksit yükünü düşür — gerekirse borç yapılandırması yap.',
-      'Negatif kayıt varsa kapanış + bekleme süresini planla.',
-    ],
+  /* ============================================================
+     PUBLIC API
+     ============================================================ */
+  return {
+    calculateCreditScore : calculateCreditScore,
+    getBand              : getBand,
+    BANDS                : BANDS
   };
-
-  /* -------------------------------------------------------
-     Limit / Peşinat Senaryosu
-     ------------------------------------------------------- */
-
-  function limitSenaryosu(puan, aracFiyat) {
-    aracFiyat = Number(aracFiyat) || 0;
-    if (puan >= 1600) {
-      return aracFiyat > 0
-        ? `Araç bedelinin %80–100\'üne kadar (${fmt(aracFiyat * 0.8)} – ${fmt(aracFiyat)}) kredi çıkabilir. Peşinatsız senaryo mümkün.`
-        : 'Güçlü profil: peşinatsız veya çok düşük peşinat senaryosu değerlendirilebilir.';
-    }
-    if (puan >= 1400) {
-      return aracFiyat > 0
-        ? `Araç bedelinin %60–80\'ine kadar (${fmt(aracFiyat * 0.6)} – ${fmt(aracFiyat * 0.8)}) kredi beklenir. Peşinat tavsiyesi: %20–40.`
-        : '%20–40 peşinat ile daha güçlü dosya oluşturulabilir.';
-    }
-    if (puan >= 1200) {
-      return aracFiyat > 0
-        ? `Araç bedelinin %40–60\'ına kadar (${fmt(aracFiyat * 0.4)} – ${fmt(aracFiyat * 0.6)}) kredi zor ama mümkün. Yüksek peşinat gerekebilir.`
-        : 'Yüksek peşinat (%40+) ile dosya değerlendirilebilir.';
-    }
-    return 'Mevcut profilinizle onay alınması çok güç. Önce dosya iyileştirme gereklidir.';
-  }
-
-  function fmt(n) {
-    return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 }).format(n);
-  }
-
-  /* -------------------------------------------------------
-     Sonuç Etiketi Metni
-     ------------------------------------------------------- */
-
-  const SONUC_ETIKET = {
-    cikar:      { label: 'ÇIKAR', cls: 'kz-findeks-verdict--cikar', desc: 'Dosya genel itibarıyla temiz; kredi çıkması beklenir.' },
-    cikar_zor:  { label: 'ÇIKAR / ZOR', cls: 'kz-findeks-verdict--zor', desc: 'Bankaya ve gelir durumuna bağlı; değerlendirme gerektirir.' },
-    zor:        { label: 'ZOR', cls: 'kz-findeks-verdict--zor', desc: 'Dosya iyileştirmesi şart; onay için güçlendirme önerilen.' },
-    cikmaz:     { label: 'ÇIKMAZ', cls: 'kz-findeks-verdict--cikmaz', desc: 'Önce temizlik / iyileştirme yapılması gerekiyor.' },
-  };
-
-  /* -------------------------------------------------------
-     Global API
-     ------------------------------------------------------- */
-
-  global.KZFindeks = {
-    hesapla,
-    iyilestirme: IYILESTIRME,
-    limitSenaryosu,
-    sonucEtiket: SONUC_ETIKET,
-    fmt,
-  };
-
-})(window);
+}));

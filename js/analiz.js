@@ -68,6 +68,34 @@
     runAnalysis();
   });
 
+  /* ============================================================
+     DRAG & DROP UPLOAD
+     ============================================================ */
+  var uploadArea = el('kzUploadArea');
+  if (uploadArea) {
+    uploadArea.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      uploadArea.querySelector('.kz-upload-label').classList.add('kz-upload-label--drag');
+    });
+    uploadArea.addEventListener('dragleave', function () {
+      uploadArea.querySelector('.kz-upload-label').classList.remove('kz-upload-label--drag');
+    });
+    uploadArea.addEventListener('drop', function (e) {
+      e.preventDefault();
+      uploadArea.querySelector('.kz-upload-label').classList.remove('kz-upload-label--drag');
+      var file = e.dataTransfer.files[0];
+      if (!file || file.type !== 'application/pdf') return;
+      var fileInput = el('kzFindeksPDF');
+      if (!fileInput) return;
+      /* DataTransfer ile file input'a ata */
+      var dt = new DataTransfer();
+      dt.items.add(file);
+      fileInput.files = dt.files;
+      var fn = el('kzUploadFilename');
+      if (fn) { fn.textContent = '📎 ' + file.name; fn.hidden = false; }
+    });
+  }
+
   function getFormData() {
     return {
       yasal      : form.yasal.value,
@@ -83,6 +111,12 @@
   }
 
   function runAnalysis() {
+    var submitBtn = form.querySelector('.kz-aform__submit');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Hesaplanıyor…';
+    }
+
     var data = getFormData();
 
     /* 1. Hızlı taksit tahmini (DSR için) */
@@ -107,8 +141,15 @@
     renderResults(data, analysis, limitResult);
     showStep('results');
 
-    /* 5. Findeks PDF upload (asenkron, UI'yi bloklamaz) */
-    uploadFindeks();
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Analizi Çalıştır →';
+    }
+
+    /* 5. Findeks PDF upload + ayrıştırma (asenkron, UI'yi bloklamaz) */
+    uploadFindeks(function () {
+      renderProbWidget(data, limitResult);
+    });
 
     /* 6. Lead kaydet (asenkron) */
     postLead(data, analysis, limitResult);
@@ -266,7 +307,15 @@
     /* Yeniden analiz */
     var backBtn = el('kzBtnBack');
     if (backBtn) {
-      backBtn.onclick = function () { showStep('form'); };
+      backBtn.onclick = function () {
+        form.reset();
+        var fn = el('kzUploadFilename');
+        if (fn) { fn.textContent = ''; fn.hidden = true; }
+        var parsedBlock = el('kzParsedFindeks');
+        if (parsedBlock) parsedBlock.hidden = true;
+        _parsedFindeks = null;
+        showStep('form');
+      };
     }
 
     /* PDF indir */
@@ -288,11 +337,16 @@
   }
 
   /* ============================================================
-     FİNDEKS PDF UPLOAD
+     FİNDEKS PDF UPLOAD + AYRIŞTRIMA
      ============================================================ */
-  function uploadFindeks() {
+  var _parsedFindeks = null;
+
+  function uploadFindeks(onDone) {
     var fileInput = el('kzFindeksPDF');
-    if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+      if (onDone) onDone(null);
+      return;
+    }
 
     var formData = new FormData();
     formData.append('findeks', fileInput.files[0]);
@@ -300,16 +354,105 @@
     fetch(API_BASE + '/upload', { method: 'POST', body: formData })
       .then(function (r) { return r.json(); })
       .then(function (res) {
-        console.log('Findeks yüklendi:', res);
         var status = el('kzFindeksStatus');
         if (status) {
           status.textContent = 'Findeks PDF başarıyla yüklendi.';
           status.className   = 'kz-upload-status kz-upload-status--ok';
+          status.hidden = false;
         }
+
+        if (res.parsed && res.parsed.findeksScore) {
+          _parsedFindeks = res.parsed;
+          /* Göstergecik: step 2'deki parsed block */
+          var block = el('kzParsedFindeks');
+          var scoreVal = el('kzParsedScoreVal');
+          var detail   = el('kzParsedDetail');
+          if (block && scoreVal) {
+            scoreVal.textContent = res.parsed.findeksScore;
+            if (detail && res.parsed.borcLimitOrani !== null) {
+              detail.textContent = 'Borç/Limit: %' + res.parsed.borcLimitOrani;
+            }
+            block.hidden = false;
+          }
+        }
+
+        if (onDone) onDone(res.parsed || null);
       })
       .catch(function (err) {
         console.warn('Findeks upload hatası (server çalışmıyor olabilir):', err);
+        if (onDone) onDone(null);
       });
+  }
+
+  /* ---- Kredi Olasılık Widget Render ---- */
+  function renderProbWidget(data, limitResult) {
+    if (!_parsedFindeks || !_parsedFindeks.findeksScore) return;
+    if (typeof KzProbability === 'undefined') return;
+
+    var prob = KzProbability.calcLoanProbability({
+      findeksScore   : _parsedFindeks.findeksScore,
+      borcLimitOrani : _parsedFindeks.borcLimitOrani || 0,
+      gecikmedeHesap : _parsedFindeks.gecikmedeHesap || 0,
+      mevcutGecikme  : _parsedFindeks.mevcutGecikme  || 0,
+      takibeSayisi   : _parsedFindeks.takibeSayisi   || 0,
+      sonTakipTarihi : _parsedFindeks.sonTakipTarihi || null,
+      aracFiyat      : data.aracFiyat,
+      pesinat        : data.pesinat,
+      netGelir       : data.gelir,
+      tahminiTaksit  : (limitResult && limitResult.estimatedPayment) || 0
+    });
+
+    var panel = el('kzProbPanel');
+    if (!panel) return;
+
+    /* Yüzde + ring animasyonu */
+    var pctEl = el('kzProbPct');
+    var ringFill = el('kzProbRingFill');
+    if (pctEl) pctEl.textContent = prob.hardBlock ? '—' : prob.probability + '%';
+    if (ringFill) {
+      var circumference = 2 * Math.PI * 50; // r=50
+      var offset = prob.hardBlock
+        ? circumference
+        : circumference * (1 - prob.probability / 100);
+      ringFill.style.strokeDasharray  = circumference;
+      ringFill.style.strokeDashoffset = circumference; // reset
+      ringFill.style.stroke = prob.color;
+      /* Animasyon için küçük gecikme */
+      setTimeout(function () {
+        ringFill.style.strokeDashoffset = offset;
+      }, 100);
+    }
+
+    /* Band */
+    var bandEl = el('kzProbBand');
+    if (bandEl) {
+      bandEl.textContent = prob.band;
+      bandEl.style.color = prob.color;
+    }
+
+    /* Faktörler */
+    var factorsEl = el('kzProbFactors');
+    if (factorsEl) {
+      factorsEl.innerHTML = '';
+      (prob.factors || []).forEach(function (f) {
+        var li = document.createElement('li');
+        li.textContent = f;
+        factorsEl.appendChild(li);
+      });
+    }
+
+    /* Hard block */
+    var hardBlockEl = el('kzHardBlock');
+    if (hardBlockEl) {
+      hardBlockEl.hidden = !prob.hardBlock;
+      if (prob.hardBlock) hardBlockEl.textContent = prob.hardBlockReason;
+    }
+
+    /* Öneri */
+    var recEl = el('kzProbRec');
+    if (recEl) recEl.textContent = prob.recommendation;
+
+    panel.hidden = false;
   }
 
   /* ============================================================

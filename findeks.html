@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KREDİZMİR Tahmini Findeks Puan Hesaplama — Kredi geçmişi, borç ve gelir bilgilerinizi girerek tahmini ön değerlendirme puanınızı öğrenin.">
+  <meta name="theme-color" content="#0A1A2F">
+  <title>Tahmini Findeks Hesaplama — KREDİZMİR</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="kz-header">
+    <div class="kz-container kz-header__inner">
+
+      <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
+        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="kz-logo__fallback" style="display:none;">KREDİ<em>ZMİR</em></span>
+      </a>
+
+      <nav class="kz-nav" aria-label="Ana navigasyon">
+        <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
+        <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+        <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+        <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
+        <a href="findeks.html"   class="kz-nav__link kz-nav__link--active">Findeks Tahmini</a>
+      </nav>
+
+      <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="kz-nav kz-nav--mobile" id="kzMobileNav" aria-label="Mobil navigasyon">
+      <a href="index.html"     class="kz-nav__link">Ana Sayfa</a>
+      <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
+      <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
+      <a href="analiz.html"    class="kz-nav__link">Uygunluk Analizi</a>
+      <a href="findeks.html"   class="kz-nav__link kz-nav__link--active">Findeks Tahmini</a>
+    </nav>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+
+    <!-- Page Header -->
+    <div class="kz-page-header">
+      <div class="kz-container">
+        <span class="kz-page-header__eyebrow">Ön Değerlendirme Aracı</span>
+        <h1 class="kz-page-header__title">Tahmini Findeks Puan Hesaplama</h1>
+        <p class="kz-page-header__sub">
+          Kredi geçmişi ve finansal bilgilerinize göre tahmini puan aralığınızı öğrenin.
+          Bu araç resmi Findeks verisi üretmez.
+        </p>
+        <div class="kz-divider" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <section class="kz-findeks-section">
+      <div class="kz-container">
+        <div class="kz-findeks-wrap">
+
+          <!-- ===== FORM ===== -->
+          <div class="kz-findeks-form-col">
+            <form id="kzFindeksForm" class="kz-aform" novalidate>
+
+              <!-- Bölüm 1: Yasal Durum -->
+              <fieldset class="kz-aform__section">
+                <legend class="kz-aform__legend">
+                  <span class="kz-aform__legend-icon" aria-hidden="true">⚖️</span>
+                  Yasal & Takip Durumu
+                </legend>
+
+                <div style="margin-top:1.1rem;">
+                  <label for="kzTakip" class="kz-form-label">
+                    Kanuni takip / icra / varlık yönetimi kaydı var mı?
+                    <span class="kz-required">*</span>
+                  </label>
+                  <select id="kzTakip" name="takipDurumu" class="kz-form-input kz-form-input--select" required>
+                    <option value="">Seçiniz…</option>
+                    <option value="Yok">Yok</option>
+                    <option value="Var ama kapandı">Var ama kapandı</option>
+                    <option value="Var ve devam ediyor">Var ve devam ediyor</option>
+                  </select>
+                  <p class="kz-field-error" id="err-takipDurumu" role="alert" aria-live="polite"></p>
+                </div>
+              </fieldset>
+
+              <!-- Bölüm 2: Gecikme -->
+              <fieldset class="kz-aform__section">
+                <legend class="kz-aform__legend">
+                  <span class="kz-aform__legend-icon" aria-hidden="true">📅</span>
+                  Son 12 Ay Ödeme Geçmişi
+                </legend>
+
+                <div class="kz-aform__grid" style="margin-top:1.1rem;">
+                  <div>
+                    <label for="kzGecikmeSikligi" class="kz-form-label">Gecikme sıklığı <span class="kz-required">*</span></label>
+                    <select id="kzGecikmeSikligi" name="gecikmeSikligi" class="kz-form-input kz-form-input--select" required>
+                      <option value="">Seçiniz…</option>
+                      <option value="Hiç olmadı">Hiç olmadı</option>
+                      <option value="1 kez">1 kez</option>
+                      <option value="2 kez">2 kez</option>
+                      <option value="3 ve üzeri">3 ve üzeri</option>
+                    </select>
+                    <p class="kz-field-error" id="err-gecikmeSikligi" role="alert" aria-live="polite"></p>
+                  </div>
+
+                  <div>
+                    <label for="kzGecikmeGunu" class="kz-form-label">En uzun gecikme süresi <span class="kz-required">*</span></label>
+                    <select id="kzGecikmeGunu" name="gecikmeGunu" class="kz-form-input kz-form-input--select" required>
+                      <option value="">Seçiniz…</option>
+                      <option value="0">0 gün</option>
+                      <option value="1-30 gün">1 – 30 gün</option>
+                      <option value="31-60 gün">31 – 60 gün</option>
+                      <option value="61-90 gün">61 – 90 gün</option>
+                      <option value="90+ gün">90+ gün</option>
+                    </select>
+                    <p class="kz-field-error" id="err-gecikmeGunu" role="alert" aria-live="polite"></p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Bölüm 3: Kredi Kartı / KMH -->
+              <fieldset class="kz-aform__section">
+                <legend class="kz-aform__legend">
+                  <span class="kz-aform__legend-icon" aria-hidden="true">💳</span>
+                  Kredi Kartı / KMH Bilgileri
+                </legend>
+
+                <div class="kz-aform__grid" style="margin-top:1.1rem;">
+                  <div>
+                    <label for="kzToplamLimit" class="kz-form-label">
+                      Toplam limit <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span>
+                    </label>
+                    <input type="number" id="kzToplamLimit" name="toplamLimit"
+                      class="kz-form-input" placeholder="ör. 200.000" min="1" step="1" inputmode="numeric" required>
+                    <p class="kz-form-hint">Tüm kart + kredili mevduat limitlerinin toplamı.</p>
+                    <p class="kz-field-error" id="err-toplamLimit" role="alert" aria-live="polite"></p>
+                  </div>
+
+                  <div>
+                    <label for="kzToplamBorc" class="kz-form-label">
+                      Toplam borç <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span>
+                    </label>
+                    <input type="number" id="kzToplamBorc" name="toplamBorc"
+                      class="kz-form-input" placeholder="ör. 70.000" min="0" step="1" inputmode="numeric" required>
+                    <p class="kz-field-error" id="err-toplamBorc" role="alert" aria-live="polite"></p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Bölüm 4: Gelir / Ödeme Yükü -->
+              <fieldset class="kz-aform__section">
+                <legend class="kz-aform__legend">
+                  <span class="kz-aform__legend-icon" aria-hidden="true">💰</span>
+                  Gelir & Ödeme Yükü
+                </legend>
+
+                <div class="kz-aform__grid" style="margin-top:1.1rem;">
+                  <div>
+                    <label for="kzNetGelir" class="kz-form-label">
+                      Net aylık gelir <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span>
+                    </label>
+                    <input type="number" id="kzNetGelir" name="netGelir"
+                      class="kz-form-input" placeholder="ör. 50.000" min="1" step="1" inputmode="numeric" required>
+                    <p class="kz-form-hint">Aylık vergi sonrası net kazancınız.</p>
+                    <p class="kz-field-error" id="err-netGelir" role="alert" aria-live="polite"></p>
+                  </div>
+
+                  <div>
+                    <label for="kzAylikOdeme" class="kz-form-label">
+                      Aylık toplam ödeme yükü <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span>
+                    </label>
+                    <input type="number" id="kzAylikOdeme" name="aylikOdeme"
+                      class="kz-form-input" placeholder="ör. 12.000" min="0" step="1" inputmode="numeric" required>
+                    <p class="kz-form-hint">Tüm kredi + kart taksitlerinin aylık toplamı.</p>
+                    <p class="kz-field-error" id="err-aylikOdeme" role="alert" aria-live="polite"></p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Butonlar -->
+              <div class="kz-findeks-btns">
+                <button type="submit" class="kz-btn kz-btn--primary">Hesapla →</button>
+                <button type="button" id="kzFindeksReset" class="kz-btn kz-btn--outline">Formu Temizle</button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- ===== SONUÇ ===== -->
+          <div class="kz-findeks-result-col" id="kzFindeksResultWrap">
+
+            <!-- Boş durum -->
+            <div class="kz-result__card" id="kzFindeksEmpty">
+              <div class="kz-result__empty">
+                <div class="kz-result__empty-icon" aria-hidden="true">📊</div>
+                <p class="kz-result__empty-text">
+                  Formu doldurun ve <strong>Hesapla</strong> butonuna basın.<br>
+                  Tahmini puan aralığınız burada görünecek.
+                </p>
+              </div>
+            </div>
+
+            <!-- Sonuç kartı — hidden until calc -->
+            <div id="kzFindeksResult" hidden>
+
+              <!-- Puan + bant -->
+              <div class="kz-score-card kz-glass">
+                <p class="kz-score-eyebrow">Tahmini Findeks Puanı</p>
+                <div class="kz-score-number" id="kzScoreNum">—</div>
+                <div class="kz-score-band" id="kzScoreBand"></div>
+
+                <!-- Görsel puan cetveli -->
+                <div class="kz-score-meter" aria-hidden="true" id="kzScoreMeter">
+                  <div class="kz-score-meter__track">
+                    <div class="kz-score-meter__fill" id="kzMeterFill"></div>
+                    <div class="kz-score-meter__needle" id="kzMeterNeedle"></div>
+                  </div>
+                  <div class="kz-score-meter__labels">
+                    <span>1</span>
+                    <span>700</span>
+                    <span>1100</span>
+                    <span>1400</span>
+                    <span>1600</span>
+                    <span>1900</span>
+                  </div>
+                  <div class="kz-score-meter__bands">
+                    <span style="color:#ef4444">Çok Riskli</span>
+                    <span style="color:#f97316">Riskli</span>
+                    <span style="color:#f59e0b">Orta</span>
+                    <span style="color:#84cc16">İyi</span>
+                    <span style="color:#22c55e">Çok İyi</span>
+                  </div>
+                </div>
+
+                <!-- Profil + Oranlar -->
+                <div class="kz-score-meta">
+                  <div class="kz-score-meta__item">
+                    <span class="kz-score-meta__label">Genel Profil</span>
+                    <span class="kz-score-meta__value" id="kzGenelProfil">—</span>
+                  </div>
+                  <div class="kz-score-meta__item">
+                    <span class="kz-score-meta__label">Borç / Limit</span>
+                    <span class="kz-score-meta__value" id="kzBorcOrani">—</span>
+                  </div>
+                  <div class="kz-score-meta__item">
+                    <span class="kz-score-meta__label">Ödeme / Gelir</span>
+                    <span class="kz-score-meta__value" id="kzOdemeOrani">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Risk özeti -->
+              <div class="kz-limit-panel kz-glass">
+                <h3 class="kz-panel-title"><span aria-hidden="true">🔍</span> Risk Özeti</h3>
+                <ul id="kzRiskOzeti" class="kz-reasons-list"></ul>
+              </div>
+
+              <!-- Hesaplama detayı (gizlenebilir) -->
+              <div class="kz-limit-panel kz-glass">
+                <button class="kz-accordion-btn" id="kzDetailToggle" type="button" aria-expanded="false">
+                  <span>📋 Hesaplama Detayı</span>
+                  <span class="kz-accordion-arrow">▾</span>
+                </button>
+                <div id="kzDetailPanel" hidden>
+                  <ul id="kzHesaplamaDetayi" class="kz-reasons-list" style="margin-top:1rem;"></ul>
+                </div>
+              </div>
+
+              <!-- Uygunluk Analizi CTA -->
+              <div class="kz-cta-card">
+                <p class="kz-cta-card__title">Finansman Uygunluk Analizine Geçin</p>
+                <p class="kz-cta-card__sub">
+                  KREDİZMİR'in Finansman Uygunluk Motoru ile
+                  BDDK LTV kurallarına göre tahmini kredi aralığınızı da öğrenin.
+                </p>
+                <a href="analiz.html" class="kz-btn kz-btn--primary" style="width:100%;justify-content:center;">
+                  Uygunluk Analizine Git →
+                </a>
+              </div>
+
+              <!-- Yasal uyarı -->
+              <p class="kz-legal-note">
+                Bu sonuç resmi Findeks / KKB verisi değildir. Kullanıcının beyan ettiği
+                bilgilere göre oluşturulmuş tahmini ön değerlendirmedir ve bağlayıcılığı yoktur.
+              </p>
+            </div>
+
+          </div>
+          <!-- /result col -->
+
+        </div>
+        <!-- /kz-findeks-wrap -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="kz-footer">
+    <div class="kz-container kz-footer__inner">
+      <span class="kz-footer__brand">KREDİZMİR</span>
+      <nav class="kz-footer__links" aria-label="Alt navigasyon">
+        <a href="index.html"     class="kz-footer__link">Ana Sayfa</a>
+        <a href="galeriler.html" class="kz-footer__link">Galeriler</a>
+        <a href="analiz.html"    class="kz-footer__link">Uygunluk Analizi</a>
+      </nav>
+      <span class="kz-footer__copy">© 2025 KREDİZMİR. Tüm hakları saklıdır.</span>
+    </div>
+  </footer>
+
+  <script src="js/findeks.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var form      = document.getElementById('kzFindeksForm');
+    var resetBtn  = document.getElementById('kzFindeksReset');
+    var emptyCard = document.getElementById('kzFindeksEmpty');
+    var resultWrap= document.getElementById('kzFindeksResult');
+    var detailBtn = document.getElementById('kzDetailToggle');
+    var detailPanel = document.getElementById('kzDetailPanel');
+
+    /* ---- Hata yönetimi ---- */
+    function clearErrors() {
+      document.querySelectorAll('.kz-field-error').forEach(function (el) {
+        el.textContent = '';
+      });
+    }
+    function setError(id, msg) {
+      var el = document.getElementById('err-' + id);
+      if (el) el.textContent = msg;
+    }
+
+    function validate(data) {
+      var ok = true;
+      if (!data.takipDurumu)    { setError('takipDurumu',    'Bu alan zorunludur.'); ok = false; }
+      if (!data.gecikmeSikligi) { setError('gecikmeSikligi', 'Bu alan zorunludur.'); ok = false; }
+      if (!data.gecikmeGunu)    { setError('gecikmeGunu',    'Bu alan zorunludur.'); ok = false; }
+      if (isNaN(data.toplamLimit) || data.toplamLimit <= 0)
+        { setError('toplamLimit', "0'dan büyük bir değer girin."); ok = false; }
+      if (isNaN(data.toplamBorc) || data.toplamBorc < 0)
+        { setError('toplamBorc', 'Geçerli bir tutar girin.'); ok = false; }
+      if (isNaN(data.netGelir) || data.netGelir <= 0)
+        { setError('netGelir', "0'dan büyük bir değer girin."); ok = false; }
+      if (isNaN(data.aylikOdeme) || data.aylikOdeme < 0)
+        { setError('aylikOdeme', 'Geçerli bir tutar girin.'); ok = false; }
+
+      if (data.gecikmeSikligi === 'Hiç olmadı' && data.gecikmeGunu && data.gecikmeGunu !== '0')
+        { setError('gecikmeGunu', "Hiç gecikme yoksa '0 gün' seçiniz."); ok = false; }
+      if (data.gecikmeSikligi && data.gecikmeSikligi !== 'Hiç olmadı' && data.gecikmeGunu === '0')
+        { setError('gecikmeGunu', 'Gecikme varsa gün 0 olamaz.'); ok = false; }
+
+      return ok;
+    }
+
+    /* ---- Puan cetveli render ---- */
+    function renderMeter(score, color) {
+      var fill   = document.getElementById('kzMeterFill');
+      var needle = document.getElementById('kzMeterNeedle');
+      if (!fill || !needle) return;
+      var pct = ((score - 1) / 1899) * 100;
+      fill.style.width = pct + '%';
+      fill.style.background = color;
+      needle.style.left = pct + '%';
+    }
+
+    /* ---- Sonuç render ---- */
+    function renderResult(res) {
+      document.getElementById('kzScoreNum').textContent  = res.tahminiPuan;
+      document.getElementById('kzScoreNum').style.color  = res.bandColor;
+
+      var bandEl = document.getElementById('kzScoreBand');
+      bandEl.textContent = res.puanBandi;
+      bandEl.style.background = res.bandColor + '22';
+      bandEl.style.color      = res.bandColor;
+      bandEl.style.border     = '1px solid ' + res.bandColor + '55';
+
+      document.getElementById('kzGenelProfil').textContent = res.genelProfil;
+      document.getElementById('kzBorcOrani').textContent   = '%' + res.borcLimitOrani;
+      document.getElementById('kzOdemeOrani').textContent  = '%' + res.odemeGelirOrani;
+
+      renderMeter(res.tahminiPuan, res.bandColor);
+
+      /* Risk özeti */
+      var riskList = document.getElementById('kzRiskOzeti');
+      riskList.innerHTML = '';
+      res.riskOzeti.forEach(function (r) {
+        var li = document.createElement('li');
+        li.className = 'kz-reason-item';
+        li.textContent = r;
+        riskList.appendChild(li);
+      });
+
+      /* Hesaplama detayı */
+      var detailList = document.getElementById('kzHesaplamaDetayi');
+      detailList.innerHTML = '';
+      var d = res.hesaplamaDetayi;
+      var rows = [
+        'Başlangıç puanı: ' + d.baslangicPuani,
+        'Takip etkisi: '    + (d.takipPuani    >= 0 ? '+' : '') + d.takipPuani,
+        'Gecikme etkisi: '  + (d.gecikmePuani  >= 0 ? '+' : '') + d.gecikmePuani,
+        'Borç/Limit etkisi: '  + (d.borcLimitPuani  >= 0 ? '+' : '') + d.borcLimitPuani,
+        'Gelir/Ödeme etkisi: ' + (d.gelirOdemePuani >= 0 ? '+' : '') + d.gelirOdemePuani,
+        'Kombine düzeltme: '   + (d.kombineDuzeltme  >= 0 ? '+' : '') + d.kombineDuzeltme,
+        'Nihai tahmini puan: ' + d.nihaiPuan
+      ];
+      rows.forEach(function (txt) {
+        var li = document.createElement('li');
+        li.className = 'kz-reason-item';
+        li.textContent = txt;
+        detailList.appendChild(li);
+      });
+
+      /* Göster */
+      emptyCard.hidden  = true;
+      resultWrap.hidden = false;
+      if (window.innerWidth < 900) {
+        resultWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    /* ---- Form submit ---- */
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearErrors();
+
+      var data = {
+        takipDurumu   : form.takipDurumu.value,
+        gecikmeSikligi: form.gecikmeSikligi.value,
+        gecikmeGunu   : form.gecikmeGunu.value,
+        toplamLimit   : Number(form.toplamLimit.value),
+        toplamBorc    : Number(form.toplamBorc.value),
+        netGelir      : Number(form.netGelir.value),
+        aylikOdeme    : Number(form.aylikOdeme.value)
+      };
+
+      if (!validate(data)) return;
+
+      try {
+        var result = KzFindeks.calculateCreditScore(data);
+        renderResult(result);
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    /* ---- Reset ---- */
+    resetBtn.addEventListener('click', function () {
+      form.reset();
+      clearErrors();
+      emptyCard.hidden  = false;
+      resultWrap.hidden = true;
+    });
+
+    /* ---- Detail accordion ---- */
+    detailBtn.addEventListener('click', function () {
+      var open = detailPanel.hidden === false;
+      detailPanel.hidden = open;
+      detailBtn.setAttribute('aria-expanded', !open);
+      detailBtn.querySelector('.kz-accordion-arrow').textContent = open ? '▾' : '▴';
+    });
+
+    /* ---- Gecikme sıklığı ↔ gün tutarlılık ipucu ---- */
+    var siklik = document.getElementById('kzGecikmeSikligi');
+    var gun    = document.getElementById('kzGecikmeGunu');
+    siklik.addEventListener('change', function () {
+      if (siklik.value === 'Hiç olmadı') {
+        gun.value = '0';
+      } else if (gun.value === '0') {
+        gun.value = '';
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>

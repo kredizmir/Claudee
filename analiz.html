@@ -17,7 +17,7 @@
     <div class="kz-container kz-header__inner">
 
       <a href="index.html" class="kz-logo" aria-label="KREDİZMİR Ana Sayfa">
-        <img src="public/logo.svg" alt="KREDİZMİR" class="kz-logo__img"
+        <img src="public/logo.png" alt="KREDİZMİR" class="kz-logo__img"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <span class="kz-logo__fallback" style="display:none;">KREDİ<em>ZMİR</em></span>
       </a>
@@ -27,6 +27,7 @@
         <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
         <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
         <a href="analiz.html"    class="kz-nav__link kz-nav__link--active">Uygunluk Analizi</a>
+        <a href="findeks.html"   class="kz-nav__link">Findeks Tahmini</a>
       </nav>
 
       <button class="kz-hamburger" id="kzHamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
@@ -39,6 +40,7 @@
       <a href="galeriler.html" class="kz-nav__link">Galeriler</a>
       <a href="hesaplama.html" class="kz-nav__link">Hesaplama</a>
       <a href="analiz.html"    class="kz-nav__link kz-nav__link--active">Uygunluk Analizi</a>
+      <a href="findeks.html"   class="kz-nav__link">Findeks Tahmini</a>
     </nav>
   </header>
 
@@ -86,7 +88,7 @@
           </span>
         </label>
 
-        <button class="kz-btn kz-btn--primary" id="kzConsentBtn" style="width:100%; justify-content:center;">
+        <button class="kz-btn kz-btn--primary kz-btn--full" id="kzConsentBtn">
           Analize Başla →
         </button>
 
@@ -174,7 +176,7 @@
               <label for="kzGelir" class="kz-form-label">Net Aylık Gelir <abbr title="Türk Lirası">(₺)</abbr> <span class="kz-required">*</span></label>
               <input type="number" id="kzGelir" name="gelir"
                 class="kz-form-input" placeholder="ör. 35.000" min="1" step="1" inputmode="numeric" required>
-              <p class="kz-form-hint">Elde etiğiniz aylık net (vergi sonrası) gelir.</p>
+              <p class="kz-form-hint">Elde ettiğiniz aylık net (vergi sonrası) gelir.</p>
             </div>
 
           </div>
@@ -223,12 +225,19 @@
             <label for="kzFindeksPDF" class="kz-upload-label">
               <span class="kz-upload-icon" aria-hidden="true">⬆️</span>
               <span class="kz-upload-text">PDF Seçin veya Sürükleyin</span>
-              <span class="kz-upload-sub">Findeks raporu yükleyebilirsiniz (parse edilmez, güvenle saklanır)</span>
+              <span class="kz-upload-sub">Findeks raporu yükleyin — skor otomatik okunur, kredi ihtimali hesaplanır</span>
             </label>
             <p class="kz-upload-filename" id="kzUploadFilename" hidden></p>
           </div>
-          <p class="kz-form-hint" id="kzUploadHint">Yalnızca PDF. Dosya sunucuda şifreli depolanır; analizi etkilemez.</p>
+          <p class="kz-form-hint" id="kzUploadHint">Yalnızca PDF. KKB Risk Raporu formatında olmalıdır.</p>
           <p class="kz-upload-status" id="kzFindeksStatus" hidden></p>
+
+          <!-- PDF'den okunan skor göstergesi -->
+          <div id="kzParsedFindeks" class="kz-parsed-block" hidden>
+            <span class="kz-parsed-icon" aria-hidden="true">✅</span>
+            <span>Findeks Skoru okundu: <strong id="kzParsedScoreVal"></strong></span>
+            <span id="kzParsedDetail" class="kz-parsed-detail"></span>
+          </div>
         </fieldset>
 
         <!-- Submit -->
@@ -281,6 +290,31 @@
           </p>
         </div>
 
+        <!-- Kredi Olasılık Paneli (PDF yüklendiğinde görünür) -->
+        <div class="kz-prob-panel kz-glass" id="kzProbPanel" hidden>
+          <h3 class="kz-panel-title">
+            <span aria-hidden="true">🎯</span> 2. El Taşıt Kredisi Çıkma İhtimali
+          </h3>
+          <div class="kz-prob-ring-wrap">
+            <svg class="kz-prob-ring" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="kz-prob-ring__track" cx="60" cy="60" r="50"/>
+              <circle class="kz-prob-ring__fill" id="kzProbRingFill" cx="60" cy="60" r="50"/>
+            </svg>
+            <div class="kz-prob-ring__center">
+              <span id="kzProbPct" class="kz-prob-pct">—</span>
+              <span class="kz-prob-pct-label">ihtimal</span>
+            </div>
+          </div>
+          <div id="kzProbBand" class="kz-prob-band"></div>
+          <ul id="kzProbFactors" class="kz-prob-factors"></ul>
+          <p id="kzHardBlock" class="kz-hard-block" hidden></p>
+          <p id="kzProbRec" class="kz-prob-rec"></p>
+          <p class="kz-prob-disclaimer">
+            Findeks PDF'inden okunan skorla hesaplanmıştır. Bilgilendirme amaçlıdır;
+            nihai kredi kararı bankaya aittir.
+          </p>
+        </div>
+
       </div>
 
       <!-- Sağ kolon: İyileştirme + Eylemler -->
@@ -301,7 +335,7 @@
             KREDİZMİR finansman danışmanlarımız, profilinize en uygun
             galeri ve kredi çözümünü sizinle birlikte bulur.
           </p>
-          <a href="galeriler.html" class="kz-btn kz-btn--primary" style="width:100%; justify-content:center;">
+          <a href="galeriler.html" class="kz-btn kz-btn--primary">
             Galerilerimizi Gör →
           </a>
         </div>
@@ -344,6 +378,7 @@
   <!-- Scripts -->
   <script src="js/eligibility.js"></script>
   <script src="js/limitEngine.js"></script>
+  <script src="js/creditProbability.js"></script>
   <script src="js/report.js"></script>
   <script src="js/main.js"></script>
   <script>
