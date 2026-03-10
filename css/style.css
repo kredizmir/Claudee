@@ -1382,16 +1382,6 @@ input, select { font-family: inherit; }
 .kz-vitrin-badge__dot {
   animation: kz-vitrin-blink 1.6s ease-in-out infinite;
 }
-.kz-vitrin-viewers {
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.7);
-  background: rgba(255,255,255,0.07);
-  padding: 2px 7px;
-  border-radius: 10px;
-  border-left: 1px solid rgba(255,255,255,0.1);
-  transition: opacity 0.4s;
-}
 @keyframes kz-vitrin-blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.3; }
@@ -1407,6 +1397,7 @@ input, select { font-family: inherit; }
   gap: 20px;
   width: max-content;
   animation: kz-vitrin-scroll 28s linear infinite;
+  will-change: transform;
 }
 /* continuous scroll — no pause on hover */
 @keyframes kz-vitrin-scroll {
@@ -2164,11 +2155,3 @@ input, select { font-family: inherit; }
   .kz-finans-ilan-input { max-width: 100%; }
 }
 
-/* === VİTRİN KART BOYUT GÜNCELLEMESİ === */
-.kz-vitrin-item { width: 320px; padding: 8px; }
-.kz-vitrin-item img {
-  height: 240px;
-  object-fit: contain;
-  border-radius: 8px;
-  background: #0d1117;
-}
