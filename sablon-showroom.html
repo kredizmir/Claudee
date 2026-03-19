@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KREDİZMİR Showroom Şablon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      background: #0a1528;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    /* ── SOL PANEL ── */
+    .panel {
+      width: 320px;
+      min-width: 320px;
+      background: #081120;
+      border-right: 1px solid #1e3560;
+      padding: 20px 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffd94b;
+      letter-spacing: 1px;
+      line-height: 1.1;
+      border-bottom: 1px solid #1e3560;
+      padding-bottom: 12px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #4a7bbf;
+      margin-bottom: 8px;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+
+    label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7a9cc8;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid #1e3560;
+      background: #0d1e3d;
+      color: #fff;
+      border-radius: 7px;
+      padding: 9px 11px;
+      font-size: 15px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus { border-color: #ffd94b; }
+    input[type="file"] { display: none; }
+
+    .file-btn {
+      width: 100%;
+      border: 1px dashed #3a5a9b;
+      background: #0d1e3d;
+      color: #8ab0e0;
+      border-radius: 7px;
+      padding: 9px 11px;
+      font-size: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.2s;
+    }
+    .file-btn:hover { border-color: #ffd94b; color: #ffd94b; }
+
+    .btn-download {
+      width: 100%;
+      border: none;
+      border-radius: 9px;
+      padding: 14px;
+      font-size: 18px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      cursor: pointer;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffe86d, #ffbf00);
+      color: #111;
+      transition: 0.2s;
+      margin-top: 4px;
+    }
+    .btn-download:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,217,75,0.25); }
+
+    .divider { height: 1px; background: #1a3060; }
+
+    .row { display: flex; gap: 8px; }
+    .row .field { flex: 1; }
+
+    /* ── PREVIEW ── */
+    .preview {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #0c1930;
+      overflow: auto;
+    }
+
+    canvas {
+      width: min(90vh, 90vw);
+      height: min(90vh, 90vw);
+      max-width: calc(100vw - 360px);
+      max-height: calc(100vh - 40px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ SOL PANEL ═══════════════════ -->
+<aside class="panel">
+  <div class="panel-title">KREDİZMİR<br>SHOWROOM ŞABLON</div>
+
+  <!-- Araç Bilgileri -->
+  <div class="section-label">Araç Bilgileri</div>
+
+  <div class="field">
+    <label>Marka + Model Başlık</label>
+    <input id="f-marka" type="text" value="HONDA CIVIC" placeholder="HONDA CIVIC" />
+  </div>
+
+  <div class="field">
+    <label>Donanım / Versiyon</label>
+    <input id="f-versiyon" type="text" value="1.6i VTEC ECO EXECUTIVE" placeholder="1.6i VTEC ECO EXECUTIVE" />
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Yıl</label>
+      <input id="f-yil" type="text" value="2018" placeholder="2018" />
+    </div>
+    <div class="field">
+      <label>Kilometre</label>
+      <input id="f-km" type="text" value="103.000 KM" placeholder="103.000 KM" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Yakıt</label>
+      <select id="f-yakit">
+        <option>Benzin</option>
+        <option selected>Benzin &amp; LPG</option>
+        <option>Dizel</option>
+        <option>LPG</option>
+        <option>Hibrit</option>
+        <option>Elektrik</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Vites</label>
+      <select id="f-vites">
+        <option selected>Otomatik</option>
+        <option>Manuel</option>
+        <option>Yarı Otomatik</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Fiyatlar -->
+  <div class="section-label">Fiyatlar</div>
+
+  <div class="field">
+    <label>Peşin Fiyat (₺)</label>
+    <input id="f-pesin" type="text" value="1.485.000" placeholder="1.485.000" />
+  </div>
+
+  <div class="field">
+    <label>Peşinat (₺)</label>
+    <input id="f-pesinat" type="text" value="600.000" placeholder="600.000" />
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Görseller -->
+  <div class="section-label">Görseller</div>
+
+  <div class="field">
+    <button class="file-btn" onclick="document.getElementById('in-car').click()">
+      🚗 Araç Fotoğrafı Yükle (PNG önerilir — şeffaf arka plan)
+    </button>
+    <input id="in-car" type="file" accept="image/*" />
+  </div>
+
+  <div class="field">
+    <button class="file-btn" onclick="document.getElementById('in-brand').click()">
+      🔴 Marka Logosu Yükle (Honda, Toyota vb.)
+    </button>
+    <input id="in-brand" type="file" accept="image/*" />
+  </div>
+
+  <div class="field">
+    <button class="file-btn" onclick="document.getElementById('in-bg').click()">
+      🏢 Showroom Arka Planı Değiştir (isteğe bağlı)
+    </button>
+    <input id="in-bg" type="file" accept="image/*" />
+  </div>
+
+  <button class="btn-download" id="btn-dl">⬇ PNG İNDİR (1080×1080)</button>
+</aside>
+
+<!-- ═══════════════════ CANVAS ═══════════════════ -->
+<main class="preview">
+  <canvas id="c" width="1080" height="1080"></canvas>
+</main>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx    = canvas.getContext('2d');
+
+const fields = {
+  marka:    document.getElementById('f-marka'),
+  versiyon: document.getElementById('f-versiyon'),
+  yil:      document.getElementById('f-yil'),
+  km:       document.getElementById('f-km'),
+  yakit:    document.getElementById('f-yakit'),
+  vites:    document.getElementById('f-vites'),
+  pesin:    document.getElementById('f-pesin'),
+  pesinat:  document.getElementById('f-pesinat'),
+};
+
+let imgCar   = null;
+let imgBrand = null;
+let imgBg    = null;
+
+/* ─── HELPERS ─── */
+function loadImg(file, cb) {
+  const r = new FileReader();
+  r.onload = e => {
+    const i = new Image();
+    i.onload = () => cb(i);
+    i.src = e.target.result;
+  };
+  r.readAsDataURL(file);
+}
+
+function fitImg(img, x, y, w, h) {
+  const scale = Math.max(w / img.width, h / img.height);
+  const dw = img.width * scale, dh = img.height * scale;
+  ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+}
+
+function containImg(img, x, y, w, h) {
+  const scale = Math.min(w / img.width, h / img.height);
+  const dw = img.width * scale, dh = img.height * scale;
+  ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+}
+
+function roundRect(x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+}
+
+function autoFont(text, maxW, maxSize, weight, family) {
+  let s = maxSize;
+  while (s > 12) {
+    ctx.font = `${weight} ${s}px ${family}`;
+    if (ctx.measureText(text).width <= maxW) return s;
+    s -= 1;
+  }
+  return s;
+}
+
+/* ─── DRAW SHOWROOM BACKGROUND ─── */
+function drawShowroom() {
+  const W = 1080, H = 1080;
+
+  if (imgBg) {
+    ctx.save();
+    ctx.drawImage(imgBg, 0, 0, W, H);
+    ctx.restore();
+    return;
+  }
+
+  /* Tavan */
+  const ceiling = ctx.createLinearGradient(0, 0, 0, 220);
+  ceiling.addColorStop(0, '#1c1c28');
+  ceiling.addColorStop(1, '#1a2540');
+  ctx.fillStyle = ceiling;
+  ctx.fillRect(0, 0, W, 220);
+
+  /* Tavan ışıkları */
+  const lightPositions = [120, 320, 540, 760, 960];
+  lightPositions.forEach(lx => {
+    const lg = ctx.createRadialGradient(lx, 60, 2, lx, 60, 120);
+    lg.addColorStop(0, 'rgba(255,248,220,0.55)');
+    lg.addColorStop(0.4, 'rgba(255,248,220,0.12)');
+    lg.addColorStop(1, 'rgba(255,248,220,0)');
+    ctx.fillStyle = lg;
+    ctx.fillRect(lx - 120, 0, 240, 200);
+
+    // Armatür gövdesi
+    ctx.fillStyle = '#ccc';
+    ctx.fillRect(lx - 40, 8, 80, 14);
+    ctx.fillStyle = '#e8e2d0';
+    ctx.fillRect(lx - 36, 10, 72, 8);
+  });
+
+  /* Arka duvar */
+  const wall = ctx.createLinearGradient(0, 200, 0, 820);
+  wall.addColorStop(0, '#1a3a7e');
+  wall.addColorStop(0.5, '#122e6c');
+  wall.addColorStop(1, '#0e2458');
+  ctx.fillStyle = wall;
+  ctx.fillRect(0, 200, W, 620);
+
+  /* Duvar yatay çizgiler (dekoratif) */
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx.lineWidth = 1;
+  for (let y = 240; y < 820; y += 60) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  /* Yan dikey panel bölümleri */
+  ctx.strokeStyle = 'rgba(180,200,255,0.1)';
+  ctx.lineWidth = 2;
+  [200, 380, 700, 880].forEach(px => {
+    ctx.beginPath(); ctx.moveTo(px, 200); ctx.lineTo(px, 820); ctx.stroke();
+  });
+
+  /* Zemin */
+  const floor = ctx.createLinearGradient(0, 820, 0, 1080);
+  floor.addColorStop(0, '#1c2f55');
+  floor.addColorStop(0.4, '#162440');
+  floor.addColorStop(1, '#0f1a30');
+  ctx.fillStyle = floor;
+  ctx.fillRect(0, 820, W, 260);
+
+  /* Zemin aydınlatma yansıması */
+  const floorLight = ctx.createLinearGradient(0, 820, 0, 920);
+  floorLight.addColorStop(0, 'rgba(100,150,255,0.12)');
+  floorLight.addColorStop(1, 'rgba(100,150,255,0)');
+  ctx.fillStyle = floorLight;
+  ctx.fillRect(0, 820, W, 100);
+
+  /* Zemin – duvar birleşim çizgisi */
+  ctx.strokeStyle = 'rgba(80,120,200,0.3)';
+  ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(0, 822); ctx.lineTo(W, 822); ctx.stroke();
+}
+
+/* ─── KREDİZMİR DUVAR LOGOSU ─── */
+function drawWallLogo() {
+  const cx = 540, cy = 340, r = 118;
+
+  /* Dış parlak halka */
+  const grd = ctx.createRadialGradient(cx - 30, cy - 30, 10, cx, cy, r);
+  grd.addColorStop(0, '#4a9fff');
+  grd.addColorStop(0.5, '#1565d8');
+  grd.addColorStop(1, '#0a3e9e');
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = grd;
+  ctx.fill();
+
+  /* İç halka efekti */
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(100,180,255,0.6)';
+  ctx.lineWidth = 8;
+  ctx.stroke();
+
+  ctx.beginPath(); ctx.arc(cx, cy, r - 16, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  /* İkon: iki el sıkışıyor (basitleştirilmiş araç + el) */
+  ctx.save();
+  ctx.translate(cx, cy);
+
+  // Sol araç silueti
+  ctx.strokeStyle = 'rgba(255,255,255,0.92)';
+  ctx.lineWidth = 7;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-80, 15);
+  ctx.lineTo(-55, -22);
+  ctx.lineTo(-10, -30);
+  ctx.lineTo(20, -22);
+  ctx.lineTo(45, 15);
+  ctx.closePath();
+  ctx.stroke();
+
+  // Tekerlekler sol
+  ctx.beginPath();
+  ctx.arc(-52, 20, 14, 0, Math.PI * 2);
+  ctx.arc(25, 20, 14, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Mavi vurgu yayı
+  ctx.strokeStyle = '#40d4f4';
+  ctx.lineWidth = 10;
+  ctx.beginPath();
+  ctx.arc(0, 10, 60, 0.3, 2.0);
+  ctx.stroke();
+
+  ctx.restore();
+
+  /* KREDİZMİR yazısı */
+  ctx.font = '700 52px "Oswald", sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.letterSpacing = '2px';
+
+  ctx.shadowColor = 'rgba(0,0,80,0.5)';
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 2;
+  ctx.fillText('KREDİZMİR', cx, cy + r + 18);
+  ctx.shadowColor = 'transparent';
+
+  ctx.font = '500 22px "Oswald", sans-serif';
+  ctx.fillStyle = 'rgba(200,220,255,0.9)';
+  ctx.fillText('TAKSİTLE ARABA SAHİBİ', cx, cy + r + 78);
+}
+
+/* ─── SOL ALT KÖŞE LOGO ─── */
+function drawCornerLogo() {
+  const cx = 95, cy = 980, r = 68;
+
+  const grd = ctx.createRadialGradient(cx - 15, cy - 15, 5, cx, cy, r);
+  grd.addColorStop(0, '#3d8cff');
+  grd.addColorStop(0.5, '#1252c8');
+  grd.addColorStop(1, '#082e88');
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = grd; ctx.fill();
+
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(100,180,255,0.7)';
+  ctx.lineWidth = 5; ctx.stroke();
+
+  // Araç mini ikon
+  ctx.save(); ctx.translate(cx, cy);
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 4;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-42, 8); ctx.lineTo(-28, -12); ctx.lineTo(-6, -17);
+  ctx.lineTo(12, -12); ctx.lineTo(24, 8); ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(-24, 12, 8, 0, Math.PI * 2);
+  ctx.arc(14, 12, 8, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.strokeStyle = '#40d4f4'; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.arc(0, 5, 34, 0.3, 2.0); ctx.stroke();
+  ctx.restore();
+
+  ctx.font = '700 18px "Oswald", sans-serif';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText('KREDİZMİR', cx, cy + r + 6);
+
+  ctx.font = '500 11px "Oswald", sans-serif';
+  ctx.fillStyle = 'rgba(180,210,255,0.85)';
+  ctx.fillText('TAKSİTLE ARABA SAHİBİ', cx, cy + r + 28);
+}
+
+/* ─── ARAÇ YANSIMASI ─── */
+function drawCarReflection(img) {
+  const carX = 60, carY = 450, carW = 700, carH = 450;
+  ctx.save();
+
+  // Araç gölgesi
+  const shadow = ctx.createRadialGradient(
+    carX + carW * 0.45, 870, 5,
+    carX + carW * 0.45, 870, 280
+  );
+  shadow.addColorStop(0, 'rgba(0,0,0,0.45)');
+  shadow.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = shadow;
+  ctx.ellipse(carX + carW * 0.45, 870, 280, 40, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Araç kendisi
+  containImg(img, carX, carY, carW, carH);
+
+  // Zemin yansıması
+  ctx.save();
+  ctx.translate(carX + carW * 0.45, 880);
+  ctx.scale(1, -0.25);
+  ctx.globalAlpha = 0.18;
+  ctx.filter = 'blur(3px)';
+  containImg(img, -carW / 2, 0, carW, carH);
+  ctx.restore();
+
+  ctx.restore();
+}
+
+/* ─── BİLGİ PANELİ (sağ taraf) ─── */
+function drawInfoPanel() {
+  const px = 570, py = 450, pw = 490, ph = 530;
+
+  // Panel arka plan
+  ctx.save();
+  roundRect(px, py, pw, ph, 16);
+  ctx.fillStyle = 'rgba(5,18,52,0.88)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(50,100,200,0.5)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.restore();
+
+  /* Marka logosu + isim */
+  const marka = fields.marka.value.trim() || 'HONDA CIVIC';
+  const versiyon = fields.versiyon.value.trim() || '1.6i VTEC ECO EXECUTIVE';
+  const yil     = fields.yil.value.trim() || '2018';
+  const km      = fields.km.value.trim() || '103.000 KM';
+  const yakit   = fields.yakit.value || 'Benzin & LPG';
+  const vites   = fields.vites.value || 'Otomatik';
+  const pesin   = fields.pesin.value.trim() || '1.485.000';
+  const pesinat = fields.pesinat.value.trim() || '600.000';
+
+  let drawY = py + 28;
+
+  /* ── Marka logosu ── */
+  if (imgBrand) {
+    ctx.save();
+    const bSize = 64;
+    const bx = px + 26, by = drawY;
+    roundRect(bx, by, bSize, bSize, 8);
+    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+    ctx.fill();
+    ctx.clip();
+    containImg(imgBrand, bx, by, bSize, bSize);
+    ctx.restore();
+
+    // Marka adı yanında
+    const ms = autoFont(marka, pw - bSize - 60, 48, 800, '"Barlow Condensed", sans-serif');
+    ctx.font = `italic 800 ${ms}px "Barlow Condensed", sans-serif`;
+    ctx.fillStyle = '#ffd84a';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(marka, px + bSize + 40, drawY + bSize / 2);
+    drawY += bSize + 18;
+  } else {
+    const ms = autoFont(marka, pw - 52, 52, 800, '"Barlow Condensed", sans-serif');
+    ctx.font = `italic 800 ${ms}px "Barlow Condensed", sans-serif`;
+    ctx.fillStyle = '#ffd84a';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(marka, px + 26, drawY + 46);
+    drawY += 62;
+  }
+
+  /* ── Versiyon ── */
+  const vs = autoFont(versiyon, pw - 52, 30, 700, '"Oswald", sans-serif');
+  ctx.font = `700 ${vs}px "Oswald", sans-serif`;
+  ctx.fillStyle = '#e0eaff';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(versiyon, px + 26, drawY + 32);
+  drawY += 46;
+
+  /* ── Yıl | Yakıt | Vites ── */
+  const specStr = `${yil}  |  ${yakit.toUpperCase()}  |  ${vites.toUpperCase()}`;
+  const ss = autoFont(specStr, pw - 52, 22, 600, '"Oswald", sans-serif');
+  ctx.font = `600 ${ss}px "Oswald", sans-serif`;
+  ctx.fillStyle = '#ffd84a';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(specStr, px + 26, drawY + 26);
+  drawY += 40;
+
+  /* ── KM ── */
+  const ks = autoFont(km.toUpperCase(), pw - 52, 28, 700, '"Oswald", sans-serif');
+  ctx.font = `700 ${ks}px "Oswald", sans-serif`;
+  ctx.fillStyle = '#ffd84a';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(km.toUpperCase(), px + 26, drawY + 30);
+  drawY += 50;
+
+  /* Ayırıcı çizgi */
+  ctx.strokeStyle = 'rgba(60,100,200,0.5)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(px + 26, drawY);
+  ctx.lineTo(px + pw - 26, drawY);
+  ctx.stroke();
+  drawY += 22;
+
+  /* ── PEŞİN ── */
+  ctx.font = '600 22px "Oswald", sans-serif';
+  ctx.fillStyle = 'rgba(200,220,255,0.8)';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText('PEŞİN:', px + 26, drawY + 22);
+  drawY += 30;
+
+  const pesinTxt = pesin + ' ₺';
+  const ps = autoFont(pesinTxt, pw - 52, 72, 900, '"Barlow Condensed", sans-serif');
+  ctx.font = `italic 900 ${ps}px "Barlow Condensed", sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(pesinTxt, px + 26, drawY + ps);
+  drawY += ps + 16;
+
+  /* Ayırıcı */
+  ctx.strokeStyle = 'rgba(60,100,200,0.4)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(px + 26, drawY);
+  ctx.lineTo(px + pw - 26, drawY);
+  ctx.stroke();
+  drawY += 20;
+
+  /* ── PEŞİNAT ── */
+  ctx.font = '600 22px "Oswald", sans-serif';
+  ctx.fillStyle = 'rgba(200,220,255,0.8)';
+  ctx.fillText('PEŞİNAT:', px + 26, drawY + 22);
+  drawY += 30;
+
+  const pesinatTxt = pesinat + ' ₺';
+  const pts = autoFont(pesinatTxt, pw - 52, 64, 900, '"Barlow Condensed", sans-serif');
+  ctx.font = `italic 900 ${pts}px "Barlow Condensed", sans-serif`;
+  ctx.fillStyle = '#f5e84a';
+  ctx.fillText(pesinatTxt, px + 26, drawY + pts);
+}
+
+/* ─── ANA DRAW ─── */
+function draw() {
+  ctx.clearRect(0, 0, 1080, 1080);
+
+  drawShowroom();
+  drawWallLogo();
+
+  if (imgCar) {
+    drawCarReflection(imgCar);
+  } else {
+    // Placeholder mesaj
+    ctx.font = '700 26px "Oswald", sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ARAÇ FOTOĞRAFI YÜKLEYİN', 360, 680);
+  }
+
+  drawInfoPanel();
+  drawCornerLogo();
+}
+
+/* ─── EVENTS ─── */
+Object.values(fields).forEach(el => {
+  el.addEventListener('input', draw);
+  el.addEventListener('change', draw);
+});
+
+document.getElementById('in-car').addEventListener('change', e => {
+  loadImg(e.target.files[0], img => { imgCar = img; draw(); });
+});
+document.getElementById('in-brand').addEventListener('change', e => {
+  loadImg(e.target.files[0], img => { imgBrand = img; draw(); });
+});
+document.getElementById('in-bg').addEventListener('change', e => {
+  loadImg(e.target.files[0], img => { imgBg = img; draw(); });
+});
+
+document.getElementById('btn-dl').addEventListener('click', () => {
+  draw();
+  const a = document.createElement('a');
+  a.download = `kredizmir-${(fields.marka.value || 'ilan').toLowerCase().replace(/\s+/g,'-')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+});
+
+draw();
+</script>
+</body>
+</html>
