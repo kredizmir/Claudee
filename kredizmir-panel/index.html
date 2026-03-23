@@ -4,12 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ekip Çalışması | KREDİZMİR</title>
-  <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
   <style>
-    body { background: #0A1A2F; font-family: 'Montserrat', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { background: #0A1A2F; font-family: 'Montserrat', 'Segoe UI', sans-serif; color: #fff; min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
 
     .ekip-page {
       min-height: 100vh;
@@ -29,7 +31,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      text-decoration: none;
     }
     .ekip-logo__icon {
       width: 52px;
@@ -81,8 +82,6 @@
       color: #fff;
       letter-spacing: 2px;
       margin-bottom: 10px;
-      background: transparent;
-      text-decoration: none;
     }
     .ekip-subtitle {
       text-align: center;
@@ -101,11 +100,10 @@
       background: #132A4A;
       border-radius: 16px;
       padding: 18px 16px;
-      text-decoration: none;
       color: #fff;
       transition: background 0.18s;
     }
-    .ekip-card:hover { background: #1a3560; text-decoration: none; }
+    .ekip-card:hover { background: #1a3560; }
 
     .ekip-card__icon {
       width: 56px;
@@ -121,7 +119,6 @@
     .ekip-card__icon--green  { background: #1B873B; }
     .ekip-card__icon--orange { background: #D04A00; }
     .ekip-card__icon--purple { background: #6A1B9A; }
-    .ekip-card__icon--teal   { background: #00796B; }
     .ekip-card__icon--insta  { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
 
     .ekip-card__body { flex: 1; min-width: 0; }
@@ -131,11 +128,7 @@
       gap: 8px;
       margin-bottom: 4px;
     }
-    .ekip-card__title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
-    }
+    .ekip-card__title { font-size: 15px; font-weight: 700; color: #fff; }
     .ekip-card__tag {
       background: #00C2FF;
       color: #0A1A2F;
@@ -145,18 +138,9 @@
       border-radius: 6px;
       letter-spacing: 0.5px;
     }
-    .ekip-card__desc {
-      font-size: 12px;
-      color: #9CA3AF;
-      line-height: 1.5;
-    }
-    .ekip-card__arrow {
-      color: #00C2FF;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
+    .ekip-card__desc { font-size: 12px; color: #9CA3AF; line-height: 1.5; }
+    .ekip-card__arrow { color: #00C2FF; font-size: 18px; flex-shrink: 0; }
 
-    /* ---- Footer ---- */
     .ekip-footer {
       text-align: center;
       color: #4B5563;
@@ -170,7 +154,7 @@
 
     <!-- Header -->
     <div class="ekip-header">
-      <a href="index.html" class="ekip-logo">
+      <a href="../index.html" class="ekip-logo">
         <div class="ekip-logo__icon">KZ</div>
         <div class="ekip-logo__text">
           <div class="ekip-logo__name">KRED<span>İ</span>ZMİR</div>
@@ -187,7 +171,7 @@
     <!-- Cards -->
     <div class="ekip-cards">
 
-      <a href="hesaplama.html" class="ekip-card">
+      <a href="../hesaplama.html" class="ekip-card">
         <div class="ekip-card__icon ekip-card__icon--blue">📊</div>
         <div class="ekip-card__body">
           <div class="ekip-card__title-row">
@@ -199,7 +183,7 @@
         <div class="ekip-card__arrow">›</div>
       </a>
 
-      <a href="belgeler.html" class="ekip-card">
+      <a href="../belgeler.html" class="ekip-card">
         <div class="ekip-card__icon ekip-card__icon--green">📋</div>
         <div class="ekip-card__body">
           <div class="ekip-card__title-row">
@@ -221,7 +205,7 @@
         <div class="ekip-card__arrow">›</div>
       </a>
 
-      <a href="evrak.html" class="ekip-card">
+      <a href="../evrak.html" class="ekip-card">
         <div class="ekip-card__icon ekip-card__icon--purple">📁</div>
         <div class="ekip-card__body">
           <div class="ekip-card__title-row">
@@ -232,7 +216,7 @@
         <div class="ekip-card__arrow">›</div>
       </a>
 
-      <a href="sablon.html" class="ekip-card">
+      <a href="../sablon.html" class="ekip-card">
         <div class="ekip-card__icon ekip-card__icon--insta">📸</div>
         <div class="ekip-card__body">
           <div class="ekip-card__title-row">
@@ -249,7 +233,6 @@
   </div>
 
   <script>
-  // Konum Gönder — mevcut GPS konum veya sabit ofis adresi
   document.getElementById('konum-btn').addEventListener('click', function(e) {
     e.preventDefault();
     var ofisWa = 'https://wa.me/?text=' + encodeURIComponent(
@@ -257,10 +240,8 @@
     );
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(pos) {
-        var lat = pos.coords.latitude;
-        var lng = pos.coords.longitude;
         var url = 'https://wa.me/?text=' + encodeURIComponent(
-          'Mevcut konumum:\nhttps://maps.google.com/?q=' + lat + ',' + lng
+          'Mevcut konumum:\nhttps://maps.google.com/?q=' + pos.coords.latitude + ',' + pos.coords.longitude
         );
         window.open(url, '_blank');
       }, function() {
