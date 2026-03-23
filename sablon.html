@@ -59,23 +59,56 @@
             <div id="sb-panel-manuel">
               <div class="kz-form">
 
+                <!-- Marka -->
                 <div class="kz-form-group">
-                  <label class="kz-label" for="sb-model">Araç Modeli</label>
-                  <input class="kz-input" id="sb-model" type="text" placeholder="Örn: HYUNDAİ İ30 1.6 CRDİ STYLE" />
+                  <label class="kz-label" for="sb-marka">Araç Markası</label>
+                  <input class="kz-input" id="sb-marka" type="text" list="sb-marka-list"
+                         placeholder="Marka seçin veya yazın" autocomplete="off" />
+                  <datalist id="sb-marka-list">
+                    <option value="FİAT">
+                    <option value="RENAULT">
+                    <option value="DACİA">
+                    <option value="VOLKSWAGEN">
+                    <option value="FORD">
+                    <option value="TOYOTA">
+                    <option value="HYUNDAİ">
+                    <option value="OPEL">
+                    <option value="CİTROEN">
+                  </datalist>
                 </div>
 
+                <!-- Model -->
+                <div class="kz-form-group">
+                  <label class="kz-label" for="sb-model">Araç Modeli</label>
+                  <input class="kz-input" id="sb-model" type="text" placeholder="Örn: PANDA 1.2 POP" />
+                </div>
+
+                <!-- Yıl + Yakıt -->
                 <div class="kz-form-row">
                   <div class="kz-form-group">
                     <label class="kz-label" for="sb-yil">Yıl</label>
-                    <input class="kz-input" id="sb-yil" type="number" min="1990" max="2030" placeholder="2014" />
+                    <select class="kz-input" id="sb-yil">
+                      <option value="">Seçin</option>
+                      <option value="2024">2024</option>
+                      <option value="2023">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                      <option value="2018">2018</option>
+                      <option value="2017">2017</option>
+                      <option value="2016">2016</option>
+                      <option value="2015">2015</option>
+                      <option value="2014">2014</option>
+                      <option value="2013">2013</option>
+                      <option value="2012">2012</option>
+                      <option value="2011">2011</option>
+                      <option value="2010">2010</option>
+                      <option value="2009">2009</option>
+                      <option value="2008">2008</option>
+                      <option value="2007">2007</option>
+                    </select>
                   </div>
-                  <div class="kz-form-group">
-                    <label class="kz-label" for="sb-km">Kilometre</label>
-                    <input class="kz-input" id="sb-km" type="text" placeholder="230.000" />
-                  </div>
-                </div>
-
-                <div class="kz-form-row">
                   <div class="kz-form-group">
                     <label class="kz-label" for="sb-yakit">Yakıt Tipi</label>
                     <select class="kz-input" id="sb-yakit">
@@ -85,6 +118,20 @@
                       <option value="Hibrit">Hibrit</option>
                       <option value="Elektrik">Elektrik</option>
                     </select>
+                  </div>
+                </div>
+
+                <!-- Kilometre + Vites -->
+                <div class="kz-form-row">
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-km">Kilometre</label>
+                    <input class="kz-input" id="sb-km" type="text" placeholder="Km girin veya seçin" />
+                    <div class="sb-km-presets">
+                      <button type="button" class="sb-km-btn" data-km="100.000">100.000</button>
+                      <button type="button" class="sb-km-btn" data-km="150.000">150.000</button>
+                      <button type="button" class="sb-km-btn" data-km="200.000">200.000</button>
+                      <button type="button" class="sb-km-btn" data-km="250.000">250.000</button>
+                    </div>
                   </div>
                   <div class="kz-form-group">
                     <label class="kz-label" for="sb-vites">Vites</label>
@@ -96,14 +143,15 @@
                   </div>
                 </div>
 
+                <!-- Peşin Fiyat + Peşinat (otomatik %30) -->
                 <div class="kz-form-row">
-                  <div class="kz-form-group">
-                    <label class="kz-label" for="sb-pesinat">Peşinat (₺)</label>
-                    <input class="kz-input" id="sb-pesinat" type="number" min="0" step="1000" placeholder="200000" />
-                  </div>
                   <div class="kz-form-group">
                     <label class="kz-label" for="sb-pesin">Peşin Fiyat (₺)</label>
                     <input class="kz-input" id="sb-pesin" type="number" min="0" step="1000" placeholder="650000" />
+                  </div>
+                  <div class="kz-form-group">
+                    <label class="kz-label" for="sb-pesinat">Peşinat (₺) <span class="sb-auto-label">otomatik %30</span></label>
+                    <input class="kz-input" id="sb-pesinat" type="number" min="0" step="1000" placeholder="195000" />
                   </div>
                 </div>
 
@@ -115,37 +163,8 @@
               </div>
             </div>
 
-            <!-- TOPLU İŞLEM (Accordion) -->
-            <button type="button" class="sb-accordion-toggle" id="sb-accordion-btn">
-              ▼ &nbsp;Toplu İşlem (CSV / Liste)
-            </button>
-            <div class="sb-accordion-body" id="sb-accordion-body">
-              <p class="sb-csv-note">
-                CSV formatı (başlık satırı zorunlu):<br />
-                <code>model,yil,km,yakit,vites,pesinat,pesin,imageUrl</code><br />
-                <code>"VW Polo 1.4",2014,"207.000",Dizel,Otomatik,185000,920000,https://...</code>
-              </p>
-              <div class="kz-form-group">
-                <label class="kz-label" for="sb-csv-file">CSV Dosyası Yükle</label>
-                <input class="kz-input" id="sb-csv-file" type="file" accept=".csv,text/csv" style="padding:8px;" />
-              </div>
-              <div class="kz-form-group" style="margin-top:10px;">
-                <label class="kz-label" for="sb-csv-text">Veya Yapıştır (başlıksız, virgülle ayrılmış)</label>
-                <textarea class="kz-input" id="sb-csv-text" rows="4" style="resize:vertical;"
-                  placeholder='VW Polo 1.4,2014,"207.000",Dizel,Otomatik,185000,920000'></textarea>
-              </div>
-              <button type="button" class="kz-btn kz-btn--gold kz-btn--full" id="sb-batch-btn">
-                Tümünü Oluştur ve İndir (ZIP)
-              </button>
-              <div class="sb-progress" id="sb-progress">
-                <span id="sb-progress-text">0 / 0 oluşturuldu...</span>
-                <div class="sb-progress-bar">
-                  <div class="sb-progress-fill" id="sb-progress-fill"></div>
-                </div>
-              </div>
-            </div>
 
-          </div><!-- /kz-card giriş -->
+</div><!-- /kz-card giriş -->
 
           <!-- EYLEMLER -->
           <div class="kz-card" style="margin-top:16px;">

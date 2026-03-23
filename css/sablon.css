@@ -3,62 +3,39 @@
    sablon.css — sadece bu sayfaya özgü stiller
    ========================================================= */
 
-/* ── Accordion (Toplu İşlem) ──────────────────────────── */
-.sb-accordion-toggle {
-  width: 100%;
-  background: rgba(0,194,255,0.08);
-  border: 1px solid var(--kz-border);
-  border-radius: 8px;
-  padding: 10px 16px;
-  color: var(--kz-accent);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: left;
-  margin-top: 20px;
-}
-.sb-accordion-body {
-  display: none;
-  margin-top: 12px;
-}
-.sb-accordion-body.open { display: block; }
-
-.sb-csv-note {
-  font-size: 0.75rem;
-  color: var(--kz-muted);
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-.sb-csv-note code {
-  background: rgba(255,255,255,0.07);
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  color: var(--kz-accent);
-}
-
-/* ── İlerleme Çubuğu (Batch) ─────────────────────────── */
-.sb-progress {
-  display: none;
-  margin-top: 12px;
-  font-size: 0.82rem;
-  color: var(--kz-muted);
-  text-align: center;
-}
-.sb-progress.active { display: block; }
-.sb-progress-bar {
-  height: 4px;
-  background: rgba(0,194,255,0.2);
-  border-radius: 4px;
+/* ── Km Hızlı Seçim Butonları ─────────────────────────── */
+.sb-km-presets {
+  display: flex;
+  gap: 6px;
   margin-top: 6px;
-  overflow: hidden;
+  flex-wrap: wrap;
 }
-.sb-progress-fill {
-  height: 100%;
-  background: var(--kz-accent);
-  border-radius: 4px;
-  transition: width 0.3s ease;
-  width: 0%;
+
+.sb-km-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--kz-border);
+  border-radius: 6px;
+  background: rgba(0,194,255,0.07);
+  color: var(--kz-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--kz-transition);
+  white-space: nowrap;
 }
+.sb-km-btn:hover {
+  background: rgba(0,194,255,0.18);
+  border-color: var(--kz-accent);
+}
+
+/* ── Otomatik etiket (peşinat %30) ───────────────────── */
+.sb-auto-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
 
 /* ── Eylem Butonları ──────────────────────────────────── */
 .sb-actions {

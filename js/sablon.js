@@ -3,17 +3,18 @@
  * js/sablon.js
  *
  * Tüm client-side mantık: form yönetimi, canlı önizleme,
- * PNG indirme, toplu ZIP üretimi.
+ * PNG indirme.
  */
 
 (function () {
   'use strict';
 
   /* ── Durum ──────────────────────────────────────── */
-  var _imageDataUrl = '';    // yüklü/getirilen görsel data URL veya proxy URL
-  var _previewReady = false; // PNG indir butonunu etkinleştirme bayrağı
+  var _imageDataUrl = '';
+  var _previewReady = false;
 
   /* ── DOM Referansları ───────────────────────────── */
+  var fMarka      = document.getElementById('sb-marka');
   var fModel      = document.getElementById('sb-model');
   var fYil        = document.getElementById('sb-yil');
   var fKm         = document.getElementById('sb-km');
@@ -33,17 +34,9 @@
   var cvPH        = document.getElementById('cv-placeholder');
   var canvasEl    = document.getElementById('kz-sablon-canvas');
 
-  var accordBtn   = document.getElementById('sb-accordion-btn');
-  var accordBody  = document.getElementById('sb-accordion-body');
   var generateBtn = document.getElementById('sb-generate-btn');
   var downloadBtn = document.getElementById('sb-download-btn');
   var resetBtn    = document.getElementById('sb-reset-btn');
-  var batchBtn    = document.getElementById('sb-batch-btn');
-  var csvFileInput = document.getElementById('sb-csv-file');
-  var csvTextarea  = document.getElementById('sb-csv-text');
-  var progressWrap = document.getElementById('sb-progress');
-  var progressText = document.getElementById('sb-progress-text');
-  var progressFill = document.getElementById('sb-progress-fill');
   var previewOuter = document.getElementById('sb-preview-outer');
   var previewWrap  = document.getElementById('sb-preview-wrap');
 
@@ -56,23 +49,35 @@
 
   /* ── Canvas içeriğini forma göre güncelle ───────── */
   function syncToCanvas() {
+    var marka   = (fMarka.value || '').toUpperCase().trim();
     var model   = (fModel.value || '').toUpperCase().trim();
-    var yil     = (fYil.value  || '').trim();
-    var km      = (fKm.value   || '').trim();
-    var yakit   = fYakit.value || 'Dizel';
-    var vites   = fVites.value || 'Manuel';
+    var yil     = (fYil.value   || '').trim();
+    var km      = (fKm.value    || '').trim();
+    var yakit   = fYakit.value  || 'Dizel';
+    var vites   = fVites.value  || 'Manuel';
     var pesinat = fPesinat.value ? formatMoney(fPesinat.value) : '';
     var pesin   = fPesin.value  ? formatMoney(fPesin.value)   : '';
 
-    cvKm.textContent    = km    ? km + ' KM'       : '000.000 KM';
-    cvYakit.textContent = yakit || 'Dizel';
-    cvVites.textContent = vites || 'Manuel';
-    cvModel.textContent = model && yil ? model + ' ' + yil : (model || 'ARAÇ MODELİ YIL');
-    cvPesinat.textContent = pesinat ? pesinat + ' PEŞİNAT'  : '000.000 PEŞİNAT';
-    cvPesin.textContent   = pesin   ? pesin   + ' PEŞİN'    : '000.000 PEŞİN';
+    var label = [marka, model].filter(Boolean).join(' ');
+
+    cvKm.textContent      = km    ? km + ' KM'      : '000.000 KM';
+    cvYakit.textContent   = yakit;
+    cvVites.textContent   = vites;
+    cvModel.textContent   = label && yil ? label + ' ' + yil : (label || 'ARAÇ MODELİ YIL');
+    cvPesinat.textContent = pesinat ? pesinat + ' PEŞİNAT' : '000.000 PEŞİNAT';
+    cvPesin.textContent   = pesin   ? pesin   + ' PEŞİN'   : '000.000 PEŞİN';
   }
 
-  /* ── Görsel yükleme (data URL veya proxy URL) ───── */
+  /* ── Peşin → Peşinat otomatik %30 ──────────────── */
+  function autoCalcPesinat() {
+    var pesin = parseInt(String(fPesin.value).replace(/[^\d]/g, ''), 10);
+    if (!isNaN(pesin) && pesin > 0) {
+      fPesinat.value = Math.round(pesin * 0.30);
+    }
+    syncToCanvas();
+  }
+
+  /* ── Görsel yükleme ─────────────────────────────── */
   function applyImage(src) {
     if (!src) return;
     cvImg.onload = function () {
@@ -80,10 +85,8 @@
       cvPH.style.display  = 'none';
     };
     cvImg.onerror = function () {
-      /* Proxy üzerinden tekrar dene */
       if (src.indexOf('/image-proxy') === -1 && src.indexOf('data:') === -1) {
-        var proxied = '/image-proxy?url=' + encodeURIComponent(src);
-        applyImage(proxied);
+        applyImage('/image-proxy?url=' + encodeURIComponent(src));
       }
     };
     cvImg.src = src;
@@ -98,95 +101,16 @@
     reader.readAsDataURL(file);
   }
 
-  /* ── Önizleme ölçeğini viewport'a göre hesapla ─── */
+  /* ── Önizleme ölçeği ────────────────────────────── */
   function applyScale() {
     var wrapW = previewWrap.clientWidth - 24;
     var scale = Math.min(wrapW / 1080, 1);
-    previewOuter.style.transform      = 'scale(' + scale + ')';
+    previewOuter.style.transform       = 'scale(' + scale + ')';
     previewOuter.style.transformOrigin = 'top left';
     previewWrap.style.height           = Math.round(1080 * scale + 24) + 'px';
   }
 
-  /* ── Accordion (Toplu İşlem) ────────────────────── */
-  function initAccordion() {
-    accordBtn.addEventListener('click', function () {
-      accordBody.classList.toggle('open');
-      accordBtn.textContent = accordBody.classList.contains('open')
-        ? '▲  Toplu İşlem (CSV / Liste)'
-        : '▼  Toplu İşlem (CSV / Liste)';
-    });
-  }
-
-  function setSelectValue(sel, val) {
-    if (!val) return;
-    for (var i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value.toLowerCase() === val.toLowerCase()) {
-        sel.selectedIndex = i;
-        return;
-      }
-    }
-  }
-
-  /* ── CSV Parser ─────────────────────────────────── */
-  function parseCSV(text) {
-    /* BOM temizle */
-    text = text.replace(/^\uFEFF/, '');
-    var lines = text.split(/\r?\n/).filter(function (l) { return l.trim(); });
-    if (lines.length < 1) return [];
-
-    var headers = splitCSVLine(lines[0]);
-    var hasHeader = isNaN(parseInt(headers[1], 10)) ||
-      headers[0].toLowerCase().indexOf('model') !== -1;
-
-    var dataLines = hasHeader ? lines.slice(1) : lines;
-    var cols = hasHeader ? headers : ['model','yil','km','yakit','vites','pesinat','pesin','imageUrl'];
-
-    return dataLines.map(function (line) {
-      var vals = splitCSVLine(line);
-      var obj = {};
-      cols.forEach(function (c, i) { obj[c.trim().toLowerCase()] = (vals[i] || '').trim(); });
-      return obj;
-    }).filter(function (o) { return o.model; });
-  }
-
-  function splitCSVLine(line) {
-    var result = [];
-    var cur = '';
-    var inQ = false;
-    for (var i = 0; i < line.length; i++) {
-      var c = line[i];
-      if (c === '"') { inQ = !inQ; continue; }
-      if (c === ',' && !inQ) { result.push(cur); cur = ''; continue; }
-      cur += c;
-    }
-    result.push(cur);
-    return result;
-  }
-
-  /* ── Araç nesnesini canvas'a yaz ────────────────── */
-  function applyVehicleToCanvas(v) {
-    fModel.value   = v.model   || '';
-    fYil.value     = v.yil     || '';
-    fKm.value      = v.km      || '';
-    setSelectValue(fYakit, v.yakit || 'Dizel');
-    setSelectValue(fVites, v.vites || 'Manuel');
-    fPesinat.value = v.pesinat ? String(v.pesinat).replace(/[^\d]/g, '') : '';
-    fPesin.value   = v.pesin   ? String(v.pesin).replace(/[^\d]/g, '')  : '';
-    syncToCanvas();
-  }
-
-  /* ── Görsel yüklenip yüklenmediğini bekle ───────── */
-  function waitForImage(url) {
-    return new Promise(function (resolve) {
-      if (!url) { resolve(); return; }
-      var proxyUrl = '/image-proxy?url=' + encodeURIComponent(url);
-      cvImg.onload  = function () { cvImg.style.display = 'block'; cvPH.style.display = 'none'; resolve(); };
-      cvImg.onerror = function () { cvImg.style.display = 'none'; cvPH.style.display = 'flex'; resolve(); };
-      cvImg.src = proxyUrl;
-    });
-  }
-
-  /* ── Tek PNG oluştur ve döndür ──────────────────── */
+  /* ── PNG render ─────────────────────────────────── */
   function renderToPNG() {
     return html2canvas(canvasEl, {
       scale: 1,
@@ -201,15 +125,15 @@
   }
 
   /* ── Dosya adı üret ─────────────────────────────── */
-  function makeFilename(v) {
-    var s = ((v.model || fModel.value) + '_' + (v.yil || fYil.value || ''))
+  function makeFilename() {
+    var s = ([fMarka.value, fModel.value, fYil.value].filter(Boolean).join('_'))
       .replace(/\s+/g, '_')
       .replace(/[^a-zA-Z0-9_ğüşöçıĞÜŞÖÇİ]/g, '')
       .slice(0, 60);
-    return s + '_kredizmir.png';
+    return (s || 'sablon') + '_kredizmir.png';
   }
 
-  /* ── Tek şablon oluştur (önizleme) ─────────────── */
+  /* ── Önizleme oluştur ───────────────────────────── */
   function generatePreview() {
     syncToCanvas();
     _previewReady = true;
@@ -223,7 +147,7 @@
 
     renderToPNG().then(function (canvas) {
       canvas.toBlob(function (blob) {
-        saveAs(blob, makeFilename({}));
+        saveAs(blob, makeFilename());
         downloadBtn.disabled = false;
         downloadBtn.textContent = 'PNG İndir (1080×1080)';
       }, 'image/png');
@@ -235,89 +159,12 @@
     });
   }
 
-  /* ── Toplu ZIP üretimi ───────────────────────────── */
-  function downloadBatch() {
-    var csvText = csvTextarea.value.trim();
-    var vehicles = csvText ? parseCSV(csvText) : [];
-
-    if (vehicles.length === 0) {
-      alert('Lütfen CSV yükleyin veya araç listesi yapıştırın.');
-      return;
-    }
-
-    if (typeof JSZip === 'undefined') {
-      alert('JSZip yüklenemedi. Sayfayı yenileyip tekrar deneyin.');
-      return;
-    }
-
-    batchBtn.disabled = true;
-    progressWrap.classList.add('active');
-    var zip = new JSZip();
-    var total = vehicles.length;
-    var idx = 0;
-
-    function processNext() {
-      if (idx >= total) {
-        progressText.textContent = total + ' / ' + total + ' tamamlandı. ZIP hazırlanıyor...';
-        zip.generateAsync({ type: 'blob' }).then(function (blob) {
-          saveAs(blob, 'kredizmir_sablonlar.zip');
-          progressWrap.classList.remove('active');
-          batchBtn.disabled = false;
-          progressText.textContent = '0 / 0 oluşturuldu...';
-          progressFill.style.width = '0%';
-        });
-        return;
-      }
-
-      var v = vehicles[idx];
-      progressText.textContent = (idx + 1) + ' / ' + total + ' oluşturuluyor: ' + (v.model || '');
-      progressFill.style.width = Math.round(((idx) / total) * 100) + '%';
-
-      applyVehicleToCanvas(v);
-
-      var imagePromise = v.imageurl
-        ? waitForImage(v.imageurl)
-        : Promise.resolve();
-
-      imagePromise.then(function () {
-        return new Promise(function (res) { setTimeout(res, 80); });
-      }).then(function () {
-        return renderToPNG();
-      }).then(function (canvas) {
-        return new Promise(function (res) {
-          canvas.toBlob(function (blob) {
-            zip.file(makeFilename(v), blob);
-            res();
-          }, 'image/png');
-        });
-      }).then(function () {
-        idx++;
-        setTimeout(processNext, 50);
-      }).catch(function (err) {
-        console.error('Batch hata (' + v.model + '):', err);
-        idx++;
-        setTimeout(processNext, 50);
-      });
-    }
-
-    processNext();
-  }
-
-  /* ── CSV dosyası yüklenince textarea'ya yaz ─────── */
-  function handleCSVFile(file) {
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      csvTextarea.value = e.target.result;
-    };
-    reader.readAsText(file, 'UTF-8');
-  }
-
   /* ── Formu sıfırla ───────────────────────────────── */
   function resetForm() {
-    fModel.value   = '';
-    fYil.value     = '';
-    fKm.value      = '';
+    fMarka.value  = '';
+    fModel.value  = '';
+    fYil.selectedIndex   = 0;
+    fKm.value     = '';
     fYakit.selectedIndex = 0;
     fVites.selectedIndex = 0;
     fPesinat.value = '';
@@ -333,22 +180,31 @@
     syncToCanvas();
   }
 
-  /* ── Tüm event dinleyicilerini bağla ────────────── */
+  /* ── Event dinleyicileri ────────────────────────── */
   function bindEvents() {
-    /* Form canlı önizleme */
-    [fModel, fYil, fKm, fPesinat, fPesin].forEach(function (el) {
+    /* Canlı önizleme */
+    [fMarka, fModel, fKm, fPesinat].forEach(function (el) {
       el.addEventListener('input', syncToCanvas);
     });
+    fYil.addEventListener('change', syncToCanvas);
     fYakit.addEventListener('change', syncToCanvas);
     fVites.addEventListener('change', syncToCanvas);
 
-    /* Görsel dosya seçici */
+    /* Peşin değişince peşinatı otomatik hesapla */
+    fPesin.addEventListener('input', autoCalcPesinat);
+
+    /* Km hızlı seçim butonları */
+    document.querySelectorAll('.sb-km-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        fKm.value = btn.dataset.km;
+        syncToCanvas();
+      });
+    });
+
+    /* Görsel */
     fGorsel.addEventListener('change', function () {
       handleImageFile(fGorsel.files[0]);
     });
-
-    /* Accordion */
-    initAccordion();
 
     /* Eylem butonları */
     generateBtn.addEventListener('click', generatePreview);
@@ -357,13 +213,6 @@
     });
     resetBtn.addEventListener('click', resetForm);
 
-    /* Batch */
-    batchBtn.addEventListener('click', downloadBatch);
-    csvFileInput.addEventListener('change', function () {
-      handleCSVFile(csvFileInput.files[0]);
-    });
-
-    /* Ekran boyutu değişiminde ölçeği yenile */
     window.addEventListener('resize', applyScale);
   }
 
