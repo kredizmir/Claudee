@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ekip Çalışması | KREDİZMİR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { background: #0A1A2F; font-family: 'Montserrat', 'Segoe UI', sans-serif; color: #fff; min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+
+    .ekip-page {
+      min-height: 100vh;
+      padding: 28px 18px 48px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ---- Header ---- */
+    .ekip-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .ekip-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .ekip-logo__icon {
+      width: 52px;
+      height: 52px;
+      background: #1565C0;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .ekip-logo__text { display: flex; flex-direction: column; }
+    .ekip-logo__name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .ekip-logo__name span { color: #00C2FF; }
+    .ekip-logo__sub {
+      font-size: 10px;
+      color: #9CA3AF;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .ekip-badge {
+      background: #1565C0;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- Title Banner ---- */
+    .ekip-title-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      border: 2px solid #00C2FF;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .ekip-subtitle {
+      text-align: center;
+      color: #9CA3AF;
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    /* ---- Cards ---- */
+    .ekip-cards { display: flex; flex-direction: column; gap: 14px; }
+
+    .ekip-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #132A4A;
+      border-radius: 16px;
+      padding: 18px 16px;
+      color: #fff;
+      transition: background 0.18s;
+    }
+    .ekip-card:hover { background: #1a3560; }
+
+    .ekip-card__icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+    .ekip-card__icon--blue   { background: #1565C0; }
+    .ekip-card__icon--green  { background: #1B873B; }
+    .ekip-card__icon--orange { background: #D04A00; }
+    .ekip-card__icon--purple { background: #6A1B9A; }
+    .ekip-card__icon--insta  { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
+    .ekip-card__body { flex: 1; min-width: 0; }
+    .ekip-card__title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .ekip-card__title { font-size: 15px; font-weight: 700; color: #fff; }
+    .ekip-card__tag {
+      background: #00C2FF;
+      color: #0A1A2F;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .ekip-card__desc { font-size: 12px; color: #9CA3AF; line-height: 1.5; }
+    .ekip-card__arrow { color: #00C2FF; font-size: 18px; flex-shrink: 0; }
+
+    .ekip-footer {
+      text-align: center;
+      color: #4B5563;
+      font-size: 11px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ekip-page">
+
+    <!-- Header -->
+    <div class="ekip-header">
+      <a href="../index.html" class="ekip-logo">
+        <div class="ekip-logo__icon">KZ</div>
+        <div class="ekip-logo__text">
+          <div class="ekip-logo__name">KRED<span>İ</span>ZMİR</div>
+          <div class="ekip-logo__sub">Finansal Çözümler</div>
+        </div>
+      </a>
+      <div class="ekip-badge">v4.0 Premium</div>
+    </div>
+
+    <!-- Title Banner -->
+    <div class="ekip-title-btn">KREDİZMİR EKİP ÇALIŞMASI</div>
+    <div class="ekip-subtitle">Tüm araçlar tek ekranda — hızlı ve profesyonel</div>
+
+    <!-- Cards -->
+    <div class="ekip-cards">
+
+      <a href="../hesaplama.html" class="ekip-card">
+        <div class="ekip-card__icon ekip-card__icon--blue">📊</div>
+        <div class="ekip-card__body">
+          <div class="ekip-card__title-row">
+            <span class="ekip-card__title">Ödeme Tablosu</span>
+            <span class="ekip-card__tag">PDF</span>
+          </div>
+          <div class="ekip-card__desc">Müşteri için DJS veya banka kredisi ödeme planı oluştur. 12-36 ay karşılaştırmalı tablo ve PDF indir.</div>
+        </div>
+        <div class="ekip-card__arrow">›</div>
+      </a>
+
+      <a href="../belgeler.html" class="ekip-card">
+        <div class="ekip-card__icon ekip-card__icon--green">📋</div>
+        <div class="ekip-card__body">
+          <div class="ekip-card__title-row">
+            <span class="ekip-card__title">İstenen Belgeler</span>
+          </div>
+          <div class="ekip-card__desc">Kredi türüne göre müşteriden istenen bilgi ve belgeler.</div>
+        </div>
+        <div class="ekip-card__arrow">›</div>
+      </a>
+
+      <a href="#" class="ekip-card" id="konum-btn">
+        <div class="ekip-card__icon ekip-card__icon--orange">📍</div>
+        <div class="ekip-card__body">
+          <div class="ekip-card__title-row">
+            <span class="ekip-card__title">Konum Gönder</span>
+          </div>
+          <div class="ekip-card__desc">Mevcut konumunu veya ofis adresini müşteriye harita linki olarak WhatsApp'tan gönder.</div>
+        </div>
+        <div class="ekip-card__arrow">›</div>
+      </a>
+
+      <a href="../evrak.html" class="ekip-card">
+        <div class="ekip-card__icon ekip-card__icon--purple">📁</div>
+        <div class="ekip-card__body">
+          <div class="ekip-card__title-row">
+            <span class="ekip-card__title">Evrak Talebi</span>
+          </div>
+          <div class="ekip-card__desc">Müşteriden istenen evrakları seç ve WhatsApp mesajı olarak gönder.</div>
+        </div>
+        <div class="ekip-card__arrow">›</div>
+      </a>
+
+      <a href="../sablon.html" class="ekip-card">
+        <div class="ekip-card__icon ekip-card__icon--insta">📸</div>
+        <div class="ekip-card__body">
+          <div class="ekip-card__title-row">
+            <span class="ekip-card__title">İnstagram Araçları</span>
+          </div>
+          <div class="ekip-card__desc">Araç ilanı için 1080×1080 Instagram/WhatsApp görseli oluştur. Sahibinden URL veya manuel giriş, PNG indir.</div>
+        </div>
+        <div class="ekip-card__arrow">›</div>
+      </a>
+
+    </div>
+
+    <div class="ekip-footer">KREDİZMİR © 2024 — Tüm hakları saklıdır</div>
+  </div>
+
+  <script>
+  document.getElementById('konum-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var ofisWa = 'https://wa.me/?text=' + encodeURIComponent(
+      'KREDİZMİR Ofis Konumu:\nhttps://maps.google.com/?q=38.4192,27.1287\n\nAdres: Kahramanlar, 1442 Sk. No:10, 35230 Konak/İzmir'
+    );
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        var url = 'https://wa.me/?text=' + encodeURIComponent(
+          'Mevcut konumum:\nhttps://maps.google.com/?q=' + pos.coords.latitude + ',' + pos.coords.longitude
+        );
+        window.open(url, '_blank');
+      }, function() {
+        window.open(ofisWa, '_blank');
+      });
+    } else {
+      window.open(ofisWa, '_blank');
+    }
+  });
+  </script>
+</body>
+</html>
