@@ -3,34 +3,6 @@
    sablon.css — sadece bu sayfaya özgü stiller
    ========================================================= */
 
-/* ── Sekme (Tab) Kontrolü ─────────────────────────────── */
-.sb-tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-  background: rgba(0,194,255,0.06);
-  border-radius: 10px;
-  padding: 4px;
-}
-
-.sb-tab-btn {
-  flex: 1;
-  padding: 9px 14px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--kz-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: var(--kz-transition);
-}
-.sb-tab-btn.active {
-  background: var(--kz-accent);
-  color: #0A1A2F;
-}
-.sb-tab-panel { display: none; }
-.sb-tab-panel.active { display: block; }
-
 /* ── Accordion (Toplu İşlem) ──────────────────────────── */
 .sb-accordion-toggle {
   width: 100%;
@@ -63,18 +35,6 @@
   font-size: 0.72rem;
   color: var(--kz-accent);
 }
-
-/* ── Fetch Durum Mesajı ───────────────────────────────── */
-.sb-fetch-status {
-  margin-top: 10px;
-  font-size: 0.82rem;
-  border-radius: 8px;
-  padding: 8px 12px;
-  display: none;
-}
-.sb-fetch-status.ok    { background: rgba(16,185,129,0.12); color: #10B981; display: block; }
-.sb-fetch-status.error { background: rgba(239,68,68,0.12);  color: #EF4444; display: block; }
-.sb-fetch-status.warn  { background: rgba(245,158,11,0.12); color: #F59E0B; display: block; }
 
 /* ── İlerleme Çubuğu (Batch) ─────────────────────────── */
 .sb-progress {
@@ -154,14 +114,14 @@
   flex-shrink: 0;
 }
 
-/* ── 1. Özellikler Şeridi (üst gri bant) ─────────────── */
+/* ── 1. Özellikler Şeridi — revize: koyu mavi degrade ── */
 .sb-specs-strip {
   width: 1080px;
-  height: 92px;
-  background: #B0BEC5;
+  height: 92px; /* yükseklik sabit */
+  background: linear-gradient(135deg, #0A2A5E 0%, #1053A0 60%, #1565C0 100%);
   display: flex;
   align-items: center;
-  padding: 0 28px;
+  padding: 0 150px 0 32px; /* sağda logo için alan */
   flex-shrink: 0;
   position: relative;
 }
@@ -187,12 +147,14 @@
   flex-shrink: 0;
 }
 
+/* revize: daha güçlü tipografi */
 .sb-spec-text {
-  font-size: 1.55rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
   color: #fff;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .sb-spec-sep {
@@ -204,14 +166,14 @@
   margin: 0 20px;
 }
 
-/* KREDİZMİR logo rozeti */
+/* KREDİZMİR logo rozeti — revize: %15 büyütme, belirgin sarı halka */
 .sb-logo-badge {
-  width: 106px;
-  height: 106px;
+  width: 122px;  /* 106 × 1.15 ≈ 122px */
+  height: 122px;
   border-radius: 50%;
   background: #fff;
-  border: 4px solid #fff;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  border: 5px solid #FFD700; /* belirgin sarı dış halka */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -219,7 +181,7 @@
   position: absolute;
   right: 24px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); /* bar ortasında, taşma 15px < %20 kural */
   z-index: 10;
   overflow: hidden;
 }
@@ -231,7 +193,7 @@
 }
 
 .sb-logo-badge__text {
-  font-size: 0.52rem;
+  font-size: 0.55rem;
   font-weight: 900;
   color: #0D47A1;
   letter-spacing: 0.12em;
@@ -240,22 +202,22 @@
 }
 
 .sb-logo-badge__sub {
-  font-size: 0.38rem;
-  color: #555;
+  font-size: 0.4rem;
+  color: #444;
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
   line-height: 1.3;
 }
 
-/* ── 2. Araç Görseli Alanı ────────────────────────────── */
+/* ── 2. Araç Görseli Alanı — revize: +10px top padding ─ */
 .sb-image-zone {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px 30px 8px;
+  padding: 34px 30px 8px; /* üst: 24+10=34px */
   background: #1565C0;
   position: relative;
 }
@@ -277,20 +239,25 @@
   display: block;
 }
 
-/* Model+Yıl overlay (içinde değil, çerçevenin altında) */
+/* Model+Yıl overlay — revize: çerçeve içinde alt kısımda */
 .sb-model-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  padding: 10px 0 4px;
+  padding: 32px 20px 12px; /* üstten gradient, alt: 12px */
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
   text-align: center;
+  box-sizing: border-box;
 }
 
 .sb-model-text {
-  font-size: 1.85rem;
+  font-size: 1.8rem;
   font-weight: 900;
   color: #fff;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
   line-height: 1.2;
 }
 
@@ -308,7 +275,7 @@
   opacity: 0.4;
 }
 
-/* ── 3. Fiyat Alanı (alt) ─────────────────────────────── */
+/* ── 3. Fiyat Alanı — revize: beyaz/sarı iki satır ────── */
 .sb-price-zone {
   width: 1080px;
   height: 230px;
@@ -317,27 +284,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 32px;
+  padding: 0 32px 20px; /* alt: min 20px boşluk */
   flex-shrink: 0;
-  gap: 0;
+  gap: 10px; /* satırlar arası 8-12px */
 }
 
+/* Üst satır: PEŞİNAT — beyaz, mevcut boyutun %90'ı (4.6 × 0.9 = 4.14rem) */
 .sb-price-pesinat {
-  font-size: 4.6rem;
+  font-size: 4.14rem;
   font-weight: 900;
-  color: #FFD700;
+  color: #FFFFFF;
   line-height: 1;
   letter-spacing: 0.02em;
-  text-shadow: 0 3px 12px rgba(0,0,0,0.35);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
   text-align: center;
   white-space: nowrap;
 }
 
+/* Alt satır: PEŞİN — sarı, mevcut boyutun %120'si (4.0 × 1.2 = 4.8rem), hafif italik */
 .sb-price-pesin {
-  font-size: 4.0rem;
+  font-size: 4.8rem;
   font-weight: 900;
+  font-style: italic;
   color: #FFD700;
-  line-height: 1.05;
+  line-height: 1;
   letter-spacing: 0.02em;
   text-shadow: 0 3px 12px rgba(0,0,0,0.35);
   text-align: center;
