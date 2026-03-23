@@ -3,7 +3,7 @@
  * js/sablon.js
  *
  * Tüm client-side mantık: form yönetimi, canlı önizleme,
- * sahibinden.com fetch, PNG indirme, toplu ZIP üretimi.
+ * PNG indirme, toplu ZIP üretimi.
  */
 
 (function () {
@@ -22,7 +22,6 @@
   var fPesinat    = document.getElementById('sb-pesinat');
   var fPesin      = document.getElementById('sb-pesin');
   var fGorsel     = document.getElementById('sb-gorsel');
-  var fUrl        = document.getElementById('sb-url');
 
   var cvKm        = document.getElementById('cv-km');
   var cvYakit     = document.getElementById('cv-yakit');
@@ -34,10 +33,6 @@
   var cvPH        = document.getElementById('cv-placeholder');
   var canvasEl    = document.getElementById('kz-sablon-canvas');
 
-  var tabBtns     = document.querySelectorAll('.sb-tab-btn');
-  var tabPanels   = document.querySelectorAll('.sb-tab-panel');
-  var fetchBtn    = document.getElementById('sb-fetch-btn');
-  var fetchStatus = document.getElementById('sb-fetch-status');
   var accordBtn   = document.getElementById('sb-accordion-btn');
   var accordBody  = document.getElementById('sb-accordion-body');
   var generateBtn = document.getElementById('sb-generate-btn');
@@ -112,20 +107,6 @@
     previewWrap.style.height           = Math.round(1080 * scale + 24) + 'px';
   }
 
-  /* ── Sekme (Tab) yönetimi ───────────────────────── */
-  function initTabs() {
-    tabBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var target = btn.dataset.tab;
-        tabBtns.forEach(function (b) { b.classList.remove('active'); });
-        tabPanels.forEach(function (p) { p.classList.remove('active'); });
-        btn.classList.add('active');
-        var panel = document.getElementById('sb-panel-' + target);
-        if (panel) panel.classList.add('active');
-      });
-    });
-  }
-
   /* ── Accordion (Toplu İşlem) ────────────────────── */
   function initAccordion() {
     accordBtn.addEventListener('click', function () {
@@ -134,71 +115,6 @@
         ? '▲  Toplu İşlem (CSV / Liste)'
         : '▼  Toplu İşlem (CSV / Liste)';
     });
-  }
-
-  /* ── Sahibinden.com veri çekme ──────────────────── */
-  function fetchSahibinden() {
-    var url = fUrl.value.trim();
-    if (!url) {
-      showStatus('warn', 'Lütfen bir URL girin.');
-      return;
-    }
-    if (!url.startsWith('https://www.sahibinden.com/')) {
-      showStatus('error', 'Geçerli bir sahibinden.com URL\'si girin.');
-      return;
-    }
-
-    fetchBtn.disabled = true;
-    fetchBtn.textContent = 'Getiriliyor...';
-    showStatus('', '');
-
-    fetch('/sahibinden-fetch', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        fetchBtn.disabled = false;
-        fetchBtn.textContent = 'Veriyi Getir →';
-
-        if (!data.ok) {
-          showStatus('error', data.error || 'Veri getirilemedi. Manuel giriş yapınız.');
-          return;
-        }
-
-        /* Formları doldur */
-        fModel.value = data.model || '';
-        fYil.value   = data.yil   || '';
-        fKm.value    = data.km    || '';
-        setSelectValue(fYakit, data.yakit);
-        setSelectValue(fVites, data.vites);
-        if (data.fiyat) fPesin.value = data.fiyat.replace(/[^\d]/g, '');
-
-        syncToCanvas();
-
-        /* Görsel */
-        if (data.imageUrl) applyImage('/image-proxy?url=' + encodeURIComponent(data.imageUrl));
-
-        showStatus('ok', 'Veriler başarıyla getirildi. Alanları düzenleyebilirsiniz.');
-
-        /* Manuel giriş sekmesine geç */
-        tabBtns.forEach(function (b) { b.classList.remove('active'); });
-        tabPanels.forEach(function (p) { p.classList.remove('active'); });
-        tabBtns[0].classList.add('active');
-        document.getElementById('sb-panel-manuel').classList.add('active');
-      })
-      .catch(function (err) {
-        fetchBtn.disabled = false;
-        fetchBtn.textContent = 'Veriyi Getir →';
-        showStatus('error', 'Sunucuya bağlanılamadı: ' + err.message);
-      });
-  }
-
-  function showStatus(type, msg) {
-    fetchStatus.className = 'sb-fetch-status';
-    fetchStatus.textContent = msg;
-    if (type) fetchStatus.classList.add(type);
   }
 
   function setSelectValue(sel, val) {
@@ -407,7 +323,6 @@
     fPesinat.value = '';
     fPesin.value   = '';
     fGorsel.value  = '';
-    fUrl.value     = '';
     _imageDataUrl  = '';
     cvImg.src      = '';
     cvImg.style.display = 'none';
@@ -416,7 +331,6 @@
     downloadBtn.disabled = true;
     downloadBtn.textContent = 'PNG İndir (1080×1080)';
     syncToCanvas();
-    showStatus('', '');
   }
 
   /* ── Tüm event dinleyicilerini bağla ────────────── */
@@ -432,9 +346,6 @@
     fGorsel.addEventListener('change', function () {
       handleImageFile(fGorsel.files[0]);
     });
-
-    /* Sahibinden fetch */
-    fetchBtn.addEventListener('click', fetchSahibinden);
 
     /* Accordion */
     initAccordion();
@@ -458,7 +369,6 @@
 
   /* ── İlk yükleme ─────────────────────────────────── */
   function init() {
-    initTabs();
     bindEvents();
     syncToCanvas();
     applyScale();

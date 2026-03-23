@@ -40,7 +40,7 @@
   <section class="kz-section--sm" style="padding-top:48px;">
     <div class="kz-container">
       <h1 class="kz-page-title">Araç Şablon Üretici</h1>
-      <p class="kz-page-subtitle">Sahibinden.com ilanından veya manuel giriş ile 1080×1080 Instagram/WhatsApp şablonu oluşturun.</p>
+      <p class="kz-page-subtitle">Manuel giriş ile 1080×1080 Instagram/WhatsApp şablonu oluşturun.</p>
     </div>
   </section>
 
@@ -55,14 +55,8 @@
             <div class="kz-card__badge">Veri Girişi</div>
             <h2 class="kz-card__title" style="font-size:1.1rem;margin-bottom:16px;">Araç Bilgilerini Girin</h2>
 
-            <!-- SEKMELER -->
-            <div class="sb-tabs">
-              <button type="button" class="sb-tab-btn active" data-tab="manuel">Manuel Giriş</button>
-              <button type="button" class="sb-tab-btn" data-tab="sahibinden">Sahibinden.com URL</button>
-            </div>
-
-            <!-- MANUEL GİRİŞ SEKMESİ -->
-            <div class="sb-tab-panel active" id="sb-panel-manuel">
+            <!-- MANUEL GİRİŞ -->
+            <div id="sb-panel-manuel">
               <div class="kz-form">
 
                 <div class="kz-form-group">
@@ -118,23 +112,6 @@
                   <input class="kz-input" id="sb-gorsel" type="file" accept="image/*" style="padding:8px;" />
                 </div>
 
-              </div>
-            </div>
-
-            <!-- SAHİBİNDEN URL SEKMESİ -->
-            <div class="sb-tab-panel" id="sb-panel-sahibinden">
-              <div class="kz-form">
-                <div class="kz-form-group">
-                  <label class="kz-label" for="sb-url">Sahibinden.com İlan URL'si</label>
-                  <input class="kz-input" id="sb-url" type="url" placeholder="https://www.sahibinden.com/ilan/..." />
-                </div>
-                <button type="button" class="kz-btn kz-btn--outline kz-btn--full" id="sb-fetch-btn">
-                  Veriyi Getir →
-                </button>
-                <div class="sb-fetch-status" id="sb-fetch-status"></div>
-                <p style="font-size:0.75rem;color:var(--kz-muted);margin-top:10px;line-height:1.5;">
-                  Veriler getirilince tüm alanlar doldurulur ve düzenlenebilir. Görsel otomatik yüklenir.
-                </p>
               </div>
             </div>
 
@@ -228,9 +205,10 @@
                       <div class="sb-car-placeholder" id="cv-placeholder">
                         <span>🚙</span>
                       </div>
-                    </div>
-                    <div class="sb-model-bar">
-                      <div class="sb-model-text" id="cv-model">HYUNDAİ İ30 1.6 CRDİ STYLE 2014</div>
+                      <!-- Araç adı overlay — görselin alt iç kısmında -->
+                      <div class="sb-model-bar">
+                        <div class="sb-model-text" id="cv-model">HYUNDAİ İ30 1.6 CRDİ STYLE 2014</div>
+                      </div>
                     </div>
                   </div>
 
