@@ -3,62 +3,39 @@
    sablon.css — sadece bu sayfaya özgü stiller
    ========================================================= */
 
-/* ── Accordion (Toplu İşlem) ──────────────────────────── */
-.sb-accordion-toggle {
-  width: 100%;
-  background: rgba(0,194,255,0.08);
-  border: 1px solid var(--kz-border);
-  border-radius: 8px;
-  padding: 10px 16px;
-  color: var(--kz-accent);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: left;
-  margin-top: 20px;
-}
-.sb-accordion-body {
-  display: none;
-  margin-top: 12px;
-}
-.sb-accordion-body.open { display: block; }
-
-.sb-csv-note {
-  font-size: 0.75rem;
-  color: var(--kz-muted);
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-.sb-csv-note code {
-  background: rgba(255,255,255,0.07);
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  color: var(--kz-accent);
-}
-
-/* ── İlerleme Çubuğu (Batch) ─────────────────────────── */
-.sb-progress {
-  display: none;
-  margin-top: 12px;
-  font-size: 0.82rem;
-  color: var(--kz-muted);
-  text-align: center;
-}
-.sb-progress.active { display: block; }
-.sb-progress-bar {
-  height: 4px;
-  background: rgba(0,194,255,0.2);
-  border-radius: 4px;
+/* ── Km Hızlı Seçim Butonları ─────────────────────────── */
+.sb-km-presets {
+  display: flex;
+  gap: 6px;
   margin-top: 6px;
-  overflow: hidden;
+  flex-wrap: wrap;
 }
-.sb-progress-fill {
-  height: 100%;
-  background: var(--kz-accent);
-  border-radius: 4px;
-  transition: width 0.3s ease;
-  width: 0%;
+
+.sb-km-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--kz-border);
+  border-radius: 6px;
+  background: rgba(0,194,255,0.07);
+  color: var(--kz-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--kz-transition);
+  white-space: nowrap;
 }
+.sb-km-btn:hover {
+  background: rgba(0,194,255,0.18);
+  border-color: var(--kz-accent);
+}
+
+/* ── Otomatik etiket (peşinat %30) ───────────────────── */
+.sb-auto-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
 
 /* ── Eylem Butonları ──────────────────────────────────── */
 .sb-actions {
@@ -121,7 +98,7 @@
   background: linear-gradient(135deg, #0A2A5E 0%, #1053A0 60%, #1565C0 100%);
   display: flex;
   align-items: center;
-  padding: 0 150px 0 32px; /* sağda logo için alan */
+  padding: 0 110px 0 32px; /* sağda logo (92+7+11) için alan */
   flex-shrink: 0;
   position: relative;
 }
@@ -166,34 +143,33 @@
   margin: 0 20px;
 }
 
-/* KREDİZMİR logo rozeti — revize: %15 büyütme, belirgin sarı halka */
+/* KREDİZMİR logo rozeti — polish: %25 küçültme, dengeli konumlama */
 .sb-logo-badge {
-  width: 122px;  /* 106 × 1.15 ≈ 122px */
-  height: 122px;
+  width: 92px;   /* 122 × 0.75 ≈ 92px */
+  height: 92px;
   border-radius: 50%;
   background: #fff;
-  border: 5px solid #FFD700; /* belirgin sarı dış halka */
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  border: 4px solid #FFD700;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* hafif gölge */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%); /* bar ortasında, taşma 15px < %20 kural */
+  right: 7px;  /* sağdan 6-8px */
+  top: 7px;    /* üstten 6-8px — barı kapatmaz */
   z-index: 10;
   overflow: hidden;
 }
 
 .sb-logo-badge__icon {
-  font-size: 2rem;
+  font-size: 1.55rem;
   line-height: 1;
   margin-bottom: 2px;
 }
 
 .sb-logo-badge__text {
-  font-size: 0.55rem;
+  font-size: 0.45rem;
   font-weight: 900;
   color: #0D47A1;
   letter-spacing: 0.12em;
@@ -202,7 +178,7 @@
 }
 
 .sb-logo-badge__sub {
-  font-size: 0.4rem;
+  font-size: 0.33rem;
   color: #444;
   letter-spacing: 0.08em;
   text-align: center;
@@ -239,14 +215,14 @@
   display: block;
 }
 
-/* Model+Yıl overlay — revize: çerçeve içinde alt kısımda */
+/* Model+Yıl overlay — polish: çerçeveden 12px içeride */
 .sb-model-bar {
   position: absolute;
-  bottom: 0;
+  bottom: 12px; /* çerçeve alt kenarından 12px yukarıda */
   left: 0;
   width: 100%;
-  padding: 32px 20px 12px; /* üstten gradient, alt: 12px */
-  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  padding: 36px 24px 0; /* üstten gradient fade, kenarlara boşluk */
+  background: linear-gradient(transparent, rgba(0,0,0,0.72));
   text-align: center;
   box-sizing: border-box;
 }
@@ -275,7 +251,7 @@
   opacity: 0.4;
 }
 
-/* ── 3. Fiyat Alanı — revize: beyaz/sarı iki satır ────── */
+/* ── 3. Fiyat Alanı — polish: içerik yukarı hizalı, alt boşluk */
 .sb-price-zone {
   width: 1080px;
   height: 230px;
@@ -284,32 +260,32 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 32px 20px; /* alt: min 20px boşluk */
+  padding: 0 32px 45px; /* alt boşluk artırılarak içerik ~17px yukarı */
   flex-shrink: 0;
-  gap: 10px; /* satırlar arası 8-12px */
+  gap: 10px;
 }
 
-/* Üst satır: PEŞİNAT — beyaz, mevcut boyutun %90'ı (4.6 × 0.9 = 4.14rem) */
+/* Üst satır: PEŞİNAT — beyaz, 4.14 × 0.85 = 3.52rem, weight 700 */
 .sb-price-pesinat {
-  font-size: 4.14rem;
-  font-weight: 900;
+  font-size: 3.52rem;
+  font-weight: 700;
   color: #FFFFFF;
   line-height: 1;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
   text-align: center;
   white-space: nowrap;
 }
 
-/* Alt satır: PEŞİN — sarı, mevcut boyutun %120'si (4.0 × 1.2 = 4.8rem), hafif italik */
+/* Alt satır: PEŞİN — sarı, 4.8 × 1.15 = 5.52rem, dikkat çekici */
 .sb-price-pesin {
-  font-size: 4.8rem;
+  font-size: 5.52rem;
   font-weight: 900;
   font-style: italic;
   color: #FFD700;
   line-height: 1;
-  letter-spacing: 0.02em;
-  text-shadow: 0 3px 12px rgba(0,0,0,0.35);
+  letter-spacing: 0.03em;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 24px rgba(255,215,0,0.25);
   text-align: center;
   white-space: nowrap;
 }
