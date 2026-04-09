@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KREDİZMİR Ön Onay Formu</title>
+  <style>
+    :root{
+      --navy:#071f45;
+      --navy-2:#112b55;
+      --sky:#1fb4ff;
+      --line:#c8d4e2;
+      --soft:#eef3f8;
+      --text:#183055;
+      --muted:#647a99;
+      --slab:#f6f8fb;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:#e9eef4;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+    }
+    .page{
+      width:1000px;
+      margin:24px auto;
+      background:#fff;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(7,31,69,.18);
+    }
+    .watermark{
+      position:absolute;
+      inset:120px 0 140px 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+      font-size:520px;
+      font-weight:800;
+      color:rgba(10, 43, 88, 0.08);
+      letter-spacing:-24px;
+      transform:rotate(-15deg);
+      user-select:none;
+      z-index:0;
+    }
+    .topbar{
+      background:var(--navy);
+      color:#fff;
+      padding:48px 60px 40px;
+      border-bottom:6px solid var(--sky);
+      display:flex;
+      justify-content:space-between;
+      gap:32px;
+      position:relative;
+      z-index:1;
+    }
+    .brand h1{
+      margin:0;
+      font-size:34px;
+      letter-spacing:.5px;
+    }
+    .brand h1 .k{color:var(--sky)}
+    .brand .tag{
+      margin-top:8px;
+      color:#c8d6ea;
+      font-style:italic;
+      font-size:18px;
+    }
+    .titlebox{text-align:right}
+    .titlebox h2{
+      margin:0;
+      font-size:28px;
+      letter-spacing:1px;
+    }
+    .titlebox .sub{margin-top:8px;font-size:18px;color:#c8d6ea}
+
+    .content{padding:26px 60px 0;position:relative;z-index:1}
+    .section{
+      border:2px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.96);
+      margin-bottom:20px;
+      overflow:hidden;
+    }
+    .section-title{
+      font-size:22px;
+      font-weight:800;
+      padding:18px 22px 14px;
+      border-bottom:1px solid var(--line);
+      position:relative;
+      letter-spacing:.4px;
+    }
+    .section-title::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:6px;
+      background:var(--sky);
+    }
+    .section-body{padding:18px 26px 22px}
+
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    .field{margin:10px 0 18px}
+    .label{display:block;color:var(--muted);font-size:18px;margin-bottom:4px}
+    .value{
+      min-height:34px;
+      border-bottom:3px solid #9fb3cf;
+      font-size:24px;
+      font-weight:800;
+      padding-bottom:4px;
+    }
+    .placeholder{font-weight:600;color:#9aa9bc}
+
+    .finance-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+    .card{
+      border:2px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      overflow:hidden;
+    }
+    .card-top{height:10px;background:var(--navy)}
+    .card-top.sky{background:var(--sky)}
+    .card-top.gray{background:#8fa1ba}
+    .card-body{padding:16px 18px 18px;text-align:center}
+    .card-body .small{font-size:17px;color:var(--muted);margin-bottom:4px}
+    .card-body .big{font-size:30px;font-weight:900;letter-spacing:.4px}
+    .card-body .big.sky{color:var(--sky)}
+    .card-body .big.gray{color:#425a7c}
+
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .mini-box{
+      background:var(--soft);
+      border:2px solid var(--line);
+      border-radius:10px;
+      padding:10px 20px 14px;
+    }
+    .mini-box .label{margin-bottom:6px}
+    .mini-box .value{font-size:20px;min-height:26px}
+
+    .items{display:flex;flex-direction:column;gap:8px}
+    .item{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      background:var(--soft);
+      border-radius:6px;
+      padding:8px 20px 8px;
+      align-items:center;
+    }
+    .item:nth-child(even){background:#f8fbff}
+    .item .name{font-weight:800;font-size:18px;line-height:1.05}
+    .item .desc{font-size:13px;color:var(--muted);margin-top:2px}
+    .item .amt{font-size:18px;font-weight:900;white-space:nowrap}
+    .total{
+      margin-top:12px;
+      background:var(--navy);
+      color:#fff;
+      border-radius:8px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px 20px;
+      font-size:22px;
+      font-weight:900;
+    }
+    .total .label{color:var(--sky);font-size:20px;font-weight:900;margin:0}
+
+    .approval h3{margin:0 0 10px;font-size:22px}
+    .approval p{margin:0 0 12px;color:#4e6486;font-size:14px;line-height:1.45}
+    .sign-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    .sign-box{
+      border:2px dashed #a8b8cf;
+      border-radius:10px;
+      min-height:52px;
+      color:#7c90ad;
+      display:flex;
+      align-items:center;
+      padding:0 14px;
+      font-size:15px;
+    }
+
+    .notes{
+      padding:4px 60px 10px;
+      font-size:12px;
+      color:#627898;
+      position:relative;
+      z-index:1;
+    }
+    .footer{
+      background:var(--navy);
+      color:#fff;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:16px;
+      padding:14px 60px 18px;
+      position:relative;
+      z-index:1;
+    }
+    .footer .head{color:var(--sky);font-size:18px;font-weight:900;margin-bottom:4px}
+    .footer .text{font-size:15px;color:#d4e0ee;line-height:1.45}
+    .footer .right{text-align:right}
+
+    @media (max-width: 1060px){
+      .page{width:100%;margin:0;box-shadow:none}
+    }
+    @media (max-width: 860px){
+      .topbar,.content,.notes,.footer{padding-left:22px;padding-right:22px}
+      .grid-2,.finance-cards,.mini-grid,.footer,.sign-grid{grid-template-columns:1fr}
+      .titlebox{text-align:left}
+      .topbar{flex-direction:column}
+      .watermark{font-size:280px;inset:180px 0 220px}
+      .footer .right{text-align:left}
+    }
+    @media print{
+      body{background:#fff}
+      .page{margin:0;box-shadow:none;width:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="watermark">K</div>
+
+    <header class="topbar">
+      <div class="brand">
+        <h1><span class="k">K</span>REDİZMİR</h1>
+        <div class="tag">Rotanız mutluluk olsun..</div>
+      </div>
+      <div class="titlebox">
+        <h2>ÖN ONAY FORMU</h2>
+        <div class="sub">ve Kabul Özeti</div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="section">
+        <div class="section-title">MÜŞTERİ VE ARAÇ BİLGİLERİ</div>
+        <div class="section-body grid-2">
+          <div>
+            <div class="field">
+              <span class="label">Müşteri Adı</span>
+              <div class="value">EREN KOYUNCU</div>
+            </div>
+            <div class="field">
+              <span class="label">TC Kimlik No</span>
+              <div class="value placeholder">_ _ _ _ _ _ _ _ _ _ _</div>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <span class="label">Finansman Sağlayıcı</span>
+              <div class="value">KREDİZMİR Vadelendirilen</div>
+            </div>
+          </div>
+          <div>
+            <div class="field">
+              <span class="label">Araç Markası / Modeli</span>
+              <div class="value placeholder">&nbsp;</div>
+            </div>
+            <div class="field">
+              <span class="label">Model Yılı</span>
+              <div class="value placeholder">&nbsp;</div>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <span class="label">Plaka</span>
+              <div class="value placeholder">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">FİNANSMAN BİLGİLERİ</div>
+        <div class="section-body">
+          <div class="finance-cards">
+            <div class="card">
+              <div class="card-top"></div>
+              <div class="card-body">
+                <div class="small">Kredi Tutarı</div>
+                <div class="big">595.000 TL</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top sky"></div>
+              <div class="card-body">
+                <div class="small">Net Ele Geçen</div>
+                <div class="big sky">540.000 TL</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top gray"></div>
+              <div class="card-body">
+                <div class="small">Tahmini Toplam Gider</div>
+                <div class="big gray">55.632 TL</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini-box">
+              <span class="label">Vade</span>
+              <div class="value placeholder">&nbsp;</div>
+            </div>
+            <div class="mini-box">
+              <span class="label">Faiz Oranı</span>
+              <div class="value placeholder">%&nbsp;</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">KESİNTİ VE GİDER KALEMLERİ</div>
+        <div class="section-body">
+          <div class="items">
+            <div class="item"><div><div class="name">Taşıt rehini tesis bedeli</div><div class="desc">Araç üzerine rehin konulması</div></div><div class="amt">6.250 TL</div></div>
+            <div class="item"><div><div class="name">Taşıt rehin fek bedeli</div><div class="desc">Kredi bitiminde rehin kaldırma</div></div><div class="amt">6.000 TL</div></div>
+            <div class="item"><div><div class="name">Dosya masrafı / yol / üst alım</div><div class="desc">Sözleşme ve işlem giderleri</div></div><div class="amt">3.000 TL</div></div>
+            <div class="item"><div><div class="name">Kredi koordinasyon ve vekâlet</div><div class="desc">Vekâlet ve aracılık bedeli</div></div><div class="amt">4.000 TL</div></div>
+            <div class="item"><div><div class="name">KKS bedeli</div><div class="desc">Kredinin kullanıma açılma ücreti</div></div><div class="amt">3.000 TL</div></div>
+            <div class="item"><div><div class="name">Finansal koruma sigortası</div><div class="desc">Kredi ödeme güvencesi</div></div><div class="amt">4.000 TL</div></div>
+            <div class="item"><div><div class="name">Zorunlu vergi ve fon kesintileri</div><div class="desc">BSMV, KKDF yasal yükümlülükler</div></div><div class="amt">6.000 TL</div></div>
+            <div class="item"><div><div class="name">Aktif Bank dosya ve ekran kullanım</div><div class="desc">Banka işletim ve dosya ücreti</div></div><div class="amt">23.382 TL</div></div>
+          </div>
+          <div class="total">
+            <div class="label">TOPLAM GİDER TUTARI</div>
+            <div>55.632 TL</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section approval">
+        <div class="section-title">ONAY VE İMZA</div>
+        <div class="section-body">
+          <h3>Okudum, anladım, kabul ediyorum.</h3>
+          <p>Bu belgede yer alan finansman, net ele geçen tutar ve gider kalemlerini okuduğumu, anladığımı ve kabul ettiğimi beyan ederim. Kişisel verilerimin 6698 sayılı KVKK kapsamında işlenmesine onay veriyorum.</p>
+          <div class="sign-grid">
+            <div class="sign-box">İsim Soyisim</div>
+            <div class="sign-box">İmza</div>
+            <div class="sign-box">Tarih (GG/AA/YYYY)</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="notes">
+      Bu belge, müşteri bilgilendirme ve ön kabul amacıyla düzenlenmiştir.<br>
+      Kesin onay, kurum değerlendirmesi ve evrak incelemesi sonrası netleşir. Detaylı ödeme planı ayrıca teslim edilecektir.
+    </div>
+
+    <footer class="footer">
+      <div>
+        <div class="head">KREDİZMİR</div>
+        <div class="text">Gaziemir / İzmir</div>
+      </div>
+      <div>
+        <div class="text">+90 530 725 87 89</div>
+        <div class="text">Kredizmir35@icloud.com</div>
+      </div>
+      <div class="right">
+        <div class="head">TAKSİTLE ARABA SAHİBİ</div>
+        <div class="text">WhatsApp iletişim hattı</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
