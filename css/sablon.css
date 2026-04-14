@@ -145,8 +145,8 @@
 #kz-sablon-canvas {
   width: 1080px;
   height: 1080px;
-  background: #1565C0;
-  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  background: #0f4fad;
+  font-family: 'Barlow Condensed', 'Oswald', 'Montserrat', sans-serif;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -158,7 +158,7 @@
 .sb-specs-strip {
   width: 1080px;
   height: 92px;
-  background: #B0BEC5;
+  background: #9fb5cf;
   display: flex;
   align-items: center;
   padding: 0 28px;
@@ -182,7 +182,7 @@
 .sb-spec-dot {
   width: 26px;
   height: 26px;
-  background: #FFD700;
+  background: #f4da54;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -190,15 +190,16 @@
 .sb-spec-text {
   font-size: 1.55rem;
   font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.02em;
+  color: #0D2150;
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
 
 .sb-spec-sep {
   width: 26px;
   height: 26px;
-  background: #FFD700;
+  background: #f4da54;
   border-radius: 50%;
   flex-shrink: 0;
   margin: 0 20px;
@@ -210,7 +211,7 @@
   height: 106px;
   border-radius: 50%;
   background: #fff;
-  border: 4px solid #fff;
+  border: 4px solid #f4da54;
   box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
@@ -256,14 +257,14 @@
   align-items: center;
   justify-content: center;
   padding: 24px 30px 8px;
-  background: #1565C0;
+  background: #0f4fad;
   position: relative;
 }
 
 .sb-car-frame {
   width: 100%;
   flex: 1;
-  border: 10px solid #FFD700;
+  border: 10px solid #f4da54;
   border-radius: 6px;
   overflow: hidden;
   position: relative;
@@ -312,7 +313,7 @@
 .sb-price-zone {
   width: 1080px;
   height: 230px;
-  background: #1565C0;
+  background: #0f4fad;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -336,10 +337,12 @@
 .sb-price-pesin {
   font-size: 4.0rem;
   font-weight: 900;
-  color: #FFD700;
-  line-height: 1.05;
-  letter-spacing: 0.02em;
-  text-shadow: 0 3px 12px rgba(0,0,0,0.35);
+  font-style: italic;
+  font-family: 'Barlow Condensed', 'Oswald', sans-serif;
+  color: #f4da54;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 24px rgba(255,215,0,0.25);
   text-align: center;
   white-space: nowrap;
 }
