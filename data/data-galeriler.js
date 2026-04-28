@@ -195,15 +195,6 @@ var KZ_GALERILER = [
     link: "https://kursunotomotivizmir.sahibinden.com"
   },
   {
-    id: 22,
-    ad: "Ceylan Otomotiv 35",
-    sehir: "İzmir",
-    ilce: "",
-    aciklama: "KREDİZMİR finansman desteğiyle araç alım sürecinde çözüm ortağımız.",
-    etiket: ["2. El", "Sahibinden"],
-    link: "https://ceylanotomotiv35.sahibinden.com"
-  },
-  {
     id: 23,
     ad: "OtoNuSeç",
     sehir: "İzmir",
